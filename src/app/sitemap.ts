@@ -2,7 +2,17 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 
 // Add each new public page here when it is built.
-const paths = ["/", "/solutions", "/solutions/gyms", "/solutions/clinics"];
+const paths = [
+  "/",
+  "/solutions",
+  "/solutions/gyms",
+  "/solutions/clinics",
+  "/services/crm",
+  "/services/chatbot",
+  "/services/ai-receptionist",
+  "/about",
+  "/contact",
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return paths.map((path) => ({
