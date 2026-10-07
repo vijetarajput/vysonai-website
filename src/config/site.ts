@@ -6,6 +6,8 @@ export const siteConfig = {
   description:
     "VYSON AI helps businesses grow with WhatsApp automation, CRM and an AI receptionist that never misses a lead.",
   tagline: "WhatsApp Automation, CRM & AI Receptionist",
+  brandTagline: "Your Business Growth Partner",
+  byline: "by Viijeta R",
   aboutShort:
     "VYSON AI helps businesses automate WhatsApp, manage customers and never miss a lead.",
   contact: {

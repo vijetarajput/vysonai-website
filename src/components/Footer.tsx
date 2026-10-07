@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import CurrentYear from "@/components/CurrentYear";
 import { siteConfig } from "@/config/site";
@@ -6,26 +7,38 @@ export default function Footer() {
   const { contact, social } = siteConfig;
 
   return (
-    <footer className="border-t border-border bg-surface">
+    <footer className="relative border-t border-border bg-violet-tint">
+      {/* thin brand accent line */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-0.5 bg-brand-gradient"
+      />
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           <div>
-            <p className="text-xl font-bold tracking-tight text-brand">
-              {siteConfig.name}
+            <Image
+              src="/vyson-logo-full.png"
+              alt="VYSON AI"
+              width={1098}
+              height={612}
+              className="h-auto w-[180px]"
+            />
+            <p className="mt-4 text-sm font-semibold text-charcoal">
+              {siteConfig.brandTagline}
             </p>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
+            <p className="measure mt-2 max-w-xs text-sm leading-relaxed text-muted">
               {siteConfig.aboutShort}
             </p>
           </div>
 
           <div>
-            <h2 className="text-sm font-semibold text-foreground">Pages</h2>
+            <h2 className="text-sm font-semibold text-charcoal">Pages</h2>
             <ul className="mt-4 space-y-3 text-sm">
               {siteConfig.nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-muted transition-colors hover:text-brand"
+                    className="text-muted transition-colors hover:text-brand-violet"
                   >
                     {item.label}
                   </Link>
@@ -35,12 +48,12 @@ export default function Footer() {
           </div>
 
           <div>
-            <h2 className="text-sm font-semibold text-foreground">Contact</h2>
+            <h2 className="text-sm font-semibold text-charcoal">Contact</h2>
             <ul className="mt-4 space-y-3 text-sm text-muted">
               <li>
                 <a
                   href={`mailto:${contact.email}`}
-                  className="transition-colors hover:text-brand"
+                  className="transition-colors hover:text-brand-violet"
                 >
                   {contact.email}
                 </a>
@@ -50,7 +63,7 @@ export default function Footer() {
                   href={contact.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-brand"
+                  className="transition-colors hover:text-brand-violet"
                 >
                   WhatsApp: +{contact.whatsappNumber}
                 </a>
@@ -61,7 +74,7 @@ export default function Footer() {
                   href={social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-brand"
+                  className="transition-colors hover:text-brand-violet"
                 >
                   LinkedIn
                 </a>
@@ -79,7 +92,7 @@ export default function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="transition-colors hover:text-brand"
+                  className="transition-colors hover:text-brand-violet"
                 >
                   {item.label}
                 </Link>

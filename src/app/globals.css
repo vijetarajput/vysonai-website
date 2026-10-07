@@ -1,31 +1,46 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --muted: #475569;
-  --surface: #f8fafc; /* very light grey for alternate sections */
-  --border: #e2e8f0;
-  --brand: #1e40af; /* deep blue - the one brand color */
-  --brand-hover: #1e3a8a;
-  --brand-soft: #eff4ff;
-  --whatsapp: #25d366;
-  --whatsapp-hover: #1ebe5b;
+/*
+  VYSON AI brand tokens (light theme only).
+  Use as Tailwind utilities: bg-brand-violet, text-charcoal, border-border, etc.
+*/
+@theme {
+  --color-brand-blue: #2563eb;
+  --color-brand-violet: #7c3aed; /* primary: buttons, links, active states */
+  --color-brand-violet-dark: #6d28d9; /* button hover */
+  --color-brand-magenta: #c026d3;
+  --color-violet-tint: #f5f3ff; /* alternate sections, highlight boxes */
+  --color-charcoal: #1f2937; /* headings + body text */
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-page: #ffffff;
+  --color-whatsapp: #25d366; /* WhatsApp buttons only */
+  --color-whatsapp-dark: #1ebe5b;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sora), var(--font-inter), ui-sans-serif,
+    system-ui, sans-serif;
+
+  --shadow-soft: 0 4px 24px -6px rgb(31 41 55 / 0.1);
+
+  /* Brand gradient - use sparingly: final CTA band, hero glow, thin accent lines */
+  --background-image-brand-gradient: linear-gradient(
+    90deg,
+    #2563eb 0%,
+    #7c3aed 50%,
+    #c026d3 100%
+  );
+  --background-image-brand-gradient-diagonal: linear-gradient(
+    135deg,
+    #2563eb 0%,
+    #7c3aed 50%,
+    #c026d3 100%
+  );
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-surface: var(--surface);
-  --color-border: var(--border);
-  --color-brand: var(--brand);
-  --color-brand-hover: var(--brand-hover);
-  --color-brand-soft: var(--brand-soft);
-  --color-whatsapp: var(--whatsapp);
-  --color-whatsapp-hover: var(--whatsapp-hover);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --shadow-soft: 0 4px 24px -6px rgb(15 23 42 / 0.08);
+/* Comfortable reading width (~70 characters) */
+@utility measure {
+  max-width: 70ch;
 }
 
 html {
@@ -34,7 +49,26 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-page);
+  color: var(--color-charcoal);
   font-family: var(--font-sans);
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-charcoal);
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--color-brand-violet);
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
 }
