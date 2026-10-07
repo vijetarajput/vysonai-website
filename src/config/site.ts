@@ -8,6 +8,8 @@ export const siteConfig = {
   founder: "Viijeta R",
   email: "vysonai24@gmail.com",
   location: "Gujarat, India",
+  region: "Gujarat",
+  countryCode: "IN",
   whatsappNumber,
   whatsappMessage,
   linkedin: "https://www.linkedin.com/company/vysonai",

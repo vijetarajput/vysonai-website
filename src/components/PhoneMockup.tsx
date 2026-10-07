@@ -47,7 +47,7 @@ function DoubleTick() {
  * gradient is used.
  */
 export default function PhoneMockup({
-  businessName = "Hardcore Fitness",
+  businessName = "FitZone Gym", // fictional name: never use real business names
   messages = defaultMessages,
   className = "",
 }: PhoneMockupProps) {

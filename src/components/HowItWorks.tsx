@@ -1,4 +1,6 @@
-const steps = [
+type Step = { title: string; text: string };
+
+const defaultSteps: Step[] = [
   {
     title: "Free call",
     text: "Tell us how your business works today.",
@@ -13,17 +15,32 @@ const steps = [
   },
 ];
 
-export default function HowItWorks() {
-  return (
-    <section className="bg-violet-tint">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-        <h2 className="text-center">How it works</h2>
+const columns = {
+  3: "md:grid-cols-3",
+  4: "sm:grid-cols-2 lg:grid-cols-4",
+} as const;
 
-        <ol className="mt-10 grid gap-5 md:grid-cols-3 md:gap-6">
+export default function HowItWorks({
+  title = "How it works",
+  steps = defaultSteps,
+  background = "tint",
+}: {
+  title?: string;
+  steps?: Step[];
+  background?: "tint" | "white";
+}) {
+  const cols = steps.length >= 4 ? columns[4] : columns[3];
+
+  return (
+    <section className={background === "tint" ? "bg-violet-tint" : "bg-white"}>
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+        <h2 className="text-center">{title}</h2>
+
+        <ol className={`mt-10 grid gap-5 md:gap-6 ${cols}`}>
           {steps.map((step, index) => (
             <li
               key={step.title}
-              className="rounded-3xl bg-white p-6 shadow-soft sm:p-8"
+              className="rounded-3xl border border-border bg-white p-6 shadow-soft sm:p-8"
             >
               <span
                 aria-hidden="true"

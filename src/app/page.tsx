@@ -4,7 +4,9 @@ import FinalCta from "@/components/FinalCta";
 import Founder from "@/components/Founder";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
+import JsonLd from "@/components/JsonLd";
 import ServiceCards from "@/components/ServiceCards";
+import { siteConfig } from "@/config/site";
 
 const title = "AI for Your Business | WhatsApp Automation, CRM & AI Receptionist";
 const description =
@@ -17,9 +19,26 @@ export const metadata: Metadata = {
   openGraph: { title, description, url: "/", type: "website" },
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  logo: `${siteConfig.url}/vyson-logo-full.png`,
+  founder: { "@type": "Person", name: siteConfig.founder },
+  address: {
+    "@type": "PostalAddress",
+    addressRegion: siteConfig.region,
+    addressCountry: siteConfig.countryCode,
+  },
+  email: siteConfig.email,
+  sameAs: [siteConfig.linkedin],
+};
+
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={organizationJsonLd} />
       <Hero />
       <ServiceCards />
       <HowItWorks />
