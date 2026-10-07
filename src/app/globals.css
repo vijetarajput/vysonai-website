@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
-  VYSON AI brand tokens (light theme only).
+  VYSON-AI brand tokens (light theme only).
   Use as Tailwind utilities: bg-brand-violet, text-charcoal, border-border, etc.
 */
 @theme {
@@ -12,6 +12,7 @@
   --color-violet-tint: #f5f3ff; /* alternate sections, highlight boxes */
   --color-charcoal: #1f2937; /* headings + body text */
   --color-muted: #6b7280;
+  --color-muted-strong: #4b5563; /* small text on violet tint (AA contrast) */
   --color-border: #e5e7eb;
   --color-page: #ffffff;
   --color-whatsapp: #25d366; /* WhatsApp buttons only */
@@ -41,6 +42,17 @@
 /* Comfortable reading width (~70 characters) */
 @utility measure {
   max-width: 70ch;
+}
+
+/* Normal links: violet, no underline by default, thin underline on hover */
+@utility link-brand {
+  color: var(--color-brand-violet);
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
 }
 
 html {

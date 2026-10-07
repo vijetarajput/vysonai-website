@@ -1,24 +1,30 @@
-const whatsappNumber = "91XXXXXXXXXX";
+const whatsappNumber = "91XXXXXXXXXX"; // fill in your real number (digits only, with country code)
+const whatsappMessage = "Hi, I want to know about AI automation for my business.";
 
 export const siteConfig = {
-  name: "VYSON AI",
+  name: "VYSON-AI",
   url: "https://vysonai.com",
+  tagline: "Your Business Growth Partner",
+  founder: "Viijeta R",
+  email: "vysonai24@gmail.com",
+  location: "Gujarat, India",
+  whatsappNumber,
+  whatsappMessage,
+  linkedin: "https://www.linkedin.com/company/vysonai",
+  udyam: "UDYAM-GJ-01-0682560",
+
+  // Opens WhatsApp chat. The number itself is never shown as page text.
+  whatsappUrl: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`,
+
+  // SEO (plain text only: titles and meta tags never use the BrandName component)
+  seoTitle: "WhatsApp Automation, CRM & AI Receptionist",
   description:
-    "VYSON AI helps businesses grow with WhatsApp automation, CRM and an AI receptionist that never misses a lead.",
-  tagline: "WhatsApp Automation, CRM & AI Receptionist",
-  brandTagline: "Your Business Growth Partner",
-  byline: "by Viijeta R",
-  aboutShort:
-    "VYSON AI helps businesses automate WhatsApp, manage customers and never miss a lead.",
-  contact: {
-    whatsappNumber,
-    whatsappUrl: `https://wa.me/${whatsappNumber}`,
-    email: "hello@vysonai.com", // placeholder - replace with the real email
-    city: "Ahmedabad, Gujarat, India",
-  },
-  social: {
-    linkedin: "https://www.linkedin.com/company/vysonai",
-  },
+    "VYSON-AI helps businesses grow with WhatsApp automation, CRM and an AI receptionist that never misses a lead.",
+
+  // Visible copy that follows the <BrandName /> component, e.g. "VYSON-AI automates ..."
+  footerBlurb:
+    "automates WhatsApp, CRM and reception with AI so your business never misses a lead.",
+
   nav: [
     { label: "Home", href: "/" },
     { label: "Solutions", href: "/solutions" },
@@ -29,7 +35,7 @@ export const siteConfig = {
     { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Terms", href: "/terms" },
   ],
-  cta: { label: "Get Free Demo", href: "/contact" },
+  cta: { label: "Get Free Demo", href: "/#demo" },
 } as const;
 
 export type SiteConfig = typeof siteConfig;

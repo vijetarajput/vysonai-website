@@ -24,14 +24,14 @@ export default function Header() {
         >
           <Image
             src="/vyson-logo-header.png"
-            alt="VYSON AI"
+            alt={siteConfig.name}
             width={901}
             height={220}
             priority
             className="h-9 w-auto md:h-11"
           />
           <span className="hidden whitespace-nowrap text-xs text-muted min-[420px]:inline">
-            {siteConfig.byline}
+            by {siteConfig.founder}
           </span>
         </Link>
 
@@ -43,7 +43,7 @@ export default function Header() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`text-sm font-medium transition-colors hover:text-brand-violet ${
+                className={`text-sm font-medium underline-offset-4 transition-colors hover:text-brand-violet hover:underline hover:decoration-1 ${
                   active ? "text-brand-violet" : "text-charcoal"
                 }`}
               >
