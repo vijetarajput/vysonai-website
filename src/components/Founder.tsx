@@ -43,7 +43,7 @@ export default function Founder() {
         </div>
 
         <div className="text-center md:text-left">
-          <h2 className="text-3xl sm:text-4xl">Hi, I&apos;m {siteConfig.founder}</h2>
+          <h2>Hi, I&apos;m {siteConfig.founder}</h2>
           <p className="measure mt-4 text-lg leading-relaxed text-muted-strong">
             Founder of <BrandName />. With a background in banking, data
             analytics and product leadership, I help businesses replace

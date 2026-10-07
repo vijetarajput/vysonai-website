@@ -22,7 +22,7 @@ export default function BrandName({
 
   return (
     <span
-      className={`relative inline-block cursor-default whitespace-nowrap mb-[calc(-1*max(5px,0.12em))] pb-[max(5px,0.12em)] font-semibold ${text} ${className}`}
+      className={`relative inline-block cursor-default whitespace-nowrap mb-[calc(-1*max(5px,0.12em))] pb-[max(5px,0.12em)] font-heading font-semibold ${text} ${className}`}
     >
       {siteConfig.name}
       <span

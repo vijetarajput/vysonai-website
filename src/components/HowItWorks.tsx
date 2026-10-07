@@ -17,7 +17,7 @@ export default function HowItWorks() {
   return (
     <section className="bg-violet-tint">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-        <h2 className="text-center text-3xl sm:text-4xl">How it works</h2>
+        <h2 className="text-center">How it works</h2>
 
         <ol className="mt-10 grid gap-5 md:grid-cols-3 md:gap-6">
           {steps.map((step, index) => (
@@ -31,7 +31,7 @@ export default function HowItWorks() {
               >
                 {index + 1}
               </span>
-              <h3 className="mt-5 text-xl">
+              <h3 className="mt-5">
                 <span className="sr-only">Step {index + 1}: </span>
                 {step.title}
               </h3>

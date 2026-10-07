@@ -5,7 +5,7 @@ export default function DemoSection() {
     <section id="demo" className="scroll-mt-16 bg-violet-tint">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl">See a Free Demo for Your Business</h2>
+          <h2>See a Free Demo for Your Business</h2>
           <p className="measure mx-auto mt-3 text-muted-strong">
             Share your WhatsApp number. We&apos;ll message you within 24 hours.
           </p>

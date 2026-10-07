@@ -91,7 +91,7 @@ export default function LeadForm() {
         <h3
           ref={thanksRef}
           tabIndex={-1}
-          className="text-2xl focus:outline-none"
+          className="focus:outline-none"
         >
           Thank you! We&apos;ll WhatsApp you within 24 hours.
         </h3>
@@ -211,7 +211,7 @@ export default function LeadForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full rounded-full bg-brand-violet px-6 py-3.5 text-base font-semibold text-white shadow-soft transition-colors hover:bg-brand-violet-dark disabled:cursor-not-allowed disabled:opacity-70"
+        className="w-full rounded-full bg-brand-violet px-6 py-3.5 text-base font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark disabled:cursor-not-allowed disabled:opacity-70"
       >
         {submitting ? "Sending..." : "Get Free Demo"}
       </button>

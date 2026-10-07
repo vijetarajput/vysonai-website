@@ -56,7 +56,7 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <Link
             href={siteConfig.cta.href}
-            className="hidden rounded-full bg-brand-violet px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-colors hover:bg-brand-violet-dark md:inline-block"
+            className="hidden rounded-full bg-brand-violet px-5 py-2.5 text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark md:inline-block"
           >
             {siteConfig.cta.label}
           </Link>
@@ -117,7 +117,7 @@ export default function Header() {
           <Link
             href={siteConfig.cta.href}
             onClick={close}
-            className="mt-4 block rounded-full bg-brand-violet px-5 py-3 text-center text-sm font-semibold text-white shadow-soft transition-colors hover:bg-brand-violet-dark"
+            className="mt-4 block rounded-full bg-brand-violet px-5 py-3 text-center text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark"
           >
             {siteConfig.cta.label}
           </Link>

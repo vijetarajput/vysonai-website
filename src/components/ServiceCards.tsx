@@ -80,7 +80,7 @@ export default function ServiceCards() {
     <section className="bg-white">
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-4 sm:px-6 sm:pb-24">
         <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl">How we can help your business</h2>
+          <h2>How we can help your business</h2>
           <p className="measure mx-auto mt-3 text-muted-strong">
             Simple tools that save you time and bring customers back.
           </p>
@@ -96,7 +96,7 @@ export default function ServiceCards() {
                 <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-tint text-brand-violet">
                   {service.icon}
                 </span>
-                <h3 className="mt-5 text-xl">{service.title}</h3>
+                <h3 className="mt-5">{service.title}</h3>
                 <p className="mt-2 flex-1 leading-relaxed text-muted-strong">
                   {service.benefit}
                 </p>

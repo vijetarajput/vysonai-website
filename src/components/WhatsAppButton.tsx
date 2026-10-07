@@ -14,7 +14,7 @@ export default function WhatsAppButton({
       href={siteConfig.whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center justify-center gap-2 rounded-full bg-whatsapp px-5 py-2.5 text-sm font-semibold text-charcoal shadow-soft transition-colors hover:bg-whatsapp-dark ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-full bg-whatsapp px-5 py-2.5 text-sm font-medium text-charcoal shadow-soft transition-colors hover:bg-whatsapp-dark ${className}`}
     >
       <WhatsAppIcon />
       {label}
