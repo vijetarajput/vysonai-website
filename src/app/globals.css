@@ -44,9 +44,10 @@
   max-width: 70ch;
 }
 
-/* Normal links: violet, no underline by default, thin underline on hover */
+/* Normal text links: brand blue (violet is reserved for buttons and the brand name),
+   no underline by default, thin underline on hover */
 @utility link-brand {
-  color: var(--color-brand-violet);
+  color: var(--color-brand-blue);
   text-decoration: none;
   &:hover {
     text-decoration: underline;

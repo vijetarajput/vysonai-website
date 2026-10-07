@@ -1,6 +1,6 @@
 export default function FinalCta() {
   return (
-    <section className="bg-brand-gradient-diagonal">
+    <section className="on-dark bg-brand-gradient-diagonal">
       <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20">
         <h2 className="text-3xl text-white sm:text-4xl">
           Ready to stop missing customers?

@@ -100,7 +100,7 @@ export default function ServiceCards() {
                 <p className="mt-2 flex-1 leading-relaxed text-muted-strong">
                   {service.benefit}
                 </p>
-                <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-violet group-hover:underline group-hover:decoration-1 group-hover:underline-offset-4">
+                <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-blue group-hover:underline group-hover:decoration-1 group-hover:underline-offset-4">
                   Learn more
                   <span aria-hidden="true">&rarr;</span>
                 </span>
