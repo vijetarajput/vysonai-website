@@ -6,7 +6,7 @@ export const clinics: IndustryContent = {
   subtext:
     "Patients get a friendly WhatsApp reminder before every visit. Fewer people forget, and your day runs smoothly.",
   mockup: {
-    businessName: "Greenleaf Family Clinic",
+    businessName: "CareWell Clinic",
     messages: [
       {
         text: "Hi Priya, this is a reminder about your appointment tomorrow at 5:30 PM. Reply YES to confirm.",
@@ -55,14 +55,9 @@ export const clinics: IndustryContent = {
     },
     {
       title: "Weekly report email",
-      text: "A simple email once a week with your appointments, missed visits and follow-ups.",
+      text: "Every Monday, you get a simple email with your appointments, missed visits and who is due for a follow-up.",
     },
   ],
-
-  report: {
-    title: "A simple report every Monday",
-    text: "Every Monday, you get a simple email: how many patients booked, who missed their visit, and who is due for a follow-up.",
-  },
 
   stepsTitle: "How it works",
   steps: [

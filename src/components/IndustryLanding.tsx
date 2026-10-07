@@ -24,25 +24,6 @@ function CheckIcon() {
   );
 }
 
-function MailIcon() {
-  return (
-    <svg
-      width="26"
-      height="26"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="M3 7l9 6 9-6" />
-    </svg>
-  );
-}
-
 /** Shared layout for the Gyms and Clinics pages. All words come from the content object. */
 export default function IndustryLanding({ content }: { content: IndustryContent }) {
   return (
@@ -109,28 +90,15 @@ export default function IndustryLanding({ content }: { content: IndustryContent 
         </div>
       </section>
 
-      {/* Weekly report */}
-      <section className="bg-violet-tint">
-        <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 sm:py-20">
-          <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-brand-violet shadow-soft">
-            <MailIcon />
-          </span>
-          <h2 className="mt-5">{content.report.title}</h2>
-          <p className="measure mx-auto mt-3 text-lg leading-relaxed text-muted-strong">
-            {content.report.text}
-          </p>
-        </div>
-      </section>
-
       {/* How it works */}
       <HowItWorks
         title={content.stepsTitle}
         steps={content.steps}
-        background="white"
+        background="tint"
       />
 
       {/* 1-month pilot */}
-      <section className="bg-violet-tint">
+      <section className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 sm:py-20">
           <h2>{content.pilot.title}</h2>
           <p className="measure mx-auto mt-3 text-lg leading-relaxed text-muted-strong">
@@ -143,7 +111,7 @@ export default function IndustryLanding({ content }: { content: IndustryContent 
         </div>
       </section>
 
-      <Faq items={content.faqs} />
+      <Faq items={content.faqs} background="tint" />
 
       <FinalCta heading={content.ctaHeading} business={content.business} />
     </>

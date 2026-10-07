@@ -13,7 +13,6 @@ export type IndustryContent = {
   problems: Card[];
   automationsTitle: string;
   automations: Card[];
-  report: Card;
   stepsTitle: string;
   steps: Card[];
   pilot: { title: string; text: string };

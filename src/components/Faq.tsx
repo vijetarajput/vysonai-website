@@ -5,12 +5,14 @@ import type { FaqItem } from "@/content/industry";
 export default function Faq({
   items,
   title = "Common questions",
+  background = "white",
 }: {
   items: FaqItem[];
   title?: string;
+  background?: "white" | "tint";
 }) {
   return (
-    <section className="bg-white">
+    <section className={background === "tint" ? "bg-violet-tint" : "bg-white"}>
       <JsonLd
         data={{
           "@context": "https://schema.org",

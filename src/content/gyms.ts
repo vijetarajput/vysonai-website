@@ -57,12 +57,11 @@ export const gyms: IndustryContent = {
       title: "Enquiry follow-up",
       text: "People who asked about your gym but did not join get a gentle follow-up message.",
     },
+    {
+      title: "Weekly report email",
+      text: "Every Monday, you get a simple email: who joined, who stopped coming, and whose membership is ending.",
+    },
   ],
-
-  report: {
-    title: "A simple report every Monday",
-    text: "Every Monday, you get a simple email: who joined, who stopped coming, and whose membership is ending.",
-  },
 
   stepsTitle: "How it works",
   steps: [

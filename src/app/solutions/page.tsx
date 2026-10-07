@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import DemoButton from "@/components/lead/DemoButton";
 
 const title = "WhatsApp Automation & CRM by Industry";
 const description =
@@ -39,7 +40,7 @@ const solutions = [
     label: "Other Business",
     benefit: "Don't see your business? We'll build it for you.",
     features: [],
-    href: "/#demo",
+    href: null,
     linkText: "Get a free demo",
   },
 ];
@@ -82,10 +83,7 @@ export default function SolutionsPage() {
           <ul className="grid gap-5 md:grid-cols-3 md:gap-6">
             {solutions.map((item) => (
               <li key={item.label}>
-                <Link
-                  href={item.href}
-                  className="group flex h-full flex-col rounded-3xl border border-border bg-white p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-brand-violet sm:p-8"
-                >
+                <div className="group relative flex h-full flex-col rounded-3xl border border-border bg-white p-6 shadow-soft transition-all focus-within:border-brand-violet hover:-translate-y-0.5 hover:border-brand-violet sm:p-8">
                   <span className="inline-block self-start rounded-full bg-violet-tint px-3 py-1 text-xs font-semibold text-brand-violet">
                     {item.label}
                   </span>
@@ -102,11 +100,24 @@ export default function SolutionsPage() {
                     </ul>
                   )}
 
-                  <span className="mt-auto inline-flex items-center gap-1 pt-6 text-sm font-semibold text-brand-blue group-hover:underline group-hover:decoration-1 group-hover:underline-offset-4">
-                    {item.linkText}
-                    <span aria-hidden="true">&rarr;</span>
+                  {/* The whole card is clickable: the link or button stretches over it. */}
+                  <span className="mt-auto pt-6">
+                    {item.href ? (
+                      <Link
+                        href={item.href}
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-brand-blue after:absolute after:inset-0 after:rounded-3xl group-hover:underline group-hover:decoration-1 group-hover:underline-offset-4"
+                      >
+                        {item.linkText}
+                        <span aria-hidden="true">&rarr;</span>
+                      </Link>
+                    ) : (
+                      <DemoButton className="inline-flex items-center gap-1 text-sm font-semibold text-brand-blue after:absolute after:inset-0 after:rounded-3xl group-hover:underline group-hover:decoration-1 group-hover:underline-offset-4">
+                        {item.linkText}
+                        <span aria-hidden="true">&rarr;</span>
+                      </DemoButton>
+                    )}
                   </span>
-                </Link>
+                </div>
               </li>
             ))}
           </ul>
