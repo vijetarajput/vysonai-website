@@ -8,7 +8,7 @@ import { siteConfig } from "@/config/site";
 export default function BrandName({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`relative inline-block whitespace-nowrap pb-[max(5px,0.12em)] font-semibold ${className}`}
+      className={`relative inline-block whitespace-nowrap mb-[calc(-1*max(5px,0.12em))] pb-[max(5px,0.12em)] font-semibold ${className}`}
     >
       {siteConfig.name}
       <span
