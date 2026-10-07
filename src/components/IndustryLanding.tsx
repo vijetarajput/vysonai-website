@@ -1,7 +1,7 @@
-import Link from "next/link";
 import Faq from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
 import HowItWorks from "@/components/HowItWorks";
+import DemoButton from "@/components/lead/DemoButton";
 import PhoneMockup from "@/components/PhoneMockup";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import type { IndustryContent } from "@/content/industry";
@@ -56,12 +56,10 @@ export default function IndustryLanding({ content }: { content: IndustryContent 
               {content.subtext}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/#demo"
+              <DemoButton
+                business={content.business}
                 className="inline-flex items-center justify-center rounded-full bg-brand-violet px-6 py-3 text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark"
-              >
-                Get Free Demo
-              </Link>
+              />
               <WhatsAppButton large />
             </div>
           </div>
@@ -138,18 +136,16 @@ export default function IndustryLanding({ content }: { content: IndustryContent 
           <p className="measure mx-auto mt-3 text-lg leading-relaxed text-muted-strong">
             {content.pilot.text}
           </p>
-          <Link
-            href="/#demo"
+          <DemoButton
+            business={content.business}
             className="mt-6 inline-flex items-center justify-center rounded-full bg-brand-violet px-6 py-3 text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark"
-          >
-            Get Free Demo
-          </Link>
+          />
         </div>
       </section>
 
       <Faq items={content.faqs} />
 
-      <FinalCta heading={content.ctaHeading} />
+      <FinalCta heading={content.ctaHeading} business={content.business} />
     </>
   );
 }

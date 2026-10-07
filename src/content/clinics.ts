@@ -1,6 +1,7 @@
 import type { IndustryContent } from "@/content/industry";
 
 export const clinics: IndustryContent = {
+  business: "Clinic",
   h1: "Fewer No-Shows. Automatic Appointment Reminders on WhatsApp.",
   subtext:
     "Patients get a friendly WhatsApp reminder before every visit. Fewer people forget, and your day runs smoothly.",

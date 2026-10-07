@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BrandName from "@/components/BrandName";
+import DemoButton from "@/components/lead/DemoButton";
 import PhoneMockup from "@/components/PhoneMockup";
 
 export default function Hero() {
@@ -23,12 +24,7 @@ export default function Hero() {
             >
               See Solutions
             </Link>
-            <a
-              href="#demo"
-              className="inline-flex items-center justify-center rounded-full bg-brand-violet px-6 py-3 text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark"
-            >
-              Get Free Demo
-            </a>
+            <DemoButton className="inline-flex items-center justify-center rounded-full bg-brand-violet px-6 py-3 text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark" />
           </div>
         </div>
 

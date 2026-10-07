@@ -1,4 +1,4 @@
-import LeadForm from "@/components/LeadForm";
+import LeadFlow from "@/components/lead/LeadFlow";
 
 export default function DemoSection() {
   return (
@@ -12,7 +12,7 @@ export default function DemoSection() {
         </div>
 
         <div className="mx-auto mt-10 max-w-xl rounded-3xl bg-white p-6 shadow-soft sm:p-8">
-          <LeadForm />
+          <LeadFlow layout="inline" />
         </div>
       </div>
     </section>

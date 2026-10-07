@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import DemoButton from "@/components/lead/DemoButton";
 import { siteConfig } from "@/config/site";
 
 export default function Header() {
@@ -54,12 +55,9 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            href={siteConfig.cta.href}
-            className="hidden rounded-full bg-brand-violet px-5 py-2.5 text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark md:inline-block"
-          >
+          <DemoButton className="hidden rounded-full bg-brand-violet px-5 py-2.5 text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark md:inline-block">
             {siteConfig.cta.label}
-          </Link>
+          </DemoButton>
 
           <button
             type="button"
@@ -114,13 +112,12 @@ export default function Header() {
               );
             })}
           </nav>
-          <Link
-            href={siteConfig.cta.href}
-            onClick={close}
-            className="mt-4 block rounded-full bg-brand-violet px-5 py-3 text-center text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark"
+          <DemoButton
+            onOpen={close}
+            className="mt-4 block w-full rounded-full bg-brand-violet px-5 py-3 text-center text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark"
           >
             {siteConfig.cta.label}
-          </Link>
+          </DemoButton>
         </div>
       )}
     </header>

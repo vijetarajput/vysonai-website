@@ -1,6 +1,7 @@
 import type { IndustryContent } from "@/content/industry";
 
 export const gyms: IndustryContent = {
+  business: "Gym",
   h1: "Stop Losing Gym Members. Automate Reminders on WhatsApp.",
   subtext:
     "Members who stop coming get a friendly WhatsApp reminder automatically. You get notified too, so you know who needs a personal call.",

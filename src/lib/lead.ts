@@ -1,16 +1,23 @@
+import { z } from "zod";
+
 // Shared by the lead form (browser) and the /api/lead route (server).
 
 export const BUSINESS_TYPES = ["Gym", "Clinic", "Salon", "Coaching", "Other"] as const;
 export type BusinessType = (typeof BUSINESS_TYPES)[number];
 
-export type LeadField = "name" | "whatsapp" | "businessType" | "consent";
-export type LeadErrors = Partial<Record<LeadField, string>>;
+/** Optional "What do you want to automate?" choices. */
+export const INTERESTS = [
+  "Reminders",
+  "Follow-ups",
+  "Customer dashboard",
+  "Weekly report",
+  "Chatbot",
+  "AI receptionist",
+] as const;
+export type Interest = (typeof INTERESTS)[number];
 
-export type Lead = {
-  name: string;
-  whatsapp: string; // 10-digit Indian mobile, without +91
-  businessType: BusinessType | "";
-};
+export type LeadField = "businessType" | "name" | "whatsapp" | "interests" | "consent";
+export type LeadErrors = Partial<Record<LeadField, string>>;
 
 /** Keeps digits only and removes a leading +91 / 91 / 0 if the user typed one. */
 export function normalizeIndianMobile(input: string): string {
@@ -21,41 +28,55 @@ export function normalizeIndianMobile(input: string): string {
 }
 
 export const messages = {
+  businessType: "Please choose the type of business you run.",
   nameEmpty: "Please enter your name.",
   nameShort: "Please enter your full name (at least 2 letters).",
   whatsappEmpty: "Please enter your WhatsApp number.",
   whatsappLength: "Please enter a 10-digit mobile number, like 9876543210.",
-  whatsappStart:
-    "Indian mobile numbers start with 6, 7, 8 or 9. Please check your number.",
-  businessType: "Please choose one of the business types from the list.",
+  whatsappStart: "Indian mobile numbers start with 6, 7, 8 or 9. Please check your number.",
+  interests: "Please choose from the options shown.",
   consent: "Please tick the box so we can message you on WhatsApp.",
 };
 
-export function validateLead(input: {
-  name?: unknown;
-  whatsapp?: unknown;
-  businessType?: unknown;
-  consent?: unknown;
-}): { ok: true; lead: Lead } | { ok: false; errors: LeadErrors } {
+const whatsappSchema = z
+  .string({ error: messages.whatsappEmpty })
+  .superRefine((raw, ctx) => {
+    const digits = normalizeIndianMobile(raw);
+    if (!raw.trim()) ctx.addIssue({ code: "custom", message: messages.whatsappEmpty });
+    else if (digits.length !== 10) ctx.addIssue({ code: "custom", message: messages.whatsappLength });
+    else if (!/^[6-9]/.test(digits)) ctx.addIssue({ code: "custom", message: messages.whatsappStart });
+  })
+  .transform(normalizeIndianMobile);
+
+export const leadSchema = z.object({
+  businessType: z.enum(BUSINESS_TYPES, { error: messages.businessType }),
+  name: z
+    .string({ error: messages.nameEmpty })
+    .trim()
+    .min(1, messages.nameEmpty)
+    .min(2, messages.nameShort)
+    .max(80, messages.nameShort),
+  whatsapp: whatsappSchema,
+  interests: z
+    .array(z.enum(INTERESTS, { error: messages.interests }), { error: messages.interests })
+    .max(INTERESTS.length, messages.interests)
+    .default([])
+    .transform((list) => [...new Set(list)]),
+  consent: z.literal(true, { error: messages.consent }),
+});
+
+export type Lead = z.output<typeof leadSchema>;
+
+export function validateLead(
+  input: unknown,
+): { ok: true; lead: Lead } | { ok: false; errors: LeadErrors } {
+  const result = leadSchema.safeParse(input);
+  if (result.success) return { ok: true, lead: result.data };
+
   const errors: LeadErrors = {};
-
-  const name = typeof input.name === "string" ? input.name.trim() : "";
-  if (!name) errors.name = messages.nameEmpty;
-  else if (name.length < 2 || name.length > 80) errors.name = messages.nameShort;
-
-  const rawPhone = typeof input.whatsapp === "string" ? input.whatsapp : "";
-  const whatsapp = normalizeIndianMobile(rawPhone);
-  if (!rawPhone.trim()) errors.whatsapp = messages.whatsappEmpty;
-  else if (whatsapp.length !== 10) errors.whatsapp = messages.whatsappLength;
-  else if (!/^[6-9]/.test(whatsapp)) errors.whatsapp = messages.whatsappStart;
-
-  const businessType = typeof input.businessType === "string" ? input.businessType : "";
-  if (businessType && !(BUSINESS_TYPES as readonly string[]).includes(businessType)) {
-    errors.businessType = messages.businessType;
+  for (const issue of result.error.issues) {
+    const field = issue.path[0] as LeadField | undefined;
+    if (field && !errors[field]) errors[field] = issue.message;
   }
-
-  if (input.consent !== true) errors.consent = messages.consent;
-
-  if (Object.keys(errors).length > 0) return { ok: false, errors };
-  return { ok: true, lead: { name, whatsapp, businessType: businessType as Lead["businessType"] } };
+  return { ok: false, errors };
 }
