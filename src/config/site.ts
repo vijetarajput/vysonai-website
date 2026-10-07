@@ -21,11 +21,11 @@ export const siteConfig = {
   // SEO (plain text only: titles and meta tags never use the BrandName component)
   seoTitle: "WhatsApp Automation, CRM & AI Receptionist",
   description:
-    "VYSON-AI helps businesses grow with WhatsApp automation, CRM and an AI receptionist that never misses a lead.",
+    "VYSON-AI helps businesses grow with WhatsApp automation, CRM and an AI receptionist, so fewer customers slip through the cracks.",
 
   // Visible copy that follows the <BrandName /> component, e.g. "VYSON-AI automates ..."
   footerBlurb:
-    "automates WhatsApp, CRM and reception with AI so your business never misses a lead.",
+    "automates WhatsApp, CRM and reception with AI so fewer customers slip through the cracks.",
 
   nav: [
     { label: "Home", href: "/" },

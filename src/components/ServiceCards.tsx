@@ -77,8 +77,8 @@ const services: Service[] = [
 
 export default function ServiceCards() {
   return (
-    <section className="bg-white">
-      <div className="mx-auto max-w-6xl px-4 pb-16 pt-4 sm:px-6 sm:pb-24">
+    <section className="bg-violet-tint">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="text-center">
           <h2>How we can help your business</h2>
           <p className="measure mx-auto mt-3 text-muted-strong">

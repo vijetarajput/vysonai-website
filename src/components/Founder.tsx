@@ -12,9 +12,9 @@ export default function Founder() {
   const hasPhoto = fs.existsSync(path.join(process.cwd(), "public", photoFile));
 
   return (
-    <section className="bg-white">
+    <section className="bg-violet-tint">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-24 md:grid-cols-[280px_1fr] md:gap-14">
-        <div className="relative mx-auto aspect-square w-56 overflow-hidden rounded-3xl bg-violet-tint shadow-soft md:w-full">
+        <div className="relative mx-auto aspect-square w-56 overflow-hidden rounded-3xl bg-white shadow-soft md:w-full">
           {hasPhoto ? (
             <Image
               src={`/${photoFile}`}

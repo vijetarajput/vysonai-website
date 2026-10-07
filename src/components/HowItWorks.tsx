@@ -24,10 +24,14 @@ export default function HowItWorks({
   title = "How it works",
   steps = defaultSteps,
   background = "tint",
+  intro,
+  note,
 }: {
   title?: string;
   steps?: Step[];
   background?: "tint" | "white";
+  intro?: string;
+  note?: string;
 }) {
   const cols = steps.length >= 4 ? columns[4] : columns[3];
 
@@ -35,6 +39,9 @@ export default function HowItWorks({
     <section className={background === "tint" ? "bg-violet-tint" : "bg-white"}>
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <h2 className="text-center">{title}</h2>
+        {intro && (
+          <p className="measure mx-auto mt-3 text-center text-muted-strong">{intro}</p>
+        )}
 
         <ol className={`mt-10 grid gap-5 md:gap-6 ${cols}`}>
           {steps.map((step, index) => (
@@ -58,6 +65,9 @@ export default function HowItWorks({
             </li>
           ))}
         </ol>
+        {note && (
+          <p className="measure mx-auto mt-8 text-center font-medium text-charcoal">{note}</p>
+        )}
       </div>
     </section>
   );
