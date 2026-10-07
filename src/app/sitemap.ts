@@ -12,6 +12,8 @@ const paths = [
   "/services/ai-receptionist",
   "/about",
   "/contact",
+  "/privacy-policy",
+  "/terms",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
