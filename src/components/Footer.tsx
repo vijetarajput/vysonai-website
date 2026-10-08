@@ -19,10 +19,7 @@ export default function Footer() {
               height={612}
               className="h-auto w-[180px]"
             />
-            <p className="mt-4 text-sm font-semibold text-charcoal">
-              {siteConfig.tagline}
-            </p>
-            <p className="measure mt-2 max-w-xs text-sm leading-relaxed text-muted-strong">
+            <p className="measure mt-4 max-w-xs text-sm leading-relaxed text-muted-strong">
               <BrandName /> {siteConfig.footerBlurb}
             </p>
           </div>

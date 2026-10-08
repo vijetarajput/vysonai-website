@@ -32,8 +32,8 @@ function LockIcon() {
  */
 export default function DemoSection() {
   return (
-    <section id="demo" className="scroll-mt-16 bg-violet-tint">
-      <div className="site-container section-y grid grid-cols-[minmax(0,1fr)] items-start gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-14">
+    <section id="demo" className="scroll-mt-24 bg-white">
+      <div className="site-container grid pb-10 md:pb-12 lg:pb-[4.5rem] grid-cols-[minmax(0,1fr)] items-start gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-14">
         <div>
           <h2>Ready to automate your manual work and grow your profit?</h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-strong">

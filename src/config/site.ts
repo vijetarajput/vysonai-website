@@ -25,7 +25,7 @@ export const siteConfig = {
 
   // Visible copy that follows the <BrandName /> component, e.g. "VYSON-AI automates ..."
   footerBlurb:
-    "automates WhatsApp, CRM and reception with AI so fewer customers slip through the cracks.",
+    "builds AI agents that handle your calls, customers, stock and marketing, 24/7.",
 
   // Header: Services (a dropdown) is added after Home in the Header component.
   headerNav: [
@@ -35,6 +35,7 @@ export const siteConfig = {
   // Footer
   nav: [
     { label: "Home", href: "/" },
+    { label: "Services", href: "/#services" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ],
