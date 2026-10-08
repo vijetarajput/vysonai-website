@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import DemoButton from "@/components/lead/DemoButton";
 import type { Interest } from "@/lib/lead";
 
@@ -5,11 +6,14 @@ export default function FinalCta({
   heading = "Ready to stop missing customers?",
   interests,
   buttonLabel,
+  footnote,
 }: {
   heading?: string;
   interests?: Interest[];
   /** Defaults to "Get Free Demo". */
   buttonLabel?: string;
+  /** Small line shown under the button. */
+  footnote?: ReactNode;
 }) {
   return (
     <section className="on-dark bg-brand-gradient-diagonal">
@@ -21,6 +25,7 @@ export default function FinalCta({
         >
           {buttonLabel}
         </DemoButton>
+        {footnote && <p className="mt-6 text-sm text-white/85">{footnote}</p>}
       </div>
     </section>
   );
