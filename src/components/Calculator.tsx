@@ -141,7 +141,7 @@ export default function Calculator() {
   const note = `Calculator: AI could save about ${result.weekly} hours a week on messages, calls, follow-ups and records.`;
 
   return (
-    <section id="calculator" className="scroll-mt-16 bg-white">
+    <section id="calculator" className="bg-white">
       <div className="site-container section-y">
         <div className="mx-auto max-w-2xl text-center">
           <h2>How many hours can AI save your business?</h2>

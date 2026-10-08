@@ -37,7 +37,7 @@ function CardBody({ offering }: { offering: Offering }) {
  */
 export default function ServiceCards() {
   return (
-    <section id="services" className="scroll-mt-16 bg-violet-tint">
+    <section id="services" className="bg-violet-tint">
       <div className="site-container section-y">
         <div className="text-center">
           <h2>What we can do for your business</h2>

@@ -115,6 +115,14 @@ html {
   /* Keep room for the scrollbar so the page never jumps when it appears
      or when the modal locks scrolling. */
   scrollbar-gutter: stable;
+  /* The header is sticky: 64px on phones, 88px from 640px up (+8px of air). Anchors such as
+     /#services and /#demo land just below it. */
+  scroll-padding-top: 4.5rem;
+}
+@media (min-width: 640px) {
+  html {
+    scroll-padding-top: 6rem;
+  }
 }
 
 /* Safety net: nothing may ever push the page sideways. The real causes are

@@ -203,7 +203,7 @@ export default function PrivacyPolicyPage() {
               </nav>
 
               {sections.map((section, index) => (
-                <section key={section.id} id={section.id} className="mt-10 scroll-mt-24">
+                <section key={section.id} id={section.id} className="mt-10">
                   <h2 className="text-2xl text-charcoal">
                     {index + 1}. {section.title}
                   </h2>
