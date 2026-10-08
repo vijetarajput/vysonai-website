@@ -201,12 +201,14 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
 
       <div>
         <label htmlFor={id("email")} className="mb-1.5 block text-sm font-semibold">
-          Email <span className="font-normal text-muted-strong">(optional)</span>
+          Email <span className="text-red-700">*</span>
         </label>
         <input
           id={id("email")}
           type="email"
           autoComplete="email"
+          required
+          maxLength={100}
           placeholder="you@business.com"
           value={email}
           onChange={(e) => {
@@ -321,9 +323,7 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
         </button>
         {!check.ok && (
           <p id={id("hint")} className="mt-3 text-center text-sm text-muted-strong">
-            {errors.email && !errors.name && !errors.whatsapp && !errors.consent
-              ? "Please check your email address to continue."
-              : "Add your name and WhatsApp number, and tick the box to continue."}
+            Add your name, WhatsApp number and email, and tick the box to continue.
           </p>
         )}
       </div>

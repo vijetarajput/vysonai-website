@@ -47,7 +47,7 @@ const sections: PolicySection[] = [
         <ul>
           <li>your name</li>
           <li>your WhatsApp number</li>
-          <li>your email, if you give one</li>
+          <li>your email address</li>
           <li>the services you select</li>
           <li>any message you write</li>
         </ul>

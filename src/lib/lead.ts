@@ -32,7 +32,7 @@ export const messages = {
   nameShort: "Please enter your full name (at least 2 letters).",
   whatsappEmpty: "Please enter your WhatsApp number.",
   whatsappInvalid: "Please enter a valid number for the selected country.",
-  email: "Please enter a valid email address, like you@business.com, or leave it empty.",
+  email: "Please enter a valid email address.",
   interests: "Please choose from the options shown.",
   message: `Please keep your message under ${MESSAGE_MAX} characters.`,
   consent: "Please tick the box so we can message you on WhatsApp.",
@@ -59,14 +59,14 @@ const phoneSchema = z
     whatsapp: toE164(value.whatsapp, value.country as CountryCode) as string,
   }));
 
-/** Optional. Empty is fine. If filled: trimmed, lowercase, at most 100 characters, valid format. */
+/** Required: trimmed, lowercase, at most 100 characters, valid format. */
 const emailSchema = z
   .string({ error: messages.email })
   .trim()
   .toLowerCase()
+  .min(1, messages.email)
   .max(100, messages.email)
-  .refine((value) => value === "" || z.email().safeParse(value).success, messages.email)
-  .default("");
+  .refine((value) => z.email().safeParse(value).success, messages.email);
 
 /** Optional short note. Trimmed, at most MESSAGE_MAX characters. */
 const messageSchema = z

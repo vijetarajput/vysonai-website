@@ -35,7 +35,7 @@ function telegramText(lead: Lead, page: string) {
     `🔔 <b>New lead – ${escapeHtml(siteConfig.name)}</b>`,
     `Name: ${escapeHtml(lead.name)}`,
     `WhatsApp: ${escapeHtml(number)} (<a href="https://wa.me/${waDigits}">open chat</a>)`,
-    `Email: ${lead.email ? escapeHtml(lead.email) : "Not provided"}`,
+    `Email: ${escapeHtml(lead.email)}`,
     `Needs: ${escapeHtml(wants)}`,
     `Message: ${lead.message ? escapeHtml(lead.message) : "Not shared"}`,
     `Page: ${escapeHtml(page)}`,
