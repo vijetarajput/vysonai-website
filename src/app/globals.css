@@ -22,6 +22,9 @@
   --font-heading: var(--font-jakarta), var(--font-inter), ui-sans-serif,
     system-ui, sans-serif;
 
+  --font-hindi: var(--font-devanagari), var(--font-inter), ui-sans-serif, system-ui,
+    sans-serif;
+
   --shadow-soft: 0 4px 24px -6px rgb(31 41 55 / 0.1);
 
   /* Brand gradient - use sparingly: final CTA band, hero glow, thin accent lines */
@@ -121,5 +124,115 @@ body {
     outline: 2px solid var(--color-brand-violet);
     outline-offset: 2px;
     border-radius: 0.5rem;
+  }
+}
+/* ---------- Hero showcase animations (see components/showcase) ---------- */
+@keyframes vy-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes vy-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+@keyframes vy-wave {
+  from {
+    transform: scaleY(0.25);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.vy-progress {
+  transform-origin: left;
+  animation-name: vy-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.vy-dot {
+  animation: vy-dot 1s ease-in-out infinite;
+}
+
+/* The audio waveform only moves while its slide is on screen */
+[data-active="true"] .vy-wave {
+  animation: vy-wave 700ms ease-in-out infinite alternate;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Dashboard bars grow and rows fade in when the slide becomes active */
+.vy-grow {
+  transform-origin: bottom;
+  transform: scaleY(0);
+  transition: transform 0.3s ease-out;
+}
+
+.vy-rise {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
+}
+
+[data-active="true"] .vy-grow {
+  transform: scaleY(1);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--i, 0) * 70ms + 250ms);
+}
+
+[data-active="true"] .vy-rise {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.4s ease-out calc(var(--i, 0) * 150ms + 500ms),
+    transform 0.4s ease-out calc(var(--i, 0) * 150ms + 500ms);
+}
+
+/* Less motion: show everything finished, nothing moves */
+@media (prefers-reduced-motion: reduce) {
+  .vy-dot,
+  [data-active="true"] .vy-wave {
+    animation: none;
+  }
+  .vy-grow,
+  [data-active="true"] .vy-grow {
+    transform: none;
+    transition: none;
+  }
+  .vy-rise,
+  [data-active="true"] .vy-rise {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Without JavaScript the chat bubbles would stay hidden, so show them */
+@media (scripting: none) {
+  .vy-msg {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .vy-grow {
+    transform: none;
+  }
+  .vy-rise {
+    opacity: 1;
+    transform: none;
   }
 }

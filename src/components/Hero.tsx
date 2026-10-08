@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import DemoButton from "@/components/lead/DemoButton";
-import PhoneMockup from "@/components/PhoneMockup";
+import HeroShowcase from "@/components/showcase/HeroShowcase";
 
 function ChipIcon({ children }: { children: ReactNode }) {
   return (
@@ -107,7 +107,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <PhoneMockup />
+        <HeroShowcase />
       </div>
     </section>
   );
