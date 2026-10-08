@@ -67,6 +67,7 @@ export default function LeadFlow({ layout, initialBusiness, initialInterests, on
   const [business, setBusiness] = useState<BusinessType | "">(initialBusiness ?? "");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [interests, setInterests] = useState<Interest[]>(initialInterests ?? []);
   const [consent, setConsent] = useState(false);
   const [touched, setTouched] = useState<Partial<Record<LeadField, boolean>>>({});
@@ -91,6 +92,7 @@ export default function LeadFlow({ layout, initialBusiness, initialInterests, on
     businessType: business,
     name,
     whatsapp: phone,
+    email,
     interests,
     consent,
   });
@@ -122,7 +124,7 @@ export default function LeadFlow({ layout, initialBusiness, initialInterests, on
     setFormError("");
 
     if (!check.ok) {
-      setTouched({ name: true, whatsapp: true, consent: true, businessType: true });
+      setTouched({ name: true, whatsapp: true, email: true, consent: true, businessType: true });
       return;
     }
 
@@ -137,6 +139,7 @@ export default function LeadFlow({ layout, initialBusiness, initialInterests, on
           businessType: business,
           name,
           whatsapp: phone,
+          email,
           interests,
           consent,
           website: honeypot,
@@ -282,6 +285,28 @@ export default function LeadFlow({ layout, initialBusiness, initialInterests, on
         <FieldError id={id("whatsapp-error")} message={shownError("whatsapp")} />
       </div>
 
+      <div>
+        <label htmlFor={id("email")} className="mb-1.5 block text-sm font-semibold">
+          Email <span className="font-normal text-muted-strong">(optional)</span>
+        </label>
+        <input
+          id={id("email")}
+          type="email"
+          autoComplete="email"
+          placeholder="you@business.com"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            clearServer("email");
+          }}
+          onBlur={() => touch("email")}
+          aria-invalid={!!shownError("email")}
+          aria-describedby={shownError("email") ? id("email-error") : undefined}
+          className={`${inputBase} ${borderFor("email")}`}
+        />
+        <FieldError id={id("email-error")} message={shownError("email")} />
+      </div>
+
       <fieldset>
         <legend className="mb-2 block text-sm font-semibold">
           What do you want to automate?{" "}
@@ -368,7 +393,9 @@ export default function LeadFlow({ layout, initialBusiness, initialInterests, on
       </div>
       {!check.ok && (
         <p id={id("hint")} className="text-center text-sm text-muted-strong">
-          Add your name and WhatsApp number, and tick the box to continue.
+          {errors.email && !errors.name && !errors.whatsapp && !errors.consent
+            ? "Please check your email address to continue."
+            : "Add your name and WhatsApp number, and tick the box to continue."}
         </p>
       )}
     </form>

@@ -16,7 +16,7 @@ export const INTERESTS = [
 ] as const;
 export type Interest = (typeof INTERESTS)[number];
 
-export type LeadField = "businessType" | "name" | "whatsapp" | "interests" | "consent";
+export type LeadField = "businessType" | "name" | "whatsapp" | "email" | "interests" | "consent";
 export type LeadErrors = Partial<Record<LeadField, string>>;
 
 /** Keeps digits only and removes a leading +91 / 91 / 0 if the user typed one. */
@@ -34,6 +34,7 @@ export const messages = {
   whatsappEmpty: "Please enter your WhatsApp number.",
   whatsappLength: "Please enter a 10-digit mobile number, like 9876543210.",
   whatsappStart: "Indian mobile numbers start with 6, 7, 8 or 9. Please check your number.",
+  email: "Please enter a valid email address, like you@business.com, or leave it empty.",
   interests: "Please choose from the options shown.",
   consent: "Please tick the box so we can message you on WhatsApp.",
 };
@@ -48,6 +49,15 @@ const whatsappSchema = z
   })
   .transform(normalizeIndianMobile);
 
+/** Optional. Empty is fine. If filled: trimmed, lowercase, at most 100 characters, valid format. */
+const emailSchema = z
+  .string({ error: messages.email })
+  .trim()
+  .toLowerCase()
+  .max(100, messages.email)
+  .refine((value) => value === "" || z.email().safeParse(value).success, messages.email)
+  .default("");
+
 export const leadSchema = z.object({
   businessType: z.enum(BUSINESS_TYPES, { error: messages.businessType }),
   name: z
@@ -57,6 +67,7 @@ export const leadSchema = z.object({
     .min(2, messages.nameShort)
     .max(80, messages.nameShort),
   whatsapp: whatsappSchema,
+  email: emailSchema,
   interests: z
     .array(z.enum(INTERESTS, { error: messages.interests }), { error: messages.interests })
     .max(INTERESTS.length, messages.interests)

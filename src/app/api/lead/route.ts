@@ -34,6 +34,7 @@ function telegramText(lead: Lead, page: string) {
     `🔔 <b>New lead – ${escapeHtml(siteConfig.name)}</b>`,
     `Name: ${escapeHtml(lead.name)}`,
     `WhatsApp: +${number} (<a href="https://wa.me/${number}">open chat</a>)`,
+    `Email: ${lead.email ? escapeHtml(lead.email) : "Not provided"}`,
     `Business: ${escapeHtml(lead.businessType)}`,
     `Wants: ${escapeHtml(wants)}`,
     `Page: ${escapeHtml(page)}`,
@@ -89,6 +90,7 @@ async function forwardToN8n(lead: Lead, page: string) {
       body: JSON.stringify({
         name: lead.name,
         whatsapp: `91${lead.whatsapp}`,
+        email: lead.email,
         businessType: lead.businessType,
         interests: lead.interests,
         consent: true,

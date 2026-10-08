@@ -18,6 +18,7 @@ const sections: LegalSection[] = [
     items: [
       "Your name",
       "Your WhatsApp number",
+      "Your email address, only if you choose to give it",
       "Your business type (for example gym or clinic)",
       "The things you told us you want to automate, if you chose any",
     ],
@@ -25,7 +26,7 @@ const sections: LegalSection[] = [
   {
     heading: "Why we collect it",
     paragraphs: [
-      "We use these details only to contact you about a demo of {brand} services. We contact you on WhatsApp.",
+      "We use these details only to contact you about a demo of {brand} services. We contact you on WhatsApp. If you give your email address, we may also use it to reply about your demo.",
     ],
   },
   {
