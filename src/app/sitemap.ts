@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 // Add each new public page here when it is built.
 const paths = [
   "/",
+  "/services/ai-receptionist",
   "/about",
   "/contact",
   "/privacy-policy",

@@ -22,14 +22,17 @@ export type IconName =
 
 /**
  * What we offer: the 8 cards in the Home services section and the 8 entries in the header
- * "Services" dropdown. The individual service pages were removed (to be rebuilt), so every
- * item opens the "Book your free call" form with the matching choice already picked.
- * When a page is rebuilt, add an `href` here and link to it instead.
+ * "Services" dropdown. An item with `href` links to its service page ("Learn more"). An item
+ * without one opens the "Book your free call" form with its `interest` already picked
+ * ("Talk to us"). When a service page is built, add its `href` here.
  */
 export type Offering = {
   title: string;
   text: string;
   icon: IconName;
+  /** Service page, once it exists. */
+  href?: string;
+  /** Choice preselected in the form when there is no page yet. */
   interest: Interest;
 };
 
@@ -38,6 +41,7 @@ export const offerings: Offering[] = [
     title: "AI Receptionist",
     text: "Picks up every call, day or night, and books appointments for you.",
     icon: "phone",
+    href: "/services/ai-receptionist",
     interest: "AI receptionist",
   },
   {

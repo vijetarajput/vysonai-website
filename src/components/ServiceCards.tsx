@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ServiceIcon from "@/components/ServiceIcon";
 import DemoButton from "@/components/lead/DemoButton";
 import { offerings, type Offering } from "@/content/services";
@@ -18,7 +19,7 @@ function CardBody({ offering }: { offering: Offering }) {
         {offering.text}
       </span>
       <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-violet">
-        Talk to us
+        {offering.href ? "Learn more" : "Talk to us"}
         <span
           aria-hidden="true"
           className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"
@@ -32,8 +33,8 @@ function CardBody({ offering }: { offering: Offering }) {
 
 /**
  * Home services section: 8 simple cards. 4 columns on desktop, 2 on tablet and mobile.
- * The whole card is a button: it opens the "Book your free call" form with that service picked.
- * (The individual service pages were removed and will be rebuilt later.)
+ * The whole card is a link to its service page when there is one ("Learn more"). Otherwise it is
+ * a button that opens the "Book your free call" form with that service picked ("Talk to us").
  */
 export default function ServiceCards() {
   return (
@@ -49,9 +50,15 @@ export default function ServiceCards() {
         <ul className="section-gap grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
           {offerings.map((offering) => (
             <li key={offering.title}>
-              <DemoButton interests={[offering.interest]} className={cardClass}>
-                <CardBody offering={offering} />
-              </DemoButton>
+              {offering.href ? (
+                <Link href={offering.href} className={cardClass}>
+                  <CardBody offering={offering} />
+                </Link>
+              ) : (
+                <DemoButton interests={[offering.interest]} className={cardClass}>
+                  <CardBody offering={offering} />
+                </DemoButton>
+              )}
             </li>
           ))}
         </ul>

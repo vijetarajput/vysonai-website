@@ -6,10 +6,14 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   async redirects() {
     return [
-      // The service pages were removed and will be rebuilt. Until then, send visitors to the
-      // services section on Home. These are temporary (307) so search engines keep the old URLs.
+      // Service pages that are not built yet go to the services section on Home. Temporary (307)
+      // so search engines keep the old URLs. When a page is built, add its slug to the list below.
       { source: "/services", destination: "/#services", permanent: false },
-      { source: "/services/:path*", destination: "/#services", permanent: false },
+      {
+        source: "/services/:path((?!ai-receptionist$).*)",
+        destination: "/#services",
+        permanent: false,
+      },
       // The old Solutions pages never came back: same temporary destination.
       { source: "/solutions", destination: "/#services", permanent: false },
       { source: "/solutions/:path*", destination: "/#services", permanent: false },

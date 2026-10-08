@@ -623,3 +623,81 @@ body {
     animation: none;
   }
 }
+
+/* ---------- ServiceScene (components/ServiceScene): story elements that appear one by one ---------- */
+.ss-in {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.25s ease-out,
+    transform 0.25s ease-out;
+}
+
+[data-active="true"] .ss-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s ease-out var(--d, 0ms),
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms);
+}
+
+/* A coloured bar that fills a row from left to right */
+.ss-fill {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease-out;
+}
+
+[data-active="true"] .ss-fill {
+  transform: scaleX(1);
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms);
+}
+
+/* A phone that rings gently a few times */
+@keyframes ss-ring {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0);
+  }
+  10%,
+  30% {
+    transform: rotate(-14deg);
+  }
+  20%,
+  40% {
+    transform: rotate(14deg);
+  }
+}
+
+[data-active="true"] .ss-ring {
+  animation: ss-ring 1.6s ease-in-out var(--d, 0ms) 4;
+}
+
+/* Less motion, or no JavaScript: show the finished picture, nothing moves */
+@media (prefers-reduced-motion: reduce) {
+  .ss-in,
+  [data-active="true"] .ss-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .ss-fill,
+  [data-active="true"] .ss-fill {
+    transform: none;
+    transition: none;
+  }
+  [data-active="true"] .ss-ring {
+    animation: none;
+  }
+}
+
+@media (scripting: none) {
+  .ss-in {
+    opacity: 1;
+    transform: none;
+  }
+  .ss-fill {
+    transform: none;
+  }
+}

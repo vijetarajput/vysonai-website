@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ServiceIcon from "@/components/ServiceIcon";
 import DemoButton from "@/components/lead/DemoButton";
@@ -26,15 +28,17 @@ function Chevron({ open }: { open: boolean }) {
   );
 }
 
-/** One entry in the Services menu: a button that opens the form with that choice picked. */
+/** One entry in the Services menu: a link to its page, or a button that opens the form with that choice picked. */
 function MenuItem({
   item,
   onDone,
   variant,
+  pathname,
 }: {
   item: Offering;
   onDone: () => void;
   variant: "desktop" | "mobile";
+  pathname?: string;
 }) {
   const desktop = variant === "desktop";
   const className = desktop
@@ -56,6 +60,18 @@ function MenuItem({
     </>
   );
 
+  if (item.href) {
+    return (
+      <Link
+        href={item.href}
+        onClick={onDone}
+        aria-current={pathname === item.href ? "page" : undefined}
+        className={className}
+      >
+        {content}
+      </Link>
+    );
+  }
   return (
     <DemoButton interests={[item.interest]} onOpen={onDone} className={className}>
       {content}
@@ -69,6 +85,8 @@ function MenuItem({
  * to the button), on a click outside, when Tab leaves it, or shortly after the mouse leaves.
  */
 export function ServicesDropdown() {
+  const pathname = usePathname();
+  const active = pathname.startsWith("/services");
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -177,7 +195,7 @@ export function ServicesDropdown() {
           }
         }}
         className={`inline-flex items-center gap-1 text-sm font-medium underline-offset-4 transition-colors hover:text-brand-violet ${
-          open ? "text-brand-violet" : "text-charcoal"
+          active || open ? "text-brand-violet" : "text-charcoal"
         }`}
       >
         Services
@@ -195,7 +213,7 @@ export function ServicesDropdown() {
             <ul className="grid grid-cols-2 gap-1">
               {offerings.map((item) => (
                 <li key={item.title}>
-                  <MenuItem item={item} onDone={close} variant="desktop" />
+                  <MenuItem item={item} onDone={close} variant="desktop" pathname={pathname} />
                 </li>
               ))}
             </ul>
@@ -217,6 +235,8 @@ export function ServicesDropdown() {
 
 /** Mobile menu: "Services" as an accordion with the same eight items. */
 export function ServicesAccordion({ onNavigate }: { onNavigate: () => void }) {
+  const pathname = usePathname();
+  const active = pathname.startsWith("/services");
   const [open, setOpen] = useState(false);
 
   return (
@@ -227,7 +247,7 @@ export function ServicesAccordion({ onNavigate }: { onNavigate: () => void }) {
         aria-controls="mobile-services"
         onClick={() => setOpen((v) => !v)}
         className={`flex w-full items-center justify-between rounded-xl px-3 py-3 text-left text-base font-medium transition-colors hover:bg-violet-tint hover:text-brand-violet ${
-          open ? "bg-violet-tint text-brand-violet" : "text-charcoal"
+          active || open ? "bg-violet-tint text-brand-violet" : "text-charcoal"
         }`}
       >
         Services
@@ -236,7 +256,7 @@ export function ServicesAccordion({ onNavigate }: { onNavigate: () => void }) {
       <ul id="mobile-services" hidden={!open} className="mt-1 space-y-1 pl-3">
         {offerings.map((item) => (
           <li key={item.title}>
-            <MenuItem item={item} onDone={onNavigate} variant="mobile" />
+            <MenuItem item={item} onDone={onNavigate} variant="mobile" pathname={pathname} />
           </li>
         ))}
       </ul>
