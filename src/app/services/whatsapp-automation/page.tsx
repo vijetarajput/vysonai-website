@@ -12,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ServicePage content={content} />;
+  return <ServicePage content={content} label="WhatsApp Automation" />;
 }

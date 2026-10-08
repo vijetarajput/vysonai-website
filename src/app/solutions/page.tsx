@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import DemoButton from "@/components/lead/DemoButton";
 
 const title = "WhatsApp Automation & CRM by Industry";
@@ -67,6 +68,7 @@ function Tick() {
 export default function SolutionsPage() {
   return (
     <>
+      <Breadcrumbs items={[{ label: "Solutions", href: "/solutions" }]} />
       <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 pb-6 pt-14 text-center sm:px-6 sm:pt-20">
           <h1 className="mx-auto max-w-4xl">

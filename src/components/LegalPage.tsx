@@ -1,4 +1,5 @@
 import BrandText from "@/components/BrandText";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { siteConfig } from "@/config/site";
 
 export type LegalSection = {
@@ -11,18 +12,23 @@ export type LegalSection = {
 /** Plain, readable layout for the Privacy Policy and Terms pages. */
 export default function LegalPage({
   title,
+  path,
   updated,
   intro,
   sections,
   contactText,
 }: {
   title: string;
+  /** Path of this page, for the breadcrumb. */
+  path: string;
   updated: string;
   intro: string;
   sections: LegalSection[];
   contactText: string;
 }) {
   return (
+    <>
+    <Breadcrumbs items={[{ label: title, href: path }]} width="narrow" />
     <section className="bg-white">
       <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-20">
         <h1>{title}</h1>
@@ -63,5 +69,6 @@ export default function LegalPage({
         </section>
       </div>
     </section>
+    </>
   );
 }

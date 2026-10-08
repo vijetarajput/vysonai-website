@@ -1,3 +1,4 @@
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Faq from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
 import HowItWorks from "@/components/HowItWorks";
@@ -25,9 +26,24 @@ function CheckIcon() {
 }
 
 /** Shared layout for the Gyms and Clinics pages. All words come from the content object. */
-export default function IndustryLanding({ content }: { content: IndustryContent }) {
+export default function IndustryLanding({
+  content,
+  label,
+  path,
+}: {
+  content: IndustryContent;
+  /** Name shown as the last breadcrumb, e.g. "Gyms". */
+  label: string;
+  path: string;
+}) {
   return (
     <>
+      <Breadcrumbs
+        items={[
+          { label: "Solutions", href: "/solutions" },
+          { label: label, href: path },
+        ]}
+      />
       {/* Hero */}
       <section className="bg-white">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-16">

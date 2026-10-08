@@ -11,7 +11,7 @@ import { serviceCards } from "@/content/services";
 export default function ServiceCards() {
   return (
     <>
-      <section className="bg-white">
+      <section id="services" className="scroll-mt-16 bg-white">
         <div className="mx-auto max-w-6xl px-4 pb-8 pt-16 sm:px-6 sm:pt-20 sm:pb-12">
           <div className="text-center">
             <h2>Where is your business losing time and money?</h2>

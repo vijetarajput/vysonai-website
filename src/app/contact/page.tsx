@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import LeadFlow from "@/components/lead/LeadFlow";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { siteConfig } from "@/config/site";
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
+      <Breadcrumbs items={[{ label: "Contact", href: "/contact" }]} />
       <section className="bg-white">
         <div className="mx-auto max-w-3xl px-4 pb-6 pt-14 text-center sm:px-6 sm:pt-20">
           <h1>Let&apos;s Talk About Your Business</h1>

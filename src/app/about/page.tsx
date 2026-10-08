@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BrandName from "@/components/BrandName";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import FinalCta from "@/components/FinalCta";
 import FounderPhoto from "@/components/FounderPhoto";
 import JsonLd from "@/components/JsonLd";
@@ -48,6 +49,7 @@ export default function AboutPage() {
   return (
     <>
       <JsonLd data={personJsonLd} />
+      <Breadcrumbs items={[{ label: "About", href: "/about" }]} />
 
       {/* Intro */}
       <section className="bg-white">

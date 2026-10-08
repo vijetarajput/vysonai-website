@@ -66,6 +66,7 @@ export default function PrivacyPolicyPage() {
   return (
     <LegalPage
       title="Privacy Policy"
+      path="/privacy-policy"
       updated="October 2026"
       intro="This page explains, in simple words, what details {brand} collects when you ask for a demo, and what we do with them."
       sections={sections}

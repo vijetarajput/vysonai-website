@@ -65,6 +65,7 @@ export default function TermsPage() {
   return (
     <LegalPage
       title="Terms"
+      path="/terms"
       updated="October 2026"
       intro="These terms apply when you use the {brand} website or ask us about our services."
       sections={sections}

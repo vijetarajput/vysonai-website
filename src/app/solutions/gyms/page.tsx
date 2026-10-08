@@ -14,5 +14,5 @@ export const metadata: Metadata = {
 };
 
 export default function GymsPage() {
-  return <IndustryLanding content={gyms} />;
+  return <IndustryLanding content={gyms} label="Gyms" path="/solutions/gyms" />;
 }

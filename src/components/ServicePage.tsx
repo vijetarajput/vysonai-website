@@ -1,3 +1,4 @@
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Faq from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
 import DemoButton from "@/components/lead/DemoButton";
@@ -77,13 +78,27 @@ function Section({
  * hero, before vs after, how it works, industry examples, what you get, FAQ, final CTA,
  * plus a sticky "Book Free Demo" bar on mobile.
  */
-export default function ServicePage({ content }: { content: ServiceContent }) {
+export default function ServicePage({
+  content,
+  label,
+}: {
+  content: ServiceContent;
+  /** Name shown as the last breadcrumb, e.g. "AI Chatbot". */
+  label: string;
+}) {
   // Sections after the hero alternate between tinted and white backgrounds
   let index = 0;
   const nextTone = (): Tone => (index++ % 2 === 0 ? "tint" : "white");
 
   return (
     <>
+      <Breadcrumbs
+        width="wide"
+        items={[
+          { label: "Services", href: "/#services" },
+          { label: label, href: `/services/${content.slug}` },
+        ]}
+      />
       {/* 1. Hero */}
       <section id="service-hero" className="bg-white">
         <div className="mx-auto grid max-w-[1320px] items-center gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12 lg:px-8">
