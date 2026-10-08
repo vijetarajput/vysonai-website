@@ -53,7 +53,7 @@ export default function ReceptionistSlide({ active, live }: SlideProps) {
         </div>
 
         {/* The two sides of the call */}
-        <div className="flex items-start justify-between px-5 pb-2 pt-3">
+        <div className="flex items-start justify-between px-5 pb-2 pt-2">
           <div className="flex w-24 flex-col items-center gap-1">
             <span
               aria-hidden="true"
@@ -92,7 +92,7 @@ export default function ReceptionistSlide({ active, live }: SlideProps) {
                 }`}
                 typingClass={caller ? "bg-white" : "bg-brand-violet/15"}
               >
-                <p className="text-[12px] leading-snug xl:text-[13px]">{m.text}</p>
+                <p className="text-[12px] leading-snug xl:text-[12.5px]">{m.text}</p>
               </ChatRow>
             );
           })}

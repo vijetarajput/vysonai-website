@@ -67,7 +67,7 @@ export default function WhatsAppSlide({ active, live }: SlideProps) {
                 }`}
                 typingClass={outgoing ? "bg-[#ede9fe]" : "bg-white shadow-sm"}
               >
-                <p className="text-[12px] leading-[1.4] text-charcoal xl:text-[13px]">{m.text}</p>
+                <p className="text-[12px] leading-[1.4] text-charcoal xl:text-[12.5px]">{m.text}</p>
                 <div className="mt-0.5 flex items-center justify-end gap-1 text-[10px] text-muted">
                   <span>{m.time}</span>
                   {outgoing && <DoubleTick className="text-brand-blue" />}

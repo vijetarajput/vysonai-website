@@ -135,13 +135,13 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
   };
 
   return (
-    <div className="mx-auto w-full max-w-[1320px] px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+    <div className="mx-auto w-full max-w-[1320px] px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-6">
       <div className="grid items-center gap-10 lg:grid-cols-[2fr_3fr] lg:gap-12">
         {intro}
 
         <section
           aria-label="VYSON-AI service showcase with sample screens and conversations"
-          className="relative min-w-0 overflow-hidden rounded-[2rem] border border-brand-violet/10 bg-violet-tint p-3 sm:p-6"
+          className="relative min-w-0 overflow-hidden rounded-[2rem] border border-brand-violet/10 bg-violet-tint p-3 sm:p-6 lg:p-5"
           onFocus={(e) => setFocusing(e.target.matches(":focus-visible"))}
           onBlur={() => setFocusing(false)}
           {...hoverProps}
@@ -180,7 +180,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
           ))}
 
           {/* Fixed-height stage: room for the "Sample" label plus the device */}
-          <div className="relative h-[500px]">
+          <div className="relative h-[500px] lg:h-[452px]">
             {slides.map(({ Slide }, index) => {
               const isActive = index === active;
               return (
@@ -214,7 +214,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
         ref={listRef}
         role="tablist"
         aria-label="Choose a service example"
-        className="relative -mx-4 mt-6 flex snap-x snap-mandatory scroll-pl-4 gap-3 overflow-x-auto px-4 pb-4 pt-3 [scrollbar-width:none] sm:-mx-6 sm:scroll-pl-6 sm:px-6 lg:mx-0 lg:mt-8 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-3 [&::-webkit-scrollbar]:hidden"
+        className="relative -mx-4 mt-4 flex snap-x snap-mandatory scroll-pl-4 gap-3 overflow-x-auto px-4 pb-3 pt-2 [scrollbar-width:none] sm:-mx-6 sm:scroll-pl-6 sm:px-6 lg:mx-0 lg:mt-4 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-1 [&::-webkit-scrollbar]:hidden"
         {...hoverProps}
       >
         {slides.map(({ title, line }, index) => {
@@ -233,26 +233,26 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
               tabIndex={isActive ? 0 : -1}
               onClick={() => select(index)}
               onKeyDown={(e) => onKeyDown(e, index)}
-              className={`relative flex w-[268px] shrink-0 snap-start flex-col items-start justify-start gap-1.5 self-stretch overflow-hidden rounded-2xl border-2 px-4 pb-6 pt-3 text-left transition-[transform,box-shadow,border-color,background-color] duration-300 lg:w-auto ${
+              className={`relative flex w-[268px] shrink-0 snap-start flex-col items-start justify-start gap-1 self-stretch overflow-hidden rounded-2xl border-2 px-3.5 pb-3.5 pt-3 text-left transition-[transform,box-shadow,border-color,background-color] duration-300 lg:w-auto ${
                 isActive
                   ? "-translate-y-1 border-brand-violet bg-white shadow-[0_18px_40px_-14px_rgb(124_58_237/0.5)]"
                   : "border-border bg-white/70 hover:border-brand-violet/40 hover:bg-white"
               }`}
             >
-              <span className="font-heading text-base font-bold leading-snug text-charcoal">{title}</span>
-              <span className="text-sm leading-snug text-muted-strong">{line}</span>
+              <span className="font-heading text-base font-bold leading-tight text-charcoal">{title}</span>
+              <span className="line-clamp-2 text-[13px] leading-[1.3] text-muted-strong">{line}</span>
 
               <span
                 aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 h-1 overflow-hidden bg-border/70"
+                className="absolute inset-x-0 bottom-0 h-[3px] overflow-hidden bg-border/70"
               >
                 {isActive &&
                   (reduced ? (
-                    <span className="block h-full w-full bg-brand-gradient" />
+                    <span className="block h-full w-full bg-brand-violet" />
                   ) : (
                     <span
                       key={`${active}-${round}`}
-                      className="vy-progress block h-full w-full bg-brand-gradient"
+                      className="vy-progress block h-full w-full bg-brand-violet"
                       style={{
                         animationDuration: `${SLIDE_MS}ms`,
                         animationPlayState: paused ? "paused" : "running",
