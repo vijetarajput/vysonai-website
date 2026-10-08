@@ -13,12 +13,12 @@ import {
 
 // Sample call transcript. Everything here is fictional.
 const messages = [
-  { from: "caller", text: "Hello, kal subah ka appointment mil sakta hai?" },
-  { from: "ai", text: "Ji bilkul! Kal 10 baje ya 11:30 baje, kaunsa time theek rahega?" },
-  { from: "caller", text: "11:30 theek hai." },
+  { from: "caller", text: "Hi, can I book an appointment for tomorrow morning?" },
+  { from: "ai", text: "Of course! I have 10:00 AM or 11:30 AM free. Which works better for you?" },
+  { from: "caller", text: "11:30, please." },
   {
     from: "ai",
-    text: "Done! Kal 11:30 ka appointment confirm hai. Details WhatsApp pe bhej rahi hoon. 🙏",
+    text: "Done! You're booked for 11:30 AM tomorrow. I've sent the details to your WhatsApp. 🙏",
   },
 ] as const;
 

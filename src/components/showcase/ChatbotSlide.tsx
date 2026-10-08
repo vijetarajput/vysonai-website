@@ -5,18 +5,15 @@ import { BrowserFrame, ChatRow, FloatCard, type SlideProps } from "@/components/
 
 // Sample conversation. "Patel Electronics" is a fictional shop.
 const messages = [
-  {
-    from: "customer",
-    text: "क्या आपके पास 1.5 टन का AC है? कीमत क्या है? कृपया हिंदी में जवाब दें।",
-  },
+  { from: "customer", text: "Do you have a 1.5 ton AC? What's the price?" },
   {
     from: "bot",
-    text: "जी हाँ! 1.5 टन AC ₹32,000 से शुरू होते हैं। आसान EMI भी उपलब्ध है। दुकान सुबह 10 से रात 9 बजे तक खुली है। 😊",
+    text: "Yes! Our 1.5 ton ACs start at ₹32,000, with easy EMI options. We're open 10 AM to 9 PM. 😊",
   },
-  { from: "customer", text: "क्या आज डेमो देख सकते हैं?" },
+  { from: "customer", text: "Can I see a demo today?" },
   {
     from: "bot",
-    text: "बिल्कुल! अपना नाम और नंबर बता दीजिए, हम आपको आज शाम 6 बजे का समय भेज देंगे।",
+    text: "Absolutely! Share your name and number, and we'll confirm a 6 PM slot for you.",
   },
 ] as const;
 
@@ -77,7 +74,7 @@ export default function ChatbotSlide({ active, live }: SlideProps) {
             </span>
           </div>
 
-          <div lang="hi" className="font-hindi flex min-h-0 flex-1 flex-col gap-2 overflow-hidden px-3 py-3">
+          <div className="flex min-h-0 flex-1 flex-col gap-1.5 overflow-hidden px-3 py-2.5">
             {messages.map((m, i) => {
               const outgoing = m.from === "customer";
               return (
@@ -94,7 +91,7 @@ export default function ChatbotSlide({ active, live }: SlideProps) {
                   }`}
                   typingClass={outgoing ? "bg-brand-violet/15" : "bg-violet-tint"}
                 >
-                  <p className="text-[12px] leading-[1.6] sm:text-[13px]">{m.text}</p>
+                  <p className="text-[12px] leading-[1.5] sm:text-[13px]">{m.text}</p>
                 </ChatRow>
               );
             })}

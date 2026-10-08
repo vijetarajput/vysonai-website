@@ -22,9 +22,6 @@
   --font-heading: var(--font-jakarta), var(--font-inter), ui-sans-serif,
     system-ui, sans-serif;
 
-  --font-hindi: var(--font-devanagari), var(--font-inter), ui-sans-serif, system-ui,
-    sans-serif;
-
   /* Home service cards switch from 2x2 to one row of 4 here (titles need ~240px per card) */
   --breakpoint-cards: 68.75rem; /* 1100px (rem so it sorts after sm/md/lg) */
 

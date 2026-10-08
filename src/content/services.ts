@@ -156,11 +156,11 @@ export const chatbot: ServiceContent = {
   earlyAccess: true,
   metaTitle: "AI Chatbot for Your Website: Answers & Captures Leads 24/7",
   metaDescription:
-    "An AI chatbot that answers customers from your own prices, timings and services in Hindi or English, saves every lead and hands over to you when unsure. Early Access.",
+    "An AI chatbot that answers customers from your own prices, timings and services in your customers' language, saves every lead and hands over to you when unsure. Early Access.",
   question: "Is your website losing customers at 11 PM?",
   h1: "A website that answers customers and captures leads, even at midnight.",
   subtext:
-    "An AI assistant that replies from your own prices, timings and services, in Hindi or English, and saves every lead for you.",
+    "An AI assistant that replies from your own prices, timings and services, in your customers' language, and saves every lead for you.",
   visual: "chatbot",
   interests: ["Chatbot"],
   before: [
@@ -170,7 +170,7 @@ export const chatbot: ServiceContent = {
   ],
   after: [
     "The chatbot answers from your own prices, timings and services, day and night.",
-    "It replies in Hindi or English, whichever the visitor uses.",
+    "It replies in your customers' language.",
     "It asks for a name and number, saves the lead, and hands over to you when it is unsure.",
   ],
   steps: [
@@ -215,7 +215,7 @@ export const chatbot: ServiceContent = {
   deliverables: [
     "An AI chatbot on your website",
     "Answers from your own prices, timings and services",
-    "Replies in Hindi and English",
+    "Replies in your customers' language",
     "Collects name and number and saves each lead",
     "Hands over to you when it is unsure",
     "Help updating the answers when your offers change",
@@ -227,7 +227,7 @@ export const chatbot: ServiceContent = {
     },
     {
       q: "Which languages does it speak?",
-      a: "Hindi and English. We test the answers in both languages with you before the chatbot goes live.",
+      a: "The language your customers use. We agree the languages with you and test the answers in each before the chatbot goes live.",
     },
     {
       q: "Will visitors know it is a chatbot?",
@@ -249,11 +249,11 @@ export const aiDashboard: ServiceContent = {
   slug: "ai-dashboard",
   metaTitle: "AI Dashboard: Ask Your Business a Question, Get the Answer",
   metaDescription:
-    "Sales, stock, customers and payments in one place. Ask in Hindi or English, get low-stock and payment alerts, and a weekly report every Monday. Built for small businesses in India.",
+    "Sales, stock, customers and payments in one place. Ask in your own language, get low-stock and payment alerts, and a weekly report every Monday. Built for small businesses in India.",
   question: "What if you could just ask your business a question?",
   h1: "Ask your business a question. Get the answer in seconds.",
   subtext:
-    "Sales, stock, customers and payments in one place. Ask in Hindi or English, and get alerts and a Monday report without having to check.",
+    "Sales, stock, customers and payments in one place. Ask in your own language, and get alerts and a Monday report without having to check.",
   visual: "dashboard",
   interests: ["Customer dashboard", "Weekly report"],
   before: [
@@ -326,7 +326,7 @@ export const aiDashboard: ServiceContent = {
   ],
   deliverables: [
     "One dashboard for sales, stock, customers and payments",
-    "Ask questions in Hindi or English",
+    "Ask questions in your own language",
     "Low-stock alerts",
     "Pending-payment alerts",
     "A report by email every Monday",
@@ -473,7 +473,7 @@ export const serviceCards: ServiceCardData[] = [
     href: "/services/chatbot",
     eyebrow: "AI Chatbot",
     title: chatbot.question,
-    reveal: "An AI assistant that replies in Hindi or English and saves every lead.",
+    reveal: "An AI assistant that replies in your customers' language and saves every lead.",
   },
   {
     slug: "ai-dashboard",

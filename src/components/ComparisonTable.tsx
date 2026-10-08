@@ -22,7 +22,7 @@ const rows = [
   {
     topic: "Sales and stock",
     manual: "Scattered in registers and Excel",
-    automated: "One dashboard, ask questions in Hindi or English",
+    automated: "One dashboard, ask questions in your own language",
   },
   {
     topic: "Your weekly picture",
