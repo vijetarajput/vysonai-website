@@ -42,7 +42,6 @@ export default function ServiceCard({
     <Link
       ref={ref}
       href={card.href}
-      data-accent={card.accent}
       data-play={play}
       className="sc group"
       onPointerEnter={(e) => e.pointerType === "mouse" && setPlay(true)}
@@ -54,13 +53,13 @@ export default function ServiceCard({
         {visual}
       </div>
 
-      <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.08em] text-brand-violet">
+      <p className="mt-3.5 text-[11px] font-bold uppercase tracking-[0.08em] text-brand-violet">
         {card.eyebrow}
       </p>
       <h3 className="mt-1.5 line-clamp-3 text-[20px] font-bold leading-[1.25]">{card.title}</h3>
-      <p className="sc-reveal mt-3 text-[13px] leading-snug text-muted-strong">{card.reveal}</p>
+      <p className="sc-reveal mt-2 text-[13px] leading-snug text-muted-strong">{card.reveal}</p>
 
-      <span className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold text-brand-violet">
+      <span className="mt-auto inline-flex items-center gap-1 pt-3 text-sm font-semibold text-brand-violet">
         See how it works
         <span className="sc-arrow" aria-hidden="true">
           &rarr;

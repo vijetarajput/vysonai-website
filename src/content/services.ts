@@ -455,7 +455,6 @@ export type ServiceCardData = {
   eyebrow: string;
   title: string;
   reveal: string;
-  accent: "blue" | "violet" | "magenta" | "indigo";
 };
 
 export const serviceCards: ServiceCardData[] = [
@@ -465,7 +464,6 @@ export const serviceCards: ServiceCardData[] = [
     eyebrow: "WhatsApp Automation",
     title: whatsappAutomation.question,
     reveal: "Reminders, follow-ups and renewals that run themselves.",
-    accent: "blue",
   },
   {
     slug: "chatbot",
@@ -473,7 +471,6 @@ export const serviceCards: ServiceCardData[] = [
     eyebrow: "AI Chatbot",
     title: chatbot.question,
     reveal: "An AI assistant that replies in Hindi or English and saves every lead.",
-    accent: "violet",
   },
   {
     slug: "ai-dashboard",
@@ -481,7 +478,6 @@ export const serviceCards: ServiceCardData[] = [
     eyebrow: "AI Dashboard",
     title: aiDashboard.question,
     reveal: "\"Which product sold most this week?\" Answer in seconds, plus stock alerts.",
-    accent: "magenta",
   },
   {
     slug: "ai-receptionist",
@@ -489,6 +485,5 @@ export const serviceCards: ServiceCardData[] = [
     eyebrow: "AI Receptionist",
     title: aiReceptionist.question,
     reveal: "An AI receptionist that answers 24/7 and books the appointment.",
-    accent: "indigo",
   },
 ];

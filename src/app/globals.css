@@ -313,82 +313,53 @@ body {
 
 /* ---------- Home service cards (components/ServiceCards) ---------- */
 .sc {
-  --ac: #7c3aed;
-  --tint: #f5f3ff;
-  --vis: #ede9fe;
   --loop: infinite;
   position: relative;
   display: flex;
   height: 100%;
   flex-direction: column;
-  border: 1px solid var(--color-border);
+  border: 1px solid #e5e7eb;
   border-radius: 1.5rem;
   background-color: #fff;
-  background-clip: padding-box;
   padding: 1.25rem;
   box-shadow: 0 2px 10px -4px rgb(31 41 55 / 0.08);
   transition:
     transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
     box-shadow 0.28s ease,
-    background-color 0.28s ease,
     border-color 0.28s ease;
 }
 
-.sc[data-accent="blue"] {
-  --ac: #2563eb;
-  --tint: #eff6ff;
-  --vis: #dbeafe;
-}
-.sc[data-accent="violet"] {
-  --ac: #7c3aed;
-  --tint: #f5f3ff;
-  --vis: #ede9fe;
-}
-.sc[data-accent="magenta"] {
-  --ac: #c026d3;
-  --tint: #fdf4ff;
-  --vis: #fae8ff;
-}
-.sc[data-accent="indigo"] {
-  --ac: #4f46e5;
-  --tint: #eef2ff;
-  --vis: #e0e7ff;
-}
-
-/* Thin brand-gradient border ring, faded in on hover / focus (the middle is masked out) */
-.sc::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  padding: 1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #c026d3 100%);
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#fff 0 0) content-box exclude,
-    linear-gradient(#fff 0 0);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.28s ease;
-}
-
+/* Hover / keyboard focus: lift, deeper shadow, solid violet border (1px + 0.5px ring = 1.5px) */
 .sc:focus-visible {
   outline: 2px solid #7c3aed;
   outline-offset: 4px;
-}
-
-.sc:focus-visible {
   transform: translateY(-6px);
-  border-color: transparent;
-  background-color: var(--tint);
-  box-shadow: 0 24px 44px -18px rgb(124 58 237 / 0.38);
+  border-color: #7c3aed;
+  box-shadow:
+    0 0 0 0.5px #7c3aed,
+    0 24px 44px -18px rgb(124 58 237 / 0.35);
 }
 
-.sc:focus-visible::before {
-  opacity: 1;
+.sc-visual {
+  position: relative;
+  height: 5rem;
+  overflow: hidden;
+  border: 1px solid #ede9fe;
+  border-radius: 0.875rem;
+  background-color: #f5f3ff;
+  transition: background-color 0.28s ease;
+}
+
+.sc:focus-visible .sc-visual {
+  background-color: #ede9fe;
+}
+
+.sc-reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease;
 }
 
 .sc:focus-visible .sc-reveal {
@@ -396,41 +367,25 @@ body {
   transform: none;
 }
 
-.sc:focus-visible .sc-arrow {
-  transform: translateX(4px);
-}
-
-.sc-visual {
-  position: relative;
-  height: 5rem;
-  overflow: hidden;
-  border-radius: 0.875rem;
-  background-color: var(--vis);
-}
-
-.sc-reveal {
-  min-height: 3.25rem;
-  opacity: 0;
-  transform: translateY(10px);
-  transition:
-    opacity 0.28s ease,
-    transform 0.28s ease;
-}
-
 .sc-arrow {
   display: inline-block;
   transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+.sc:focus-visible .sc-arrow {
+  transform: translateX(4px);
+}
+
 @media (hover: hover) {
   .sc:hover {
     transform: translateY(-6px);
-    border-color: transparent;
-    background-color: var(--tint);
-    box-shadow: 0 24px 44px -18px rgb(124 58 237 / 0.38);
+    border-color: #7c3aed;
+    box-shadow:
+      0 0 0 0.5px #7c3aed,
+      0 24px 44px -18px rgb(124 58 237 / 0.35);
   }
-  .sc:hover::before {
-    opacity: 1;
+  .sc:hover .sc-visual {
+    background-color: #ede9fe;
   }
   .sc:hover .sc-reveal {
     opacity: 1;
@@ -451,7 +406,6 @@ body {
     transform: none;
   }
 }
-
 /* Mini-visuals: the idle state is the finished picture; animations only run while data-play is set */
 @keyframes mv-pop {
   from {
@@ -466,10 +420,10 @@ body {
 
 @keyframes mv-tick {
   from {
-    color: #9ca3af;
+    color: rgb(255 255 255 / 0.45);
   }
   to {
-    color: #34b7f1;
+    color: #fff;
   }
 }
 
@@ -558,7 +512,6 @@ body {
 /* Less motion: nothing moves, the reveal line is always shown */
 @media (prefers-reduced-motion: reduce) {
   .sc,
-  .sc::before,
   .sc-reveal,
   .sc-arrow {
     transition: none;
