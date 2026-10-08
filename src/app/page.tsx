@@ -9,7 +9,7 @@ import JsonLd from "@/components/JsonLd";
 import ServiceCards from "@/components/ServiceCards";
 import { siteConfig } from "@/config/site";
 
-const title = "AI for Your Business | WhatsApp Automation, CRM & AI Receptionist";
+const title = "AI for Your Business | WhatsApp Automation, AI Dashboard & AI Receptionist";
 const description =
   "Automatic WhatsApp reminders, a 24/7 chatbot, customer records and an AI receptionist for gyms, clinics and local businesses in India. Get a free demo.";
 

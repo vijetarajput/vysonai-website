@@ -8,7 +8,7 @@ import { siteConfig } from "@/config/site";
  */
 export default function FloatingWhatsApp() {
   return (
-    <div className="group fixed bottom-4 right-4 z-40 sm:bottom-6 sm:right-6">
+    <div data-floating-wa className="group fixed bottom-4 right-4 z-40 sm:bottom-6 sm:right-6">
       <span
         role="tooltip"
         className="pointer-events-none absolute right-full top-1/2 mr-3 -translate-y-1/2 whitespace-nowrap rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-medium text-charcoal opacity-0 shadow-soft transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"

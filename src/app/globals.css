@@ -25,6 +25,9 @@
   --font-hindi: var(--font-devanagari), var(--font-inter), ui-sans-serif, system-ui,
     sans-serif;
 
+  /* Home service cards switch from 2x2 to one row of 4 here (titles need ~240px per card) */
+  --breakpoint-cards: 68.75rem; /* 1100px (rem so it sorts after sm/md/lg) */
+
   --shadow-soft: 0 4px 24px -6px rgb(31 41 55 / 0.1);
 
   /* Brand gradient - use sparingly: final CTA band, hero glow, thin accent lines */
@@ -305,5 +308,287 @@ body {
   }
   .vy-clip {
     clip-path: none;
+  }
+}
+
+/* ---------- Home service cards (components/ServiceCards) ---------- */
+.sc {
+  --ac: #7c3aed;
+  --tint: #f5f3ff;
+  --vis: #ede9fe;
+  --loop: infinite;
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: 1.5rem;
+  background-color: #fff;
+  background-clip: padding-box;
+  padding: 1.25rem;
+  box-shadow: 0 2px 10px -4px rgb(31 41 55 / 0.08);
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.28s ease,
+    background-color 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.sc[data-accent="blue"] {
+  --ac: #2563eb;
+  --tint: #eff6ff;
+  --vis: #dbeafe;
+}
+.sc[data-accent="violet"] {
+  --ac: #7c3aed;
+  --tint: #f5f3ff;
+  --vis: #ede9fe;
+}
+.sc[data-accent="magenta"] {
+  --ac: #c026d3;
+  --tint: #fdf4ff;
+  --vis: #fae8ff;
+}
+.sc[data-accent="indigo"] {
+  --ac: #4f46e5;
+  --tint: #eef2ff;
+  --vis: #e0e7ff;
+}
+
+/* Thin brand-gradient border ring, faded in on hover / focus (the middle is masked out) */
+.sc::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #c026d3 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box exclude,
+    linear-gradient(#fff 0 0);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.sc:focus-visible {
+  outline: 2px solid #7c3aed;
+  outline-offset: 4px;
+}
+
+.sc:focus-visible {
+  transform: translateY(-6px);
+  border-color: transparent;
+  background-color: var(--tint);
+  box-shadow: 0 24px 44px -18px rgb(124 58 237 / 0.38);
+}
+
+.sc:focus-visible::before {
+  opacity: 1;
+}
+
+.sc:focus-visible .sc-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.sc:focus-visible .sc-arrow {
+  transform: translateX(4px);
+}
+
+.sc-visual {
+  position: relative;
+  height: 5rem;
+  overflow: hidden;
+  border-radius: 0.875rem;
+  background-color: var(--vis);
+}
+
+.sc-reveal {
+  min-height: 3.25rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease;
+}
+
+.sc-arrow {
+  display: inline-block;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (hover: hover) {
+  .sc:hover {
+    transform: translateY(-6px);
+    border-color: transparent;
+    background-color: var(--tint);
+    box-shadow: 0 24px 44px -18px rgb(124 58 237 / 0.38);
+  }
+  .sc:hover::before {
+    opacity: 1;
+  }
+  .sc:hover .sc-reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .sc:hover .sc-arrow {
+    transform: translateX(4px);
+  }
+}
+
+/* Touch: no hover, so the reveal line is always visible and visuals play once when in view */
+@media (hover: none) {
+  .sc {
+    --loop: 2;
+  }
+  .sc-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Mini-visuals: the idle state is the finished picture; animations only run while data-play is set */
+@keyframes mv-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes mv-tick {
+  from {
+    color: #9ca3af;
+  }
+  to {
+    color: #34b7f1;
+  }
+}
+
+@keyframes mv-type {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes mv-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes mv-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes mv-bar {
+  from {
+    transform: scaleY(0.25);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.mv-dot {
+  opacity: 0.6;
+}
+
+.mv-bar {
+  transform: scaleY(var(--h, 0.7));
+}
+
+.mv-spark {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.sc[data-play="true"] .mv-pop {
+  animation: mv-pop 0.45s cubic-bezier(0.2, 1.3, 0.3, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.sc[data-play="true"] .mv-tick {
+  animation: mv-tick 0.3s ease both;
+  animation-delay: 1.1s;
+}
+
+.sc[data-play="true"] .mv-type {
+  animation: mv-type 1.3s steps(24, end) 0.15s both;
+}
+
+.sc[data-play="true"] .mv-spark {
+  animation: mv-draw 1.1s ease-out 0.9s both;
+}
+
+.sc[data-play="true"] .mv-dot {
+  animation: vy-dot 1s ease-in-out var(--loop);
+  animation-delay: var(--d, 0ms);
+}
+
+.sc[data-play="true"] .mv-bob {
+  animation: mv-bob 1.6s ease-in-out var(--loop);
+}
+
+.sc[data-play="true"] .mv-bar {
+  animation: mv-bar 0.7s ease-in-out var(--loop) alternate;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Less motion: nothing moves, the reveal line is always shown */
+@media (prefers-reduced-motion: reduce) {
+  .sc,
+  .sc::before,
+  .sc-reveal,
+  .sc-arrow {
+    transition: none;
+  }
+  .sc:hover,
+  .sc:focus-visible,
+  .sc:focus-visible .sc-reveal,
+  .sc:hover .sc-reveal,
+  .sc:hover .sc-arrow,
+  .sc:focus-visible .sc-arrow {
+    transform: none;
+  }
+  .sc-reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .sc[data-play="true"] .mv-pop,
+  .sc[data-play="true"] .mv-tick,
+  .sc[data-play="true"] .mv-type,
+  .sc[data-play="true"] .mv-spark,
+  .sc[data-play="true"] .mv-dot,
+  .sc[data-play="true"] .mv-bob,
+  .sc[data-play="true"] .mv-bar {
+    animation: none;
+  }
+}
+
+/* On service pages the sticky mobile bar replaces the floating WhatsApp button */
+@media (max-width: 767px) {
+  body:has([data-sticky-bar]) [data-floating-wa] {
+    display: none;
   }
 }

@@ -22,6 +22,8 @@ type Props = {
   layout: "modal" | "inline";
   /** Preselects a business and starts on step 2. */
   initialBusiness?: BusinessType;
+  /** Preselects "What do you want to automate?" chips. */
+  initialInterests?: Interest[];
   onClose?: () => void;
 };
 
@@ -57,7 +59,7 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-export default function LeadFlow({ layout, initialBusiness, onClose }: Props) {
+export default function LeadFlow({ layout, initialBusiness, initialInterests, onClose }: Props) {
   const uid = useId();
   const id = (name: string) => `${uid}-${name}`;
 
@@ -65,7 +67,7 @@ export default function LeadFlow({ layout, initialBusiness, onClose }: Props) {
   const [business, setBusiness] = useState<BusinessType | "">(initialBusiness ?? "");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [interests, setInterests] = useState<Interest[]>([]);
+  const [interests, setInterests] = useState<Interest[]>(initialInterests ?? []);
   const [consent, setConsent] = useState(false);
   const [touched, setTouched] = useState<Partial<Record<LeadField, boolean>>>({});
   const [serverErrors, setServerErrors] = useState<LeadErrors>({});

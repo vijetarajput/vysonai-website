@@ -1,121 +1,46 @@
-import Link from "next/link";
-import type { ReactNode } from "react";
+import ServiceCard from "@/components/ServiceCard";
+import ServiceMiniVisual from "@/components/ServiceMiniVisuals";
+import DemoButton from "@/components/lead/DemoButton";
+import { serviceCards } from "@/content/services";
 
-type Service = {
-  title: string;
-  benefit: string;
-  href: string;
-  icon: ReactNode;
-};
-
-function Icon({ children }: { children: ReactNode }) {
-  return (
-    <svg
-      width="26"
-      height="26"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {children}
-    </svg>
-  );
-}
-
-const services: Service[] = [
-  {
-    title: "Automatic WhatsApp Reminders",
-    benefit:
-      "Your customers get reminders on WhatsApp automatically. No calls, no follow-up stress.",
-    href: "/solutions",
-    icon: (
-      <Icon>
-        <path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
-        <path d="M13.7 21a2 2 0 01-3.4 0" />
-      </Icon>
-    ),
-  },
-  {
-    title: "Website + 24/7 Chatbot",
-    benefit:
-      "A chatbot that answers your customers day and night, using your own prices, timings and services.",
-    href: "/services/chatbot",
-    icon: (
-      <Icon>
-        <path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.4A8 8 0 1121 12z" />
-        <path d="M9 11h6M9 14h4" />
-      </Icon>
-    ),
-  },
-  {
-    title: "Customer Dashboard + Weekly Report",
-    benefit:
-      "All your customers in one place, and a simple report in your email every Monday.",
-    href: "/services/crm",
-    icon: (
-      <Icon>
-        <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
-      </Icon>
-    ),
-  },
-  {
-    title: "24/7 AI Receptionist",
-    benefit:
-      "Never miss a call. Our AI picks up, answers questions and books appointments.",
-    href: "/services/ai-receptionist",
-    icon: (
-      <Icon>
-        <path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z" />
-      </Icon>
-    ),
-  },
-];
-
+/**
+ * Home page services section: four small, curiosity-driven cards that lead to the
+ * service pages, plus a slim strip for visitors who are not sure which one fits.
+ * Desktop: one row of 4. Tablet: 2x2. Mobile: a swipeable row with the next card peeking.
+ */
 export default function ServiceCards() {
   return (
-    <section className="bg-violet-tint">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-        <div className="text-center">
-          <h2>How we can help your business</h2>
-          <p className="measure mx-auto mt-3 text-muted-strong">
-            Simple tools that save you time and bring customers back.
-          </p>
+    <>
+      <section className="bg-white">
+        <div className="mx-auto max-w-6xl px-4 pb-8 pt-16 sm:px-6 sm:pt-20 sm:pb-12">
+          <div className="text-center">
+            <h2>Where is your business losing time and money?</h2>
+            <p className="measure mx-auto mt-3 text-muted-strong">
+              Tap a card to see how it works for a business like yours.
+            </p>
+          </div>
+
+          <ul className="-mx-4 mt-8 flex snap-x snap-mandatory scroll-pl-4 gap-4 overflow-x-auto px-4 pb-6 pt-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-2 cards:grid-cols-4 [&::-webkit-scrollbar]:hidden">
+            {serviceCards.map((card) => (
+              <li key={card.slug} className="w-[272px] shrink-0 snap-start sm:w-auto">
+                <ServiceCard card={card} visual={<ServiceMiniVisual slug={card.slug} />} />
+              </li>
+            ))}
+          </ul>
         </div>
+      </section>
 
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2 sm:gap-6">
-          {services.map((service) => (
-            <li key={service.title}>
-              <Link
-                href={service.href}
-                className="group flex h-full flex-col rounded-3xl border border-border bg-white p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-brand-violet sm:p-8"
-              >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-tint text-brand-violet">
-                  {service.icon}
-                </span>
-                <h3 className="mt-5">{service.title}</h3>
-                <p className="mt-2 flex-1 leading-relaxed text-muted-strong">
-                  {service.benefit}
-                </p>
-                <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-blue group-hover:underline group-hover:decoration-1 group-hover:underline-offset-4">
-                  Learn more
-                  <span aria-hidden="true">&rarr;</span>
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-8 text-center text-sm text-muted-strong">
-          Want to automate something else?{" "}
-          <Link href="/contact" className="link-brand font-semibold">
-            Talk to us
-          </Link>
-        </p>
-      </div>
-    </section>
+      {/* Slim strip for visitors who are not sure */}
+      <section className="border-y border-brand-violet/10 bg-violet-tint">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-3 px-4 py-5 text-center sm:flex-row sm:gap-6 sm:px-6">
+          <p className="font-heading text-lg font-bold text-charcoal">
+            Not sure which one fits your business?
+          </p>
+          <DemoButton className="inline-flex items-center justify-center rounded-full bg-brand-violet px-6 py-2.5 text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark">
+            Book a free 15-minute call
+          </DemoButton>
+        </div>
+      </section>
+    </>
   );
 }

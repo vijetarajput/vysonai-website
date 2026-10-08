@@ -1,19 +1,53 @@
-import type { Card, FaqItem } from "@/content/industry";
+import type { FaqItem } from "@/content/industry";
+import type { Interest } from "@/lib/lead";
+
+export type IconName =
+  | "chat"
+  | "clipboard"
+  | "cog"
+  | "bolt"
+  | "bell"
+  | "chart"
+  | "phone"
+  | "calendar"
+  | "mail"
+  | "dumbbell"
+  | "clinic"
+  | "bag"
+  | "book"
+  | "globe"
+  | "search";
+
+export type ServiceSlug =
+  | "whatsapp-automation"
+  | "chatbot"
+  | "ai-dashboard"
+  | "ai-receptionist";
+
+export type ServiceStep = { icon: IconName; title: string; text: string };
+export type ServiceIndustry = { name: string; icon: IconName; text: string };
 
 export type ServiceContent = {
-  slug: "crm" | "chatbot" | "ai-receptionist";
+  slug: ServiceSlug;
   /** Shows an "Early Access" badge next to the page heading. */
   earlyAccess?: boolean;
   metaTitle: string;
   metaDescription: string;
+  /** The home-card question, shown as a small eyebrow above the H1. */
+  question: string;
   h1: string;
   subtext: string;
-  problem: Card;
-  includedTitle: string;
-  included: Card[];
-  stepsTitle: string;
-  steps: Card[];
-  bestFor: string[];
+  /** Hero visual: the same scene as the matching home hero slide. */
+  visual: "whatsapp" | "dashboard" | "chatbot" | "receptionist";
+  /** Preselected in the demo form when opened from this page. */
+  interests: Interest[];
+  before: string[];
+  after: string[];
+  /** Optional "normal vs AI" comparison (AI Dashboard only). */
+  comparison?: { title: string; normalLabel: string; aiLabel: string; rows: { normal: string; ai: string }[] };
+  steps: ServiceStep[];
+  industries: ServiceIndustry[];
+  deliverables: string[];
   faqs: FaqItem[];
   ctaHeading: string;
 };
@@ -21,248 +55,440 @@ export type ServiceContent = {
 const earlyAccessNote =
   "Early Access means we are opening this service to a small number of businesses first, so we can set it up with you and improve it together.";
 
-export const crm: ServiceContent = {
-  slug: "crm",
-  metaTitle: "Customer Dashboard & Weekly Report for Small Businesses",
+export const whatsappAutomation: ServiceContent = {
+  slug: "whatsapp-automation",
+  metaTitle: "WhatsApp Automation: Reminders, Renewals & Follow-ups",
   metaDescription:
-    "Keep all your customers in one simple dashboard and get a weekly report in your email every Monday. Built for gyms, clinics and local businesses in India.",
-  h1: "All Your Customers in One Place, Plus a Weekly Report in Your Email",
+    "Instant replies, reminders, renewals and follow-ups on WhatsApp, sent automatically through the official WhatsApp Business API. Built for gyms, clinics and local businesses in India.",
+  question: "What if every customer got a reply in 2 seconds?",
+  h1: "Your customers get instant replies, reminders and follow-ups, automatically.",
   subtext:
-    "No more registers, phone contacts and Excel sheets. See who your customers are and who needs a follow-up, in one simple dashboard.",
-  problem: {
-    title: "Customer details are scattered everywhere",
-    text: "Names are in a register, numbers are in your phone and dates are in Excel. It is hard to know who is due for a visit, who stopped coming and who needs a call. So follow-ups get missed.",
-  },
-  includedTitle: "What is included",
-  included: [
-    {
-      title: "Simple customer dashboard",
-      text: "Every customer in one place, with their name, contact and visit or membership dates.",
-    },
-    {
-      title: "Reminders and follow-ups connected",
-      text: "WhatsApp reminders use the same dashboard, so the right customer gets the right message at the right time.",
-    },
-    {
-      title: "Weekly report every Monday",
-      text: "A short email with what happened last week and who needs your attention.",
-    },
-    {
-      title: "We move your old records",
-      text: "Share your Excel sheet or register and we set up your first list for you.",
-    },
-    {
-      title: "Monthly support",
-      text: "After launch, we stay available to fix issues and make small changes.",
-    },
+    "Built on the official WhatsApp Business API, so reminders, renewals and follow-ups go out on time without you or your staff typing them one by one.",
+  visual: "whatsapp",
+  interests: ["Reminders", "Follow-ups"],
+  before: [
+    "You or your staff type reminders one by one, whenever you remember.",
+    "Renewals and follow-ups slip through the cracks on busy days.",
+    "Customers who message after closing time wait until morning for a reply.",
   ],
-  stepsTitle: "How it works",
+  after: [
+    "Reminders and renewal messages go out on schedule, on their own.",
+    "Every new enquiry gets a welcome message and a follow-up, so nobody is forgotten.",
+    "Customers get an instant first reply, even late at night.",
+  ],
   steps: [
     {
-      title: "Share your customer list",
-      text: "Send us your Excel sheet, or photos of your register.",
+      icon: "clipboard",
+      title: "Tell us your routine",
+      text: "Share who you message, when, and what you usually say today.",
     },
     {
-      title: "We set up your dashboard",
-      text: "We organise your records and build a dashboard made for your business.",
+      icon: "cog",
+      title: "We set up your messages",
+      text: "We connect the official WhatsApp Business API and prepare your message templates for approval.",
     },
     {
-      title: "You use it every day",
-      text: "Add or update customers in a few taps. Reminders and follow-ups use the same data.",
-    },
-    {
-      title: "Report arrives on Monday",
-      text: "You get a simple weekly email, so you always know where your business stands.",
+      icon: "bolt",
+      title: "Messages run themselves",
+      text: "Reminders, renewals and follow-ups go out automatically. You can see what was sent.",
     },
   ],
-  bestFor: [
-    "Gyms and fitness studios",
-    "Clinics and small hospitals",
-    "Salons and spas",
-    "Coaching classes and tuition centres",
-    "Any business with repeat customers",
+  industries: [
+    {
+      name: "Gym",
+      icon: "dumbbell",
+      text: "A renewal reminder goes out a few days before a membership ends, with an easy way to reply.",
+    },
+    {
+      name: "Clinic",
+      icon: "clinic",
+      text: "Patients get an appointment reminder the day before, so they remember to come.",
+    },
+    {
+      name: "Retail store",
+      icon: "bag",
+      text: "Customers who opted in hear about a new arrival or a festival offer.",
+    },
+    {
+      name: "Coaching",
+      icon: "book",
+      text: "Fee reminders and class timing changes reach every parent at once.",
+    },
+  ],
+  deliverables: [
+    "Setup on the official WhatsApp Business API",
+    "Reminders and renewal messages on your schedule",
+    "Follow-up messages for every new enquiry",
+    "A welcome message for every new customer",
+    "Broadcasts, only to customers who opted in",
+    "Review requests: every customer gets your review link",
   ],
   faqs: [
     {
-      q: "Do I need technical knowledge?",
-      a: "No. We set everything up for you. You only use a simple dashboard.",
+      q: "Is this the official WhatsApp Business API?",
+      a: "Yes. We use the official WhatsApp Business API. Message templates are approved by WhatsApp before we use them.",
     },
     {
-      q: "Can I bring my existing Excel data?",
-      a: "Yes. Share your sheet and we import it for you during setup.",
+      q: "Will my customers get messages they did not ask for?",
+      a: "No. Broadcasts go only to customers who agreed to receive messages (opt-in), and they can ask to stop at any time.",
     },
     {
-      q: "Who can see my customer data?",
-      a: "Only the people you choose. We use customer details only to run the service you ask for.",
+      q: "Can customers reply to the messages?",
+      a: "Yes. Customers can reply whenever they like. During setup we decide together what is answered automatically and what comes to you.",
     },
     {
-      q: "What does the weekly report include?",
-      a: "It is a short email with the main numbers for your business. We agree on what to include with you during the demo.",
+      q: "Do I have to change my WhatsApp number?",
+      a: "We confirm the best setup for your number during the demo. A number on the Business API works differently from the normal WhatsApp app, and we explain your options before anything changes.",
+    },
+    {
+      q: "How do review requests work?",
+      a: "After a visit or purchase, every customer receives the same message with your review link. We never filter out unhappy customers.",
     },
   ],
-  ctaHeading: "See a demo with your own kind of customers",
+  ctaHeading: "Ready for WhatsApp that runs itself?",
 };
 
 export const chatbot: ServiceContent = {
   slug: "chatbot",
   earlyAccess: true,
-  metaTitle: "24/7 Website & WhatsApp Chatbot for Your Business",
+  metaTitle: "AI Chatbot for Your Website: Answers & Captures Leads 24/7",
   metaDescription:
-    "A chatbot that answers your customers' questions day and night, using your own prices, timings and services. Early Access for small businesses in India.",
-  h1: "A Chatbot That Answers Your Customers 24/7",
+    "An AI chatbot that answers customers from your own prices, timings and services in Hindi or English, saves every lead and hands over to you when unsure. Early Access.",
+  question: "Is your website losing customers at 11 PM?",
+  h1: "A website that answers customers and captures leads, even at midnight.",
   subtext:
-    "Customers ask about prices, timings and services at all hours. The chatbot replies using the information you give us, and passes real conversations to you.",
-  problem: {
-    title: "Customers ask, and nobody answers in time",
-    text: "People message late at night or while you are busy. The same questions come again and again. If nobody replies quickly, many of them go to someone else.",
-  },
-  includedTitle: "What is included",
-  included: [
-    {
-      title: "Answers from your own information",
-      text: "Your prices, timings, services and location, set up by us with you.",
-    },
-    {
-      title: "On your website and WhatsApp",
-      text: "Customers can ask questions where it is easiest for them.",
-    },
-    {
-      title: "Collects customer details",
-      text: "When someone is interested, the chatbot asks for their name and number and saves it in your dashboard.",
-    },
-    {
-      title: "Hands over to you",
-      text: "When a question needs a person, you are notified and can reply yourself.",
-    },
-    {
-      title: "Monthly support",
-      text: "We update answers when your prices or timings change.",
-    },
+    "An AI assistant that replies from your own prices, timings and services, in Hindi or English, and saves every lead for you.",
+  visual: "chatbot",
+  interests: ["Chatbot"],
+  before: [
+    "Visitors with a question leave when nobody is around to answer.",
+    "You repeat the same price and timing answers all day.",
+    "Enquiries arrive as scattered messages, and some are never noted down.",
   ],
-  stepsTitle: "How it works",
+  after: [
+    "The chatbot answers from your own prices, timings and services, day and night.",
+    "It replies in Hindi or English, whichever the visitor uses.",
+    "It asks for a name and number, saves the lead, and hands over to you when it is unsure.",
+  ],
   steps: [
     {
-      title: "You tell us about your business",
-      text: "Share your prices, timings, services and common questions.",
+      icon: "clipboard",
+      title: "Share your business details",
+      text: "Send us your prices, timings, services and the questions customers ask most.",
     },
     {
-      title: "We set up the chatbot",
-      text: "We prepare the answers and test them with you before it goes live.",
+      icon: "globe",
+      title: "We build and test it with you",
+      text: "We set up the answers, add the chatbot to your website, and you check it before it goes live.",
     },
     {
-      title: "It replies to your customers",
-      text: "Customers get quick answers, day and night.",
-    },
-    {
-      title: "You follow up on interested people",
-      text: "New enquiries land in your dashboard so you can contact them.",
+      icon: "chat",
+      title: "It talks, you follow up",
+      text: "Leads are saved for you. When it is unsure, it tells the visitor you will reply personally.",
     },
   ],
-  bestFor: [
-    "Gyms with questions about plans and timings",
-    "Clinics with questions about doctors and appointments",
-    "Salons and coaching classes",
-    "Businesses that get many repeat questions",
+  industries: [
+    {
+      name: "Gym",
+      icon: "dumbbell",
+      text: "Answers questions about plans, timings and trial classes, and takes the visitor's number.",
+    },
+    {
+      name: "Clinic",
+      icon: "clinic",
+      text: "Shares doctor timings and the clinic address, and collects appointment requests.",
+    },
+    {
+      name: "Retail store",
+      icon: "bag",
+      text: "Answers price and availability questions from the product list you share.",
+    },
+    {
+      name: "Coaching",
+      icon: "book",
+      text: "Explains batches and fees, and saves every parent's enquiry.",
+    },
+  ],
+  deliverables: [
+    "An AI chatbot on your website",
+    "Answers from your own prices, timings and services",
+    "Replies in Hindi and English",
+    "Collects name and number and saves each lead",
+    "Hands over to you when it is unsure",
+    "Help updating the answers when your offers change",
   ],
   faqs: [
     {
-      q: "What if it doesn't know the answer?",
-      a: "It only answers from the information you give us. If it is not sure, it tells the customer that the team will reply, and you are notified so you can answer personally.",
+      q: "What if the chatbot does not know the answer?",
+      a: "It does not guess. It tells the visitor you will get back to them, and saves their name and number so you can follow up.",
     },
     {
-      q: "Will customers know it is a chatbot?",
-      a: "Yes. We do not pretend it is a person.",
+      q: "Which languages does it speak?",
+      a: "Hindi and English. We test the answers in both languages with you before the chatbot goes live.",
+    },
+    {
+      q: "Will visitors know it is a chatbot?",
+      a: "Yes. It introduces itself as an assistant for your business, so nobody is misled.",
     },
     {
       q: "Can I change the answers later?",
-      a: "Yes. Tell us what changed and we update it, or we show you how to do it yourself.",
+      a: "Yes. When your prices, timings or services change, tell us and we update the answers.",
     },
     {
       q: "What does Early Access mean?",
       a: earlyAccessNote,
     },
   ],
-  ctaHeading: "Want to try the chatbot for your business?",
+  ctaHeading: "Want a website that answers while you sleep?",
+};
+
+export const aiDashboard: ServiceContent = {
+  slug: "ai-dashboard",
+  metaTitle: "AI Dashboard: Ask Your Business a Question, Get the Answer",
+  metaDescription:
+    "Sales, stock, customers and payments in one place. Ask in Hindi or English, get low-stock and payment alerts, and a weekly report every Monday. Built for small businesses in India.",
+  question: "What if you could just ask your business a question?",
+  h1: "Ask your business a question. Get the answer in seconds.",
+  subtext:
+    "Sales, stock, customers and payments in one place. Ask in Hindi or English, and get alerts and a Monday report without having to check.",
+  visual: "dashboard",
+  interests: ["Customer dashboard", "Weekly report"],
+  before: [
+    "Sales are in one register, stock in another, and payments in your head.",
+    "To find your best-selling product, you add up bills by hand.",
+    "You find out an item is out of stock when a customer asks for it.",
+  ],
+  after: [
+    "Sales, stock, customers and payments sit together in one dashboard.",
+    "You type \"Which product sold most this week?\" and get the answer.",
+    "Low-stock and pending-payment alerts reach you before they become a problem.",
+  ],
+  comparison: {
+    title: "How is it different from a normal dashboard?",
+    normalLabel: "Normal dashboard",
+    aiLabel: "AI dashboard",
+    rows: [
+      {
+        normal: "You search through charts to find what you need.",
+        ai: "You just ask, and get the answer.",
+      },
+      {
+        normal: "It shows you numbers only.",
+        ai: "It also tells you what needs attention, like low stock and pending payments.",
+      },
+      {
+        normal: "You check it when you remember.",
+        ai: "A weekly report and alerts come to you.",
+      },
+    ],
+  },
+  steps: [
+    {
+      icon: "clipboard",
+      title: "Share what you track today",
+      text: "Excel sheets, registers or a billing app. Whatever you use now is the starting point.",
+    },
+    {
+      icon: "chart",
+      title: "We build your dashboard",
+      text: "We bring your sales, stock, customers and payments into one place and test the questions you care about.",
+    },
+    {
+      icon: "search",
+      title: "Ask, get alerts, read the report",
+      text: "Ask questions any time. Alerts and a Monday report arrive without you checking.",
+    },
+  ],
+  industries: [
+    {
+      name: "Gym",
+      icon: "dumbbell",
+      text: "See who is due to renew and how many new members joined this week.",
+    },
+    {
+      name: "Clinic",
+      icon: "clinic",
+      text: "Track appointments and pending payments in one view.",
+    },
+    {
+      name: "Retail store",
+      icon: "bag",
+      text: "Ask which product sold most this week and which items are running low.",
+    },
+    {
+      name: "Coaching",
+      icon: "book",
+      text: "See whose fees are pending and which batches are full.",
+    },
+  ],
+  deliverables: [
+    "One dashboard for sales, stock, customers and payments",
+    "Ask questions in Hindi or English",
+    "Low-stock alerts",
+    "Pending-payment alerts",
+    "A report by email every Monday",
+    "Help moving your existing sheets and records in",
+  ],
+  faqs: [
+    {
+      q: "Do I need any technical knowledge?",
+      a: "No. If you can send a WhatsApp message, you can ask the dashboard a question. We do the setup for you.",
+    },
+    {
+      q: "Can I bring my existing Excel sheets?",
+      a: "Yes. We help you move your current sheets and records into the dashboard, so you do not have to start over.",
+    },
+    {
+      q: "Is the AI always right?",
+      a: "It answers from your own data. We test the questions you care about with you before launch, and you can always check the numbers on the dashboard itself.",
+    },
+    {
+      q: "What is in the Monday report?",
+      a: "A short summary of the week: sales, what sold most, low stock and pending payments. We shape it with you during setup.",
+    },
+    {
+      q: "Who can see my business data?",
+      a: "Only the people you choose. We explain how your data is stored and who has access during the demo.",
+    },
+  ],
+  ctaHeading: "Want to see your whole business on one screen?",
 };
 
 export const aiReceptionist: ServiceContent = {
   slug: "ai-receptionist",
   earlyAccess: true,
-  metaTitle: "24/7 AI Receptionist That Answers Your Calls",
+  metaTitle: "AI Receptionist: Answer Every Call and Book Appointments",
   metaDescription:
-    "An AI receptionist that picks up calls, answers common questions and books appointments for your business. Early Access for small businesses in India.",
-  h1: "Never Miss a Call Again",
+    "An AI receptionist that answers calls 24/7, answers common questions, books appointments, sends you a call summary and transfers to a person when needed. Early Access.",
+  question: "How many calls did you miss last week?",
+  h1: "Every call answered. Every appointment booked.",
   subtext:
-    "When you are busy or the office is closed, our AI receptionist picks up, answers common questions and books appointments for you.",
-  problem: {
-    title: "Missed calls are missed customers",
-    text: "Your team cannot answer every call. Callers who do not get an answer often call someone else, and you may never know they tried.",
-  },
-  includedTitle: "What is included",
-  included: [
-    {
-      title: "Answers your calls",
-      text: "It picks up when you are busy or the office is closed.",
-    },
-    {
-      title: "Answers common questions",
-      text: "Prices, timings, location and services, from the information you give us.",
-    },
-    {
-      title: "Books appointments",
-      text: "Bookings go into your dashboard, and the caller gets a WhatsApp confirmation.",
-    },
-    {
-      title: "Tells you what happened",
-      text: "You get a short summary of each call, so you can follow up when needed.",
-    },
-    {
-      title: "Monthly support",
-      text: "We adjust answers and fix issues after launch.",
-    },
+    "An AI receptionist that picks up 24/7, answers common questions, books the appointment and tells you what happened.",
+  visual: "receptionist",
+  interests: ["AI receptionist"],
+  before: [
+    "Calls go unanswered when you are with a customer or the office is closed.",
+    "Callers who cannot get through often call someone else.",
+    "Booking by phone means writing it down and hoping nothing is missed.",
   ],
-  stepsTitle: "How it works",
+  after: [
+    "Every call is picked up, day or night.",
+    "Common questions are answered and the appointment is booked on the call.",
+    "You get a short summary of each call, and a person can take over when needed.",
+  ],
   steps: [
     {
-      title: "You tell us how you take calls",
-      text: "Share your timings, services and the questions callers ask most.",
+      icon: "clipboard",
+      title: "Tell us how you take calls",
+      text: "Share your timings, services, booking rules and the questions callers usually ask.",
     },
     {
-      title: "We set up your receptionist",
-      text: "We prepare it and test it with you before any real caller hears it.",
+      icon: "cog",
+      title: "We set up and test it with you",
+      text: "We prepare the receptionist, and you call it yourself to check it before it goes live.",
     },
     {
-      title: "It answers and books",
-      text: "Callers get answers and can book a time right away.",
-    },
-    {
-      title: "You see every call",
-      text: "A summary of each call is saved in your dashboard.",
+      icon: "phone",
+      title: "It answers, books and reports",
+      text: "Calls are answered, appointments are booked, and you receive a summary of each call.",
     },
   ],
-  bestFor: [
-    "Clinics that get many appointment calls",
-    "Salons and spas that are busy with customers",
-    "Gyms and coaching classes with enquiry calls",
-    "Any business that misses calls after hours",
+  industries: [
+    {
+      name: "Gym",
+      icon: "dumbbell",
+      text: "Answers questions about plans and timings, and books a trial visit.",
+    },
+    {
+      name: "Clinic",
+      icon: "clinic",
+      text: "Books appointments and shares doctor timings while the front desk is busy.",
+    },
+    {
+      name: "Retail store",
+      icon: "bag",
+      text: "Shares opening hours and the address, and takes a message for the owner.",
+    },
+    {
+      name: "Coaching",
+      icon: "book",
+      text: "Handles admission enquiries and books a counselling call.",
+    },
+  ],
+  deliverables: [
+    "Calls answered 24/7",
+    "Answers to common questions, from your own information",
+    "Appointment booking",
+    "A call summary sent to you",
+    "Transfer to a person when needed",
+    "Help updating the receptionist when things change",
   ],
   faqs: [
     {
-      q: "Which languages does it support?",
+      q: "Which languages does the AI receptionist speak?",
       a: "We confirm language support for your business during the demo.",
     },
     {
-      q: "Does it replace my staff?",
-      a: "No. It helps when your staff cannot pick up. Your team still handles the conversations that need a person.",
+      q: "Will callers know they are speaking to an AI?",
+      a: "Yes. The receptionist introduces itself as an assistant for your business, so nobody is misled.",
     },
     {
-      q: "What if the caller wants to talk to a person?",
-      a: "We set up what should happen in that case, for example taking a message so you can call back.",
+      q: "What if a caller needs a real person?",
+      a: "We set this up with you. The call can be transferred to you or your staff, or the receptionist can take a message.",
+    },
+    {
+      q: "Does it replace my staff?",
+      a: "No. It handles the routine calls and bookings so your team can focus on the customers in front of them.",
     },
     {
       q: "What does Early Access mean?",
       a: earlyAccessNote,
     },
   ],
-  ctaHeading: "Want to try the AI receptionist?",
+  ctaHeading: "Want to stop missing calls?",
 };
+
+/** Cards on the home page that lead to each service page. */
+export type ServiceCardData = {
+  slug: ServiceSlug;
+  href: string;
+  eyebrow: string;
+  title: string;
+  reveal: string;
+  accent: "blue" | "violet" | "magenta" | "indigo";
+};
+
+export const serviceCards: ServiceCardData[] = [
+  {
+    slug: "whatsapp-automation",
+    href: "/services/whatsapp-automation",
+    eyebrow: "WhatsApp Automation",
+    title: whatsappAutomation.question,
+    reveal: "Reminders, follow-ups and renewals that run themselves.",
+    accent: "blue",
+  },
+  {
+    slug: "chatbot",
+    href: "/services/chatbot",
+    eyebrow: "AI Chatbot",
+    title: chatbot.question,
+    reveal: "An AI assistant that replies in Hindi or English and saves every lead.",
+    accent: "violet",
+  },
+  {
+    slug: "ai-dashboard",
+    href: "/services/ai-dashboard",
+    eyebrow: "AI Dashboard",
+    title: aiDashboard.question,
+    reveal: "\"Which product sold most this week?\" Answer in seconds, plus stock alerts.",
+    accent: "magenta",
+  },
+  {
+    slug: "ai-receptionist",
+    href: "/services/ai-receptionist",
+    eyebrow: "AI Receptionist",
+    title: aiReceptionist.question,
+    reveal: "An AI receptionist that answers 24/7 and books the appointment.",
+    accent: "indigo",
+  },
+];

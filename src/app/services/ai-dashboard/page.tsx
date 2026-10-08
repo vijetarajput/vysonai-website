@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import ServicePage from "@/components/ServicePage";
-import { crm as content } from "@/content/services";
+import { aiDashboard as content } from "@/content/services";
 
-const path = "/services/crm";
+const path = "/services/ai-dashboard";
 
 export const metadata: Metadata = {
   title: content.metaTitle,
