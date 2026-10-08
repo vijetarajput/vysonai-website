@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import type { FaqItem } from "@/components/Faq";
-import FinalCta from "@/components/FinalCta";
 import DemoButton from "@/components/lead/DemoButton";
 import ReceptionistScene from "@/components/ReceptionistScene";
 import ChecklistColumn from "@/components/service/ChecklistColumn";
@@ -103,9 +102,6 @@ export default function AiReceptionistPage() {
 
       {/* 4. Quick questions */}
       <FaqSplit items={faqs} interests={interests} />
-
-      {/* 5. Closing band */}
-      <FinalCta heading="Never miss a call again." interests={interests} />
     </>
   );
 }
