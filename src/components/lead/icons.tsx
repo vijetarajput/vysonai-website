@@ -49,6 +49,13 @@ export function BusinessIcon({ type, size }: { type: BusinessType; size?: number
           <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
         </Svg>
       );
+    case "Retail / Shop":
+      return (
+        <Svg size={size}>
+          <path d="M5.5 8h13l-1 12h-11l-1-12Z" />
+          <path d="M9 10.5V7a3 3 0 0 1 6 0v3.5" />
+        </Svg>
+      );
     default:
       return (
         <Svg size={size}>

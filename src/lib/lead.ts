@@ -2,7 +2,7 @@ import { z } from "zod";
 
 // Shared by the lead form (browser) and the /api/lead route (server).
 
-export const BUSINESS_TYPES = ["Gym", "Clinic", "Salon", "Coaching", "Other"] as const;
+export const BUSINESS_TYPES = ["Gym", "Clinic", "Salon", "Coaching", "Retail / Shop", "Other"] as const;
 export type BusinessType = (typeof BUSINESS_TYPES)[number];
 
 /** Optional "What do you want to automate?" choices. */
