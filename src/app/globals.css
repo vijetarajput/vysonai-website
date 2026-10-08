@@ -623,7 +623,3 @@ body {
     animation: none;
   }
 }
-/* Announcement bar: hidden before first paint when the visitor already closed it. */
-html[data-announcement-hidden] .announcement-bar {
-  display: none;
-}

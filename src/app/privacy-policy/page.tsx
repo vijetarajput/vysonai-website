@@ -148,8 +148,8 @@ const sections: PolicySection[] = [
       <>
         <p>We do not use advertising or tracking cookies.</p>
         <p>
-          We only store a small preference in your browser, for example if you close the
-          announcement bar. If we add analytics in future, we will update this policy.
+          We do not store anything in your browser to track you. If we add analytics or any other
+          cookies or local storage in future, we will update this policy.
         </p>
       </>
     ),
