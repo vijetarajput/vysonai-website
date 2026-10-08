@@ -54,7 +54,7 @@ const faqs: FaqItem[] = [
   },
   {
     q: "What if it can't answer?",
-    a: "It takes a message or passes the call to you.",
+    a: "It passes the call to you, or books a callback for the next day so the customer is never left waiting.",
   },
 ];
 
