@@ -46,7 +46,7 @@ const worksFor = [
 const faqs: FaqItem[] = [
   {
     q: "Will callers know it's AI?",
-    a: "Yes. It introduces itself politely. Being honest builds trust.",
+    a: "It sounds remarkably human: a warm, natural voice with a local accent, so callers find it easy to talk to. We recommend it mentions it's an AI assistant at the start of the call. In many places this is required, and customers appreciate the honesty.",
   },
   {
     q: "Does it speak my customers' language?",
