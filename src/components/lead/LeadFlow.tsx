@@ -25,6 +25,8 @@ type Props = {
   onClose?: () => void;
 };
 
+const DELIVERY_FAILED = "Sorry, something went wrong. Please message us on WhatsApp instead.";
+
 const inputBase =
   "w-full rounded-xl border bg-white px-4 py-3 text-base text-charcoal placeholder:text-muted focus:border-brand-violet focus:outline-none focus:ring-2 focus:ring-brand-violet/30";
 
@@ -147,13 +149,10 @@ export default function LeadFlow({ layout, initialBusiness, onClose }: Props) {
         setServerErrors(data.errors);
         if (data.errors.businessType) goTo(1);
       } else {
-        setFormError(
-          data.message ??
-            "Sorry, something went wrong. Please try again, or chat with us on WhatsApp.",
-        );
+        setFormError(data.message ?? DELIVERY_FAILED);
       }
     } catch {
-      setFormError("We could not reach the server. Please check your internet and try again.");
+      setFormError(DELIVERY_FAILED);
     } finally {
       setSubmitting(false);
     }
@@ -341,9 +340,10 @@ export default function LeadFlow({ layout, initialBusiness, onClose }: Props) {
 
       <div aria-live="polite">
         {formError && (
-          <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
-            {formError}
-          </p>
+          <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3">
+            <p className="text-sm font-medium text-red-700">{formError}</p>
+            <WhatsAppButton label="Chat on WhatsApp" className="mt-3" />
+          </div>
         )}
       </div>
 

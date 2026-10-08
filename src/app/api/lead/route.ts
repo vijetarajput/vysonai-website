@@ -1,10 +1,107 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/site";
-import { validateLead } from "@/lib/lead";
+import { validateLead, type Lead } from "@/lib/lead";
 import { clientIp, isRateLimited } from "@/lib/rate-limit";
+
+const TIMEOUT_MS = 10_000;
+
+const DELIVERY_FAILED =
+  "Sorry, something went wrong. Please message us on WhatsApp instead.";
 
 function fail(message: string, status: number) {
   return NextResponse.json({ ok: false, message }, { status });
+}
+
+/** Escapes the characters Telegram's HTML mode treats as markup. */
+function escapeHtml(value: string) {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function kolkataTime(date: Date) {
+  const text = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(date);
+  return `${text} IST`;
+}
+
+function telegramText(lead: Lead, page: string) {
+  const number = `91${lead.whatsapp}`;
+  const wants = lead.interests.length > 0 ? lead.interests.join(", ") : "Not specified";
+
+  return [
+    `🔔 <b>New lead – ${escapeHtml(siteConfig.name)}</b>`,
+    `Name: ${escapeHtml(lead.name)}`,
+    `WhatsApp: +${number} (<a href="https://wa.me/${number}">open chat</a>)`,
+    `Business: ${escapeHtml(lead.businessType)}`,
+    `Wants: ${escapeHtml(wants)}`,
+    `Page: ${escapeHtml(page)}`,
+    `Time: ${kolkataTime(new Date())}`,
+  ].join("\n");
+}
+
+/** Returns true only when Telegram confirms it accepted the message. Never logs personal data or the token. */
+async function sendToTelegram(text: string) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) {
+    console.error("Lead delivery: Telegram is not configured.");
+    return false;
+  }
+
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text,
+        parse_mode: "HTML",
+        disable_web_page_preview: true,
+      }),
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+    const data = (await response.json().catch(() => null)) as { ok?: boolean } | null;
+    if (response.ok && data?.ok === true) return true;
+    console.error(`Lead delivery: Telegram did not accept the message (HTTP ${response.status}).`);
+  } catch {
+    // The error text can contain the request URL (which includes the token), so it is not logged.
+    console.error("Lead delivery: could not reach Telegram.");
+  }
+  return false;
+}
+
+/** Optional extra copy to n8n. Its result never changes what the visitor sees. */
+async function forwardToN8n(lead: Lead, page: string) {
+  const webhookUrl = process.env.N8N_WEBHOOK_URL;
+  if (!webhookUrl) return;
+
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (process.env.N8N_WEBHOOK_SECRET) {
+    headers["x-webhook-secret"] = process.env.N8N_WEBHOOK_SECRET;
+  }
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        name: lead.name,
+        whatsapp: `91${lead.whatsapp}`,
+        businessType: lead.businessType,
+        interests: lead.interests,
+        consent: true,
+        page,
+        source: siteConfig.url,
+        submittedAt: new Date().toISOString(),
+      }),
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+    if (!response.ok) console.error(`Lead delivery: n8n responded with HTTP ${response.status}.`);
+  } catch {
+    console.error("Lead delivery: could not reach n8n.");
+  }
 }
 
 export async function POST(request: Request) {
@@ -32,39 +129,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, errors: result.errors }, { status: 400 });
   }
 
-  // The webhook URL and secret stay on the server. If no URL is set, we still return success.
-  const webhookUrl = process.env.N8N_WEBHOOK_URL;
-  if (webhookUrl) {
-    const headers: Record<string, string> = { "Content-Type": "application/json" };
-    if (process.env.N8N_WEBHOOK_SECRET) {
-      headers["x-webhook-secret"] = process.env.N8N_WEBHOOK_SECRET;
-    }
+  const page = typeof body.page === "string" && body.page ? body.page.slice(0, 200) : "Unknown";
 
-    try {
-      const response = await fetch(webhookUrl, {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-          name: result.lead.name,
-          whatsapp: `91${result.lead.whatsapp}`,
-          businessType: result.lead.businessType,
-          interests: result.lead.interests,
-          consent: true,
-          page: typeof body.page === "string" ? body.page.slice(0, 200) : undefined,
-          source: siteConfig.url,
-          submittedAt: new Date().toISOString(),
-        }),
-        signal: AbortSignal.timeout(10_000),
-      });
-      if (!response.ok) throw new Error(`Webhook responded with ${response.status}`);
-    } catch (error) {
-      console.error("Lead webhook failed:", error instanceof Error ? error.message : error);
-      return fail(
-        "Sorry, something went wrong on our side. Please try again in a minute, or chat with us on WhatsApp.",
-        502,
-      );
-    }
-  }
+  // Telegram decides success. n8n (if configured) gets a copy at the same time.
+  const [delivered] = await Promise.all([
+    sendToTelegram(telegramText(result.lead, page)),
+    forwardToN8n(result.lead, page),
+  ]);
+
+  if (!delivered) return fail(DELIVERY_FAILED, 502);
 
   return NextResponse.json({ ok: true });
 }

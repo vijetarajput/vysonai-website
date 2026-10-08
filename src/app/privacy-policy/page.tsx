@@ -33,6 +33,7 @@ const sections: LegalSection[] = [
     paragraphs: [
       "We do not sell your details. We do not share them for marketing.",
       "We use trusted tools to store your details and to send WhatsApp messages. These tools handle your details only to help us provide this service.",
+      "Your enquiry is delivered to us through secure messaging and service providers, only so that we can respond to you.",
     ],
   },
   {
