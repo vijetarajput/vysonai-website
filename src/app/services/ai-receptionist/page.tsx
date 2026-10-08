@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Faq, { type FaqItem } from "@/components/Faq";
+import type { FaqItem } from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
 import DemoButton from "@/components/lead/DemoButton";
 import ReceptionistScene from "@/components/ReceptionistScene";
+import ChecklistColumn from "@/components/service/ChecklistColumn";
+import FaqSplit from "@/components/service/FaqSplit";
+import FitCard from "@/components/service/FitCard";
+import TwoColumnSection from "@/components/service/TwoColumnSection";
 import HowItWorksStoryboard from "@/components/storyboard/HowItWorksStoryboard";
 import type { Interest } from "@/lib/lead";
 
@@ -55,24 +59,6 @@ const faqs: FaqItem[] = [
   },
 ];
 
-function CheckIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="m5 12.5 4.5 4.5L19 7.5" />
-    </svg>
-  );
-}
-
 export default function AiReceptionistPage() {
   return (
     <>
@@ -108,47 +94,17 @@ export default function AiReceptionistPage() {
       {/* 2. How it works (storyboard) */}
       <HowItWorksStoryboard />
 
-      {/* 3. What it does */}
-      <section className="bg-white">
-        <div className="site-container section-y">
-          <h2 className="text-center">What it does</h2>
-          <ul className="section-gap mx-auto max-w-2xl space-y-3">
-            {whatItDoes.map((text) => (
-              <li
-                key={text}
-                className="flex items-start gap-3 rounded-2xl border border-border bg-white p-4 shadow-soft"
-              >
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-violet text-white">
-                  <CheckIcon />
-                </span>
-                <span className="font-medium leading-snug text-charcoal">{text}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* 3. What it does + Works well for */}
+      <TwoColumnSection
+        split="55-45"
+        left={<ChecklistColumn title="What it does" items={whatItDoes} />}
+        right={<FitCard chips={worksFor} interests={interests} />}
+      />
 
-      {/* 4. Works well for */}
-      <section className="bg-violet-tint">
-        <div className="site-container section-y">
-          <h2 className="text-center">Works well for</h2>
-          <ul className="section-gap flex flex-wrap justify-center gap-3">
-            {worksFor.map((item) => (
-              <li
-                key={item}
-                className="rounded-full border border-border bg-white px-5 py-2.5 text-[15px] font-medium text-charcoal shadow-soft"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* 4. Quick questions */}
+      <FaqSplit items={faqs} interests={interests} />
 
-      {/* 5. Quick questions */}
-      <Faq items={faqs} />
-
-      {/* 6. Closing band */}
+      {/* 5. Closing band */}
       <FinalCta heading="Never miss a call again." interests={interests} />
     </>
   );
