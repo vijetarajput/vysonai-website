@@ -6,9 +6,9 @@ import Calculator from "@/components/Calculator";
 import ServiceCards from "@/components/ServiceCards";
 import { siteConfig } from "@/config/site";
 
-const title = "AI for Your Business | WhatsApp Automation, AI Dashboard & AI Receptionist";
+const title = "Your AI Team, Working 24/7 | VYSON-AI";
 const description =
-  "Automatic WhatsApp reminders, a 24/7 chatbot, customer records and an AI receptionist for gyms, clinics and local businesses in India. Get a free demo.";
+  "VYSON-AI builds AI agents that handle your calls, customers, stock and marketing day and night, for businesses in India, the UK and the US.";
 
 export const metadata: Metadata = {
   title: { absolute: title },

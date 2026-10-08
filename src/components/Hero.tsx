@@ -2,39 +2,40 @@ import Link from "next/link";
 import DemoButton from "@/components/lead/DemoButton";
 import HeroShowcase from "@/components/showcase/HeroShowcase";
 
-/** The hero copy and the two buttons. Rendered on the server and handed to the showcase as a slot. */
+/**
+ * The hero copy and the two buttons. Rendered on the server and handed to the showcase as a slot.
+ * The wrapper is a size container: the headline is sized from the column width (68px at most)
+ * so each line always fits on one line, from 375px phones to wide desktops.
+ */
 function HeroText() {
   return (
-    <div>
-      <h1 className="text-balance">
-        <span className="block font-sans text-base font-medium leading-snug text-muted-strong md:text-xl">
-          We help your business
-        </span>
-        <span className="mt-3 block text-[40px] font-extrabold leading-[1.05] tracking-[-0.03em] text-charcoal md:text-[64px]">
-          <span className="inline-block">Save Time.</span>{" "}
-          <span className="inline-block">Save Money.</span>
-        </span>
-        <span className="mt-2 block text-[32px] font-extrabold leading-[1.1] tracking-[-0.025em] text-charcoal md:text-5xl">
-          <span className="inline-block">Grow Your</span>{" "}
-          <span className="text-brand-violet">
-            <span className="inline-block">Profit &amp;</span>{" "}
-            <span className="inline-block">Productivity.</span>
-          </span>
-        </span>
-        <span className="mt-4 block font-sans text-[17px] font-normal leading-snug text-muted-strong md:text-xl">
-          with custom AI solutions built for your business.
-        </span>
+    <div className="[container-type:inline-size]">
+      <h1 className="font-extrabold leading-[1.04] tracking-[-0.03em] [font-size:min(68px,11cqw)]">
+        <span className="block whitespace-nowrap text-charcoal">Meet your AI team.</span>
+        <span className="block whitespace-nowrap text-brand-violet">Working 24/7.</span>
       </h1>
 
-      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-        <DemoButton className="inline-flex items-center justify-center rounded-full bg-brand-violet px-7 py-3.5 text-base font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark" />
+      <p className="mt-5 max-w-[34rem] text-lg leading-snug text-muted-strong md:text-xl">
+        We build AI agents that handle your calls, customers, stock and marketing, day and night,
+        so you can focus on growth.
+      </p>
+
+      <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+        <DemoButton className="inline-flex items-center justify-center rounded-full bg-brand-violet px-7 py-3.5 text-base font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark">
+          Book a free call
+        </DemoButton>
         <Link
           href="/#services"
           className="inline-flex items-center justify-center rounded-full border-2 border-brand-violet px-7 py-3.5 text-base font-medium text-brand-violet transition-colors hover:bg-violet-tint"
         >
-          Explore Services
+          Meet the team <span aria-hidden="true">&nbsp;&darr;</span>
         </Link>
       </div>
+
+      <p className="mt-7 border-t border-border pt-4 text-sm leading-relaxed text-muted-strong">
+        Built on product and data experience from London and Dubai · For businesses in India, the
+        UK and the US
+      </p>
     </div>
   );
 }

@@ -37,8 +37,8 @@ const slides: {
   {
     Slide: WhatsAppSlide,
     interest: "WhatsApp customer service",
-    title: "WhatsApp on autopilot",
-    line: "Every customer gets an instant reply, even at midnight.",
+    title: "WhatsApp Assistant",
+    line: "Replies to every customer instantly, even at midnight.",
     glows: [
       { color: VIOLET, left: 15, top: 20 },
       { color: BLUE, left: 88, top: 82 },
@@ -48,7 +48,7 @@ const slides: {
   {
     Slide: DashboardSlide,
     interest: "CRM",
-    title: "Your whole business, one screen",
+    title: "Business Analyst",
     line: "Sales, stock and reports in seconds.",
     glows: [
       { color: BLUE, left: 12, top: 78 },
@@ -59,8 +59,8 @@ const slides: {
   {
     Slide: ChatbotSlide,
     interest: "Website chatbot",
-    title: "A website that catches leads while you sleep",
-    line: "Your AI chatbot answers and collects every enquiry.",
+    title: "Website Sales Assistant",
+    line: "Turns visitors into leads while you sleep.",
     glows: [
       { color: MAGENTA, left: 10, top: 22 },
       { color: VIOLET, left: 75, top: 85 },
@@ -70,8 +70,8 @@ const slides: {
   {
     Slide: ReceptionistSlide,
     interest: "AI receptionist",
-    title: "Never miss a call again",
-    line: "A 24/7 AI receptionist that books clients for you.",
+    title: "AI Receptionist",
+    line: "Answers every call and books appointments.",
     glows: [
       { color: VIOLET, left: 50, top: 5 },
       { color: BLUE, left: 8, top: 88 },
@@ -143,8 +143,8 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
   };
 
   return (
-    <div className="site-container hero-y">
-      <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
+    <div className="site-container pb-6 pt-6 md:pb-8 md:pt-8 lg:pb-10 lg:pt-6">
+      <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-10">
         {intro}
 
         <section
