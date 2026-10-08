@@ -4,8 +4,7 @@ import Faq, { type FaqItem } from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
 import DemoButton from "@/components/lead/DemoButton";
 import ReceptionistScene from "@/components/ReceptionistScene";
-import ServiceIcon from "@/components/ServiceIcon";
-import { SparkleIcon } from "@/components/showcase/parts";
+import HowItWorksStoryboard from "@/components/storyboard/HowItWorksStoryboard";
 import type { Interest } from "@/lib/lead";
 
 const title = "AI Receptionist, Working 24/7 | VYSON-AI";
@@ -74,88 +73,6 @@ function CheckIcon() {
   );
 }
 
-function ArrowIcon() {
-  return (
-    <svg
-      width="28"
-      height="28"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
-}
-
-/** Small picture above each step title. */
-function RingingPhone() {
-  return (
-    <div
-      aria-hidden="true"
-      className="relative flex h-16 w-16 items-center justify-center rounded-full bg-violet-tint text-brand-violet"
-    >
-      <ServiceIcon name="phone" size={30} />
-      <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-brand-magenta ring-4 ring-white" />
-    </div>
-  );
-}
-
-function HelpfulChat() {
-  return (
-    <div aria-hidden="true" className="flex w-full max-w-[220px] flex-col gap-1.5">
-      <span className="w-[70%] rounded-2xl rounded-bl-md border border-border bg-white px-3 py-1.5 text-left text-[11px] text-muted-strong">
-        Hi, can I book?
-      </span>
-      <span className="ml-auto flex w-[80%] items-center gap-1.5 rounded-2xl rounded-br-md bg-brand-violet px-3 py-1.5 text-left text-[11px] text-white">
-        <SparkleIcon size={11} /> Yes, of course!
-      </span>
-    </div>
-  );
-}
-
-function TodaysBookings() {
-  const rows = [
-    ["10:00", "Rahul"],
-    ["11:30", "Sarah"],
-    ["4:15", "Priya"],
-  ];
-  return (
-    <div
-      aria-label="Example dashboard card: today's bookings"
-      role="img"
-      className="w-full max-w-[220px] rounded-2xl border border-border bg-white p-3 text-left shadow-soft"
-    >
-      <p className="text-[11px] font-bold text-charcoal">Today&apos;s bookings</p>
-      <ul className="mt-1.5 space-y-1" aria-hidden="true">
-        {rows.map(([time, name]) => (
-          <li
-            key={time}
-            className="flex items-center gap-2 rounded-lg bg-violet-tint px-2 py-1 text-[11px] text-charcoal"
-          >
-            <span className="w-9 shrink-0 font-semibold tabular-nums text-brand-violet">{time}</span>
-            {name}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-const steps = [
-  { title: "A customer calls", visual: <RingingPhone /> },
-  { title: "Your AI receptionist answers and helps", visual: <HelpfulChat /> },
-  {
-    title: "Appointment booked in your calendar",
-    visual: <TodaysBookings />,
-    note: "See every booking on your dashboard.",
-  },
-];
-
 export default function AiReceptionistPage() {
   return (
     <>
@@ -188,37 +105,8 @@ export default function AiReceptionistPage() {
         </div>
       </section>
 
-      {/* 2. How it works */}
-      <section className="bg-violet-tint">
-        <div className="site-container section-y">
-          <h2 className="text-center">How it works</h2>
-          <ol className="section-gap grid grid-cols-[minmax(0,1fr)] gap-12 md:grid-cols-3 md:gap-14">
-            {steps.map((step, index) => (
-              <li
-                key={step.title}
-                className="relative flex flex-col items-center rounded-3xl border border-border bg-white p-6 text-center shadow-soft"
-              >
-                <span className="font-heading text-sm font-bold text-brand-violet">
-                  Step {index + 1}
-                </span>
-                <h3 className="mt-3 text-lg md:min-h-[3.5rem]">{step.title}</h3>
-                <div className="mt-4 flex min-h-[96px] w-full items-center justify-center">
-                  {step.visual}
-                </div>
-                {step.note && <p className="mt-3 text-sm text-muted-strong">{step.note}</p>}
-                {index < steps.length - 1 && (
-                  <span
-                    aria-hidden="true"
-                    className="absolute -bottom-[38px] left-1/2 -translate-x-1/2 rotate-90 text-brand-violet md:-right-[42px] md:bottom-auto md:left-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:rotate-0"
-                  >
-                    <ArrowIcon />
-                  </span>
-                )}
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      {/* 2. How it works (storyboard) */}
+      <HowItWorksStoryboard />
 
       {/* 3. What it does */}
       <section className="bg-white">
