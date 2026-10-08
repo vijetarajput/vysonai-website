@@ -43,6 +43,8 @@ export type ServiceContent = {
   interests: Interest[];
   before: string[];
   after: string[];
+  /** Adds the "Bonus: More Google reviews" block after "How it works" (WhatsApp page only). */
+  reviewsBonus?: boolean;
   /** Optional "normal vs AI" comparison (AI Dashboard only). */
   comparison?: { title: string; normalLabel: string; aiLabel: string; rows: { normal: string; ai: string }[] };
   steps: ServiceStep[];
@@ -65,6 +67,7 @@ export const whatsappAutomation: ServiceContent = {
   subtext:
     "Built on the official WhatsApp Business API, so reminders, renewals and follow-ups go out on time without you or your staff typing them one by one.",
   visual: "whatsapp",
+  reviewsBonus: true,
   interests: ["Reminders", "Follow-ups"],
   before: [
     "You or your staff type reminders one by one, whenever you remember.",
@@ -142,7 +145,7 @@ export const whatsappAutomation: ServiceContent = {
     },
     {
       q: "How do review requests work?",
-      a: "After a visit or purchase, every customer receives the same message with your review link. We never filter out unhappy customers.",
+      a: "After a visit or purchase, every customer receives the same message with your review link.",
     },
   ],
   ctaHeading: "Ready for WhatsApp that runs itself?",

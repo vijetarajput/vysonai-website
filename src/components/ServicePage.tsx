@@ -1,6 +1,7 @@
 import Faq from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
 import DemoButton from "@/components/lead/DemoButton";
+import ReviewsBonus from "@/components/ReviewsBonus";
 import ServiceIcon from "@/components/ServiceIcon";
 import ServiceStickyBar from "@/components/ServiceStickyBar";
 import ServiceVisual from "@/components/ServiceVisual";
@@ -197,6 +198,9 @@ export default function ServicePage({ content }: { content: ServiceContent }) {
           ))}
         </ol>
       </Section>
+
+      {/* Optional bonus block (WhatsApp page): Google reviews */}
+      {content.reviewsBonus && <ReviewsBonus tone={nextTone()} />}
 
       {/* 4. Works for businesses like yours */}
       <Section tone={nextTone()} title="Works for businesses like yours">

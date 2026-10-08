@@ -36,21 +36,6 @@ const organizationJsonLd = {
   sameAs: [siteConfig.linkedin],
 };
 
-const reviewSteps = [
-  {
-    title: "Ask after the visit",
-    text: "After a visit, your customer gets a WhatsApp message asking how it was.",
-  },
-  {
-    title: "Share your review link",
-    text: "Every customer gets your Google review link, so leaving a review takes one tap.",
-  },
-  {
-    title: "Fix problems personally",
-    text: "If someone is unhappy, you are notified so you can make it right yourself.",
-  },
-];
-
 export default function HomePage() {
   return (
     <>
@@ -58,14 +43,7 @@ export default function HomePage() {
       <Hero />
       <ServiceCards />
       <ComparisonTable />
-      <HowItWorks
-        title="Get More Google Reviews"
-        intro="Happy customers are your best advertising. We make it easy for them to say so."
-        steps={reviewSteps}
-        note="We never filter or hide unhappy customers. Every customer gets the same message."
-        background="tint"
-      />
-      <HowItWorks background="white" />
+      <HowItWorks background="tint" />
       <Founder />
       <DemoSection />
       <FinalCta />

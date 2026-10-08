@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 
 export default function Founder() {
   return (
-    <section className="bg-violet-tint">
+    <section className="bg-white">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-24 md:grid-cols-[280px_1fr] md:gap-14">
         <FounderPhoto className="mx-auto w-56 md:w-full" />
 
