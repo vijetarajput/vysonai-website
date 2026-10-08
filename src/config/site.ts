@@ -29,6 +29,7 @@ export const siteConfig = {
   // Header: Services (a dropdown) is added after Home in the Header component.
   headerNav: [
     { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ],
   // Footer
