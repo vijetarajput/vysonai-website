@@ -29,6 +29,7 @@ const personJsonLd = {
   "@type": "Person",
   name: siteConfig.founder,
   jobTitle: "Founder",
+  alumniOf: { "@type": "CollegeOrUniversity", name: "University of East London" },
   image: `${siteConfig.url}/founder.jpg`,
   url: `${siteConfig.url}/about`,
   worksFor: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
@@ -51,10 +52,11 @@ export default function AboutPage() {
             <h1>Hi, I&apos;m {siteConfig.founder}</h1>
             <p className="measure mt-5 text-lg leading-relaxed text-muted-strong">
               I help businesses save time, save money and grow with practical AI
-              automation. Before starting <BrandName />, I studied FinTech in
-              London and spent years building products and turning business data
-              into decisions in London and Dubai. Now I bring that experience to
-              business owners who want their work to run smarter.
+              automation. Before starting <BrandName />, I completed my master&apos;s in
+              FinTech at the University of East London and spent years building
+              products and turning business data into decisions in London and
+              Dubai. Now I bring that experience to business owners who want
+              their work to run smarter.
             </p>
             <div className="mt-8">
               <DemoButton className={buttonClass}>Book a free call</DemoButton>
