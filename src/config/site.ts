@@ -27,9 +27,14 @@ export const siteConfig = {
   footerBlurb:
     "automates WhatsApp, CRM and reception with AI so fewer customers slip through the cracks.",
 
+  // Header: Services (a dropdown) is added after Home in the Header component.
+  headerNav: [
+    { label: "Home", href: "/" },
+    { label: "Contact", href: "/contact" },
+  ],
+  // Footer
   nav: [
     { label: "Home", href: "/" },
-    { label: "Solutions", href: "/solutions" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ],

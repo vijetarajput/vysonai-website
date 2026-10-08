@@ -29,10 +29,10 @@ function HeroText() {
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <DemoButton className="inline-flex items-center justify-center rounded-full bg-brand-violet px-7 py-3.5 text-base font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark" />
         <Link
-          href="/solutions"
+          href="/#services"
           className="inline-flex items-center justify-center rounded-full border-2 border-brand-violet px-7 py-3.5 text-base font-medium text-brand-violet transition-colors hover:bg-violet-tint"
         >
-          See Solutions
+          Explore Services
         </Link>
       </div>
     </div>

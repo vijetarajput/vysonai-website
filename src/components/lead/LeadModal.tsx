@@ -11,9 +11,9 @@ import {
   type ReactNode,
 } from "react";
 import LeadFlow from "@/components/lead/LeadFlow";
-import type { BusinessType, Interest } from "@/lib/lead";
+import type { Interest } from "@/lib/lead";
 
-type OpenOptions = { business?: BusinessType; interests?: Interest[] };
+type OpenOptions = { interests?: Interest[] };
 
 const LeadModalContext = createContext<{ open: (options?: OpenOptions) => void }>({
   open: () => {},
@@ -30,13 +30,11 @@ export function useLeadModal() {
  */
 export default function LeadModalProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [business, setBusiness] = useState<BusinessType | undefined>();
   const [interests, setInterests] = useState<Interest[] | undefined>();
   const [session, setSession] = useState(0); // new key = a fresh, empty form each time
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const open = useCallback((options?: OpenOptions) => {
-    setBusiness(options?.business);
     setInterests(options?.interests);
     setSession((n) => n + 1);
     setIsOpen(true);
@@ -77,7 +75,6 @@ export default function LeadModalProvider({ children }: { children: ReactNode })
           <LeadFlow
             key={session}
             layout="modal"
-            initialBusiness={business}
             initialInterests={interests}
             onClose={close}
           />

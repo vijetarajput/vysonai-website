@@ -4,9 +4,6 @@ import { siteConfig } from "@/config/site";
 // Add each new public page here when it is built.
 const paths = [
   "/",
-  "/solutions",
-  "/solutions/gyms",
-  "/solutions/clinics",
   "/services/whatsapp-automation",
   "/services/chatbot",
   "/services/ai-dashboard",

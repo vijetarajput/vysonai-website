@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 
 export type Crumb = {
   label: string;
-  /** Path on this site, for example "/solutions" or "/#services". Used for the link and for the JSON-LD. */
+  /** Path on this site, for example "/contact" or "/#services". Used for the link and for the JSON-LD. */
   href: string;
 };
 

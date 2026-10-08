@@ -1,14 +1,12 @@
 import DemoButton from "@/components/lead/DemoButton";
-import type { BusinessType, Interest } from "@/lib/lead";
+import type { Interest } from "@/lib/lead";
 
 export default function FinalCta({
   heading = "Ready to stop missing customers?",
-  business,
   interests,
   buttonLabel,
 }: {
   heading?: string;
-  business?: BusinessType;
   interests?: Interest[];
   /** Defaults to "Get Free Demo". */
   buttonLabel?: string;
@@ -18,7 +16,6 @@ export default function FinalCta({
       <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20">
         <h2 className="text-white">{heading}</h2>
         <DemoButton
-          business={business}
           interests={interests}
           className="mt-8 inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-medium text-brand-violet shadow-soft transition-colors hover:bg-violet-tint"
         >

@@ -20,27 +20,27 @@ export default function ContactPage() {
     <>
       <Breadcrumbs items={[{ label: "Contact", href: "/contact" }]} />
       <section className="bg-white">
-        <div className="mx-auto max-w-3xl px-4 pb-6 pt-14 text-center sm:px-6 sm:pt-20">
-          <h1>Let&apos;s Talk About Your Business</h1>
-          <p className="measure mx-auto mt-5 text-lg text-muted-strong">
-            Tell us what you do and where to reach you. We&apos;ll set up a free
-            demo made for your business.
+        <div className="mx-auto max-w-6xl px-4 pb-4 pt-3 text-center sm:px-6 sm:pt-4">
+          <h1 className="text-[1.75rem] sm:text-4xl lg:text-[2.5rem]">
+            Let&apos;s Talk About Your Business
+          </h1>
+          <p className="mx-auto mt-2 max-w-4xl text-base leading-snug text-muted-strong sm:text-lg">
+            Tell us what you do and where to reach you. We&apos;ll set up a free demo made for
+            your business.
           </p>
         </div>
-      </section>
 
-      <section className="bg-white">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 pt-8 sm:px-6 sm:pb-24 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
+        <div className="mx-auto grid max-w-6xl gap-6 px-4 pb-12 pt-2 sm:px-6 sm:pb-16 lg:grid-cols-[1.4fr_1fr] lg:items-start lg:gap-8">
           <div>
             <h2 className="sr-only">Request a free demo</h2>
-            <div className="rounded-3xl border border-border bg-white p-6 shadow-soft sm:p-8">
+            <div className="rounded-3xl border border-border bg-white p-5 shadow-soft sm:p-6">
               <LeadFlow layout="inline" />
             </div>
           </div>
 
-          <aside className="rounded-3xl bg-violet-tint p-6 sm:p-8">
-            <h2 className="text-2xl">Prefer to reach us directly?</h2>
-            <ul className="mt-6 space-y-4 text-charcoal">
+          <aside className="rounded-3xl bg-violet-tint p-5 sm:p-6">
+            <h2 className="text-xl sm:text-2xl">Prefer to reach us directly?</h2>
+            <ul className="mt-4 space-y-3 text-charcoal">
               <li>
                 <WhatsAppButton large label="Chat on WhatsApp" />
               </li>
@@ -66,7 +66,7 @@ export default function ContactPage() {
                 {siteConfig.location}
               </li>
             </ul>
-            <p className="mt-6 border-t border-border pt-5 font-medium text-charcoal">
+            <p className="mt-4 border-t border-border pt-4 font-medium text-charcoal">
               We reply within 24 hours.
             </p>
           </aside>

@@ -25,10 +25,10 @@ export default function NotFound() {
             Back to Home
           </Link>
           <Link
-            href="/solutions"
+            href="/#services"
             className="inline-flex items-center justify-center rounded-full border-2 border-brand-violet px-6 py-3 text-sm font-medium text-brand-violet transition-colors hover:bg-violet-tint"
           >
-            See Solutions
+            Explore Services
           </Link>
         </div>
       </div>

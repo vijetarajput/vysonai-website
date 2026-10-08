@@ -20,8 +20,6 @@ type Step = 1 | 2 | "done";
 type Props = {
   /** "modal" shows the gradient side panel; "inline" is a simple card for pages. */
   layout: "modal" | "inline";
-  /** Preselects a business and starts on step 2. */
-  initialBusiness?: BusinessType;
   /** Preselects "What do you want to automate?" chips. */
   initialInterests?: Interest[];
   onClose?: () => void;
@@ -59,12 +57,12 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-export default function LeadFlow({ layout, initialBusiness, initialInterests, onClose }: Props) {
+export default function LeadFlow({ layout, initialInterests, onClose }: Props) {
   const uid = useId();
   const id = (name: string) => `${uid}-${name}`;
 
-  const [step, setStep] = useState<Step>(initialBusiness ? 2 : 1);
-  const [business, setBusiness] = useState<BusinessType | "">(initialBusiness ?? "");
+  const [step, setStep] = useState<Step>(1);
+  const [business, setBusiness] = useState<BusinessType | "">("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");

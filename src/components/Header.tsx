@@ -38,7 +38,7 @@ export default function Header() {
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-3 md:flex lg:gap-8">
-          {siteConfig.nav.map((item) => {
+          {siteConfig.headerNav.map((item) => {
             const active = isActive(item.href);
             return (
               <Fragment key={item.href}>
@@ -51,7 +51,7 @@ export default function Header() {
                 >
                   {item.label}
                 </Link>
-                {item.href === "/solutions" && <ServicesDropdown />}
+                {item.href === "/" && <ServicesDropdown />}
               </Fragment>
             );
           })}
@@ -96,7 +96,7 @@ export default function Header() {
           className="border-t border-border bg-white px-4 pb-6 pt-4 shadow-soft md:hidden"
         >
           <nav aria-label="Mobile" className="flex flex-col gap-1">
-            {siteConfig.nav.map((item) => {
+            {siteConfig.headerNav.map((item) => {
               const active = isActive(item.href);
               return (
                 <Fragment key={item.href}>
@@ -112,7 +112,7 @@ export default function Header() {
                   >
                     {item.label}
                   </Link>
-                  {item.href === "/solutions" && <ServicesAccordion onNavigate={close} />}
+                  {item.href === "/" && <ServicesAccordion onNavigate={close} />}
                 </Fragment>
               );
             })}
