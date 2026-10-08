@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import LegalPage, { type LegalSection } from "@/components/LegalPage";
+import type { ReactNode } from "react";
+import BrandName from "@/components/BrandName";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { siteConfig } from "@/config/site";
 
 const description =
-  "How VYSON-AI collects, uses and protects the details you share with us, in simple English. Your details are used only to contact you about a demo.";
+  "How VYSON-AI collects, uses, shares and protects the details you send us, in simple English, and how you can ask us to see, correct or delete them.";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -11,67 +14,208 @@ export const metadata: Metadata = {
   openGraph: { title: "Privacy Policy | VYSON-AI", description, url: "/privacy-policy", type: "website" },
 };
 
-const sections: LegalSection[] = [
+const updated = "8 October 2026";
+
+const email = (
+  <a href={`mailto:${siteConfig.email}`} className="link-brand">
+    {siteConfig.email}
+  </a>
+);
+
+type PolicySection = { id: string; title: string; body: ReactNode };
+
+const sections: PolicySection[] = [
   {
-    heading: "What we collect",
-    paragraphs: ["When you fill in our demo form, we collect:"],
-    items: [
-      "Your name",
-      "Your WhatsApp number, with its country code (stored in international format)",
-      "Your email address, only if you choose to give it",
-      "What you need help with, if you pick any of the choices",
-      "A short message, only if you choose to write one",
-    ],
+    id: "who-we-are",
+    title: "Who we are",
+    body: (
+      <>
+        <p>
+          <BrandName /> is an MSME-registered business ({siteConfig.udyam}) based
+          in {siteConfig.location}.
+        </p>
+        <p>Contact: {email}</p>
+      </>
+    ),
   },
   {
-    heading: "Why we collect it",
-    paragraphs: [
-      "We use these details only to contact you about a demo of {brand} services. We contact you on WhatsApp. If you give your email address, we may also use it to reply about your demo.",
-    ],
+    id: "what-we-collect",
+    title: "What we collect",
+    body: (
+      <>
+        <p>What you enter in our forms:</p>
+        <ul>
+          <li>your name</li>
+          <li>your WhatsApp number</li>
+          <li>your email, if you give one</li>
+          <li>the services you select</li>
+          <li>any message you write</li>
+        </ul>
+        <p>
+          We also record the page you sent the form from. Our website hosting provider records some
+          basic technical information automatically for security, such as your IP address and
+          browser type.
+        </p>
+        <p>We do not collect payment details on this website.</p>
+      </>
+    ),
   },
   {
-    heading: "Who we share it with",
-    paragraphs: [
-      "We do not sell your details. We do not share them for marketing.",
-      "We use trusted tools to store your details and to send WhatsApp messages. These tools handle your details only to help us provide this service.",
-      "Your enquiry is delivered to us through secure messaging and service providers, only so that we can respond to you.",
-    ],
+    id: "why-we-use-it",
+    title: "Why we use it",
+    body: (
+      <>
+        <p>
+          We use your details only to reply to your enquiry, arrange and hold a call or demo, and
+          send you information you asked for.
+        </p>
+        <p>We do not sell your data or use it for unrelated marketing.</p>
+      </>
+    ),
   },
   {
-    heading: "Stopping messages",
-    paragraphs: [
-      "You agree to receive WhatsApp messages from us when you tick the box on the demo form. You can ask us to stop at any time by replying to a message or by writing to us.",
-    ],
+    id: "legal-basis",
+    title: "Legal basis and consent",
+    body: (
+      <p>
+        We process your data with your consent (the checkbox on our form) and to respond to your
+        request. This follows India&apos;s Digital Personal Data Protection Act, 2023, and, for
+        visitors in the UK, the UK GDPR.
+      </p>
+    ),
   },
   {
-    heading: "How long we keep your details",
-    paragraphs: [
-      "We keep your details only for as long as we need them to follow up on your demo request.",
-    ],
+    id: "who-we-share-it-with",
+    title: "Who we share it with",
+    body: (
+      <>
+        <p>
+          Only trusted service providers that help us run this website and reply to you: our website
+          hosting provider, and secure messaging and automation tools that deliver your enquiry to
+          us.
+        </p>
+        <p>
+          They may process data outside your country. We only use providers with appropriate
+          security measures.
+        </p>
+      </>
+    ),
   },
   {
-    heading: "Deleting your details",
-    paragraphs: [
-      "You can ask us to delete your details at any time. Write to us at the email address below and tell us the name and WhatsApp number you used. We will delete your details and let you know.",
-    ],
+    id: "how-long-we-keep-it",
+    title: "How long we keep it",
+    body: (
+      <>
+        <p>
+          We keep enquiry details for up to 12 months after our last contact. Then we delete them.
+        </p>
+        <p>
+          If you become a client, we keep what is needed for our work and our legal obligations.
+        </p>
+      </>
+    ),
   },
   {
-    heading: "Your rights in India",
-    paragraphs: [
-      "We follow India's Digital Personal Data Protection Act, 2023. Under this law, you can ask us what details we hold about you, ask us to correct them, ask us to delete them, and withdraw your consent.",
-    ],
+    id: "how-we-protect-it",
+    title: "How we protect it",
+    body: (
+      <p>
+        We use secure (HTTPS) connections, we restrict who can access your details, and we keep
+        secret keys out of the website code.
+      </p>
+    ),
+  },
+  {
+    id: "your-rights",
+    title: "Your rights",
+    body: (
+      <>
+        <p>
+          You can ask to see, correct or delete your data, or withdraw your consent at any time, by
+          emailing {email}. We reply within 30 days.
+        </p>
+        <p>
+          If you are in the UK, you can also complain to the Information Commissioner&apos;s Office
+          (ICO).
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "cookies",
+    title: "Cookies and local storage",
+    body: (
+      <>
+        <p>We do not use advertising or tracking cookies.</p>
+        <p>
+          We only store a small preference in your browser, for example if you close the
+          announcement bar. If we add analytics in future, we will update this policy.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "children",
+    title: "Children",
+    body: <p>Our services are for businesses and are not intended for people under 18.</p>,
+  },
+  {
+    id: "changes",
+    title: "Changes",
+    body: (
+      <p>
+        We may update this policy. The date at the top of this page shows the latest version.
+      </p>
+    ),
+  },
+  {
+    id: "contact",
+    title: "Contact",
+    body: <p>{email}</p>,
   },
 ];
 
 export default function PrivacyPolicyPage() {
   return (
-    <LegalPage
-      title="Privacy Policy"
-      path="/privacy-policy"
-      updated="October 2026"
-      intro="This page explains, in simple words, what details {brand} collects when you ask for a demo, and what we do with them."
-      sections={sections}
-      contactText="For any question about your details, or to ask us to delete them, write to us at"
-    />
+    <>
+      <Breadcrumbs items={[{ label: "Privacy Policy", href: "/privacy-policy" }]} width="narrow" />
+      <section className="bg-white">
+        <div className="site-container section-y">
+          <div className="mx-auto max-w-3xl">
+            <div className="max-w-[720px] text-[17px] leading-[1.75] text-muted-strong">
+              <h1 className="text-charcoal">Privacy Policy</h1>
+              <p className="mt-3 text-sm">Last updated: {updated}</p>
+
+              <nav
+                aria-label="Contents"
+                className="mt-8 rounded-2xl border border-border bg-violet-tint p-5"
+              >
+                <p className="font-heading text-base font-semibold text-charcoal">Contents</p>
+                <ol className="mt-3 grid list-decimal gap-x-8 gap-y-1.5 pl-5 text-[15px] leading-snug marker:text-brand-violet sm:grid-cols-2">
+                  {sections.map((section) => (
+                    <li key={section.id}>
+                      <a href={`#${section.id}`} className="link-brand">
+                        {section.title}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+
+              {sections.map((section, index) => (
+                <section key={section.id} id={section.id} className="mt-10 scroll-mt-24">
+                  <h2 className="text-2xl text-charcoal">
+                    {index + 1}. {section.title}
+                  </h2>
+                  <div className="mt-3 space-y-3 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-6 [&_ul]:marker:text-brand-violet">
+                    {section.body}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

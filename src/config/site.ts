@@ -12,7 +12,6 @@ export const siteConfig = {
   countryCode: "IN",
   whatsappNumber,
   whatsappMessage,
-  linkedin: "https://www.linkedin.com/company/vysonai",
   udyam: "UDYAM-GJ-01-0682560",
 
   // Opens WhatsApp chat. The number itself is never shown as page text.

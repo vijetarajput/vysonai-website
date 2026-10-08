@@ -45,16 +45,6 @@ export default function Footer() {
                   {siteConfig.email}
                 </a>
               </li>
-              <li>
-                <a
-                  href={siteConfig.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-brand"
-                >
-                  LinkedIn
-                </a>
-              </li>
               <li>{siteConfig.location}</li>
               <li className="pt-1">
                 <WhatsAppButton />

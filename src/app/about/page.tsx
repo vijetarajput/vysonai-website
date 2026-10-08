@@ -4,9 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import FounderPhoto from "@/components/FounderPhoto";
 import JsonLd from "@/components/JsonLd";
 import DemoButton from "@/components/lead/DemoButton";
-import ServiceIcon from "@/components/ServiceIcon";
 import { siteConfig } from "@/config/site";
-import type { IconName } from "@/content/services";
 
 const title = `About ${siteConfig.founder}, Founder of ${siteConfig.name}`;
 const description =
@@ -25,39 +23,6 @@ export const metadata: Metadata = {
     images: [{ url: "/founder.jpg", width: 720, height: 720, alt: "Viijeta R, founder of VYSON-AI" }],
   },
 };
-
-const tiles: { icon: IconName; title: string; text: string }[] = [
-  {
-    icon: "phone",
-    title: "AI Receptionist",
-    text: "Answers every call and books appointments for clinics, dental practices and restaurants.",
-  },
-  {
-    icon: "chat",
-    title: "WhatsApp Customer Service",
-    text: "Instant replies, reminders and follow-ups for gyms and stores.",
-  },
-  {
-    icon: "clipboard",
-    title: "CRM",
-    text: "Every customer, lead and follow-up in one place, so nobody slips through.",
-  },
-  {
-    icon: "bag",
-    title: "Inventory & Stock Management",
-    text: "Know what's selling and what's running low, before it runs out.",
-  },
-  {
-    icon: "chart",
-    title: "Meta Ads",
-    text: "Ads that reach the right customers and build your brand.",
-  },
-  {
-    icon: "mail",
-    title: "LinkedIn Outreach Automation",
-    text: "Personalised outreach that turns prospects into booked meetings.",
-  },
-];
 
 const personJsonLd = {
   "@context": "https://schema.org",
@@ -78,15 +43,12 @@ export default function AboutPage() {
       <JsonLd data={personJsonLd} />
       <Breadcrumbs items={[{ label: "About", href: "/about" }]} />
 
-      {/* 1. Intro (overflow-x-clip keeps the halo glow from widening the page on mobile) */}
-      <section className="overflow-x-clip bg-white">
-        <div className="site-container hero-y grid grid-cols-[minmax(0,1fr)] items-center gap-6 md:grid-cols-[minmax(0,400px)_minmax(0,1fr)] md:gap-10">
+      {/* 1. Intro */}
+      <section className="bg-white">
+        <div className="site-container hero-y grid grid-cols-[minmax(0,1fr)] items-center gap-6 md:grid-cols-[minmax(0,300px)_minmax(0,1fr)] md:gap-10">
           <FounderPhoto />
           <div className="text-center md:text-left">
-            <p className="text-sm font-semibold uppercase tracking-wider text-brand-violet">
-              Founder, <BrandName />
-            </p>
-            <h1 className="mt-3">Hi, I&apos;m {siteConfig.founder}</h1>
+            <h1>Hi, I&apos;m {siteConfig.founder}</h1>
             <p className="measure mt-5 text-lg leading-relaxed text-muted-strong">
               I help businesses save time, save money and grow with practical AI
               automation. Before starting <BrandName />, I studied FinTech in
@@ -119,27 +81,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <ul className="section-gap grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-            {tiles.map((tile) => (
-              <li
-                key={tile.title}
-                className="rounded-2xl border border-border bg-white p-5 shadow-soft transition-all duration-200 hover:border-brand-violet/60 hover:shadow-md motion-safe:hover:-translate-y-1"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-tint text-brand-violet">
-                  <ServiceIcon name={tile.icon} size={22} />
-                </span>
-                <h3 className="mt-3 text-lg font-bold">{tile.title}</h3>
-                <p className="mt-1.5 text-[15px] leading-relaxed text-muted-strong">
-                  {tile.text}
-                </p>
-              </li>
-            ))}
-          </ul>
-
-          <p className="section-gap mx-auto max-w-3xl text-center font-heading text-2xl font-bold leading-snug text-charcoal sm:text-3xl">
-            One partner. One system. Your business, growing while you sleep.
-          </p>
-          <div className="mt-8 text-center">
+          <div className="section-gap text-center">
             <DemoButton className={buttonClass}>Book a free call</DemoButton>
           </div>
         </div>

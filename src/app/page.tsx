@@ -30,7 +30,6 @@ const organizationJsonLd = {
     addressCountry: siteConfig.countryCode,
   },
   email: siteConfig.email,
-  sameAs: [siteConfig.linkedin],
 };
 
 export default function HomePage() {

@@ -51,17 +51,6 @@ export default function ContactPage() {
                 </a>
               </li>
               <li>
-                <span className="block text-sm font-semibold text-muted-strong">LinkedIn</span>
-                <a
-                  href={siteConfig.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-brand"
-                >
-                  Visit our LinkedIn page
-                </a>
-              </li>
-              <li>
                 <span className="block text-sm font-semibold text-muted-strong">Based in</span>
                 {siteConfig.location}
               </li>
