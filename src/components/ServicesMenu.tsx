@@ -163,7 +163,6 @@ export function ServicesDropdown() {
   return (
     <div
       ref={wrapRef}
-      className="relative"
       onPointerEnter={(event) => {
         if (event.pointerType !== "mouse") return;
         cancelClose();
@@ -206,7 +205,7 @@ export function ServicesDropdown() {
       {/* The outer box has no display class so the hidden attribute works. */}
       <div id="services-menu" hidden={!open}>
         {/* pt-3 keeps the hover area continuous between the button and the panel */}
-        <div className="dd-panel absolute left-1/2 top-full z-50 w-[min(34rem,calc(100vw-2rem))] -translate-x-1/2 pt-3">
+        <div className="dd-panel absolute right-0 top-full z-50 w-[min(34rem,calc(100vw-2rem))] pt-3">
           <div
             ref={panelRef}
             className="rounded-2xl border border-border bg-white p-3 shadow-[0_18px_44px_-14px_rgba(17,24,39,0.22)]"

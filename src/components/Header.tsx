@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment, useState } from "react";
 import { ServicesAccordion, ServicesDropdown } from "@/components/ServicesMenu";
-import DemoButton from "@/components/lead/DemoButton";
 import { siteConfig } from "@/config/site";
 
 export default function Header() {
@@ -32,12 +31,9 @@ export default function Header() {
             priority
             className="h-9 w-auto lg:h-11"
           />
-          <span className="hidden whitespace-nowrap text-xs text-muted min-[420px]:inline">
-            by {siteConfig.founder}
-          </span>
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-3 md:flex lg:gap-8">
+        <nav aria-label="Main" className="relative ml-auto hidden items-center gap-3 md:flex lg:gap-8">
           {siteConfig.headerNav.map((item) => {
             const active = isActive(item.href);
             return (
@@ -57,11 +53,7 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <DemoButton className="hidden rounded-full bg-brand-violet px-4 py-2.5 text-sm font-medium whitespace-nowrap text-white shadow-soft transition-colors hover:bg-brand-violet-dark md:inline-block lg:px-5">
-            {siteConfig.cta.label}
-          </DemoButton>
-
+        <div className="flex items-center md:hidden">
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -117,12 +109,6 @@ export default function Header() {
               );
             })}
           </nav>
-          <DemoButton
-            onOpen={close}
-            className="mt-4 block w-full rounded-full bg-brand-violet px-5 py-3 text-center text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark"
-          >
-            {siteConfig.cta.label}
-          </DemoButton>
         </div>
       )}
     </header>
