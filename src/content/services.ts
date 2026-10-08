@@ -490,3 +490,31 @@ export const serviceCards: ServiceCardData[] = [
     reveal: "An AI receptionist that answers 24/7 and books the appointment.",
   },
 ];
+
+/** Menu entries for the header "Services" dropdown and the mobile accordion. */
+export const serviceMenu: { href: string; title: string; text: string; icon: IconName }[] = [
+  {
+    href: "/services/whatsapp-automation",
+    title: "WhatsApp Automation",
+    text: "Instant replies and reminders on WhatsApp",
+    icon: "chat",
+  },
+  {
+    href: "/services/chatbot",
+    title: "AI Chatbot",
+    text: "Answer website visitors and capture leads 24/7",
+    icon: "globe",
+  },
+  {
+    href: "/services/ai-dashboard",
+    title: "AI Dashboard",
+    text: "Ask your business questions, get answers in seconds",
+    icon: "chart",
+  },
+  {
+    href: "/services/ai-receptionist",
+    title: "AI Receptionist",
+    text: "Every call answered, appointments booked",
+    icon: "phone",
+  },
+];

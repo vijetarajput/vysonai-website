@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { Fragment, useState } from "react";
+import { ServicesAccordion, ServicesDropdown } from "@/components/ServicesMenu";
 import DemoButton from "@/components/lead/DemoButton";
 import { siteConfig } from "@/config/site";
 
@@ -21,7 +22,7 @@ export default function Header() {
         <Link
           href="/"
           onClick={close}
-          className="flex min-w-0 items-center gap-2.5"
+          className="flex shrink-0 items-center gap-2.5"
         >
           <Image
             src="/vyson-logo-header.png"
@@ -29,33 +30,35 @@ export default function Header() {
             width={901}
             height={220}
             priority
-            className="h-9 w-auto md:h-11"
+            className="h-9 w-auto lg:h-11"
           />
           <span className="hidden whitespace-nowrap text-xs text-muted min-[420px]:inline">
             by {siteConfig.founder}
           </span>
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-3 md:flex lg:gap-8">
           {siteConfig.nav.map((item) => {
             const active = isActive(item.href);
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={active ? "page" : undefined}
-                className={`text-sm font-medium underline-offset-4 transition-colors hover:text-brand-violet hover:underline hover:decoration-1 ${
-                  active ? "text-brand-violet" : "text-charcoal"
-                }`}
-              >
-                {item.label}
-              </Link>
+              <Fragment key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`text-sm font-medium underline-offset-4 transition-colors hover:text-brand-violet hover:underline hover:decoration-1 ${
+                    active ? "text-brand-violet" : "text-charcoal"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+                {item.href === "/solutions" && <ServicesDropdown />}
+              </Fragment>
             );
           })}
         </nav>
 
         <div className="flex items-center gap-2">
-          <DemoButton className="hidden rounded-full bg-brand-violet px-5 py-2.5 text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark md:inline-block">
+          <DemoButton className="hidden rounded-full bg-brand-violet px-4 py-2.5 text-sm font-medium whitespace-nowrap text-white shadow-soft transition-colors hover:bg-brand-violet-dark md:inline-block lg:px-5">
             {siteConfig.cta.label}
           </DemoButton>
 
@@ -96,19 +99,21 @@ export default function Header() {
             {siteConfig.nav.map((item) => {
               const active = isActive(item.href);
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={close}
-                  aria-current={active ? "page" : undefined}
-                  className={`rounded-xl px-3 py-3 text-base font-medium transition-colors hover:bg-violet-tint hover:text-brand-violet ${
-                    active
-                      ? "bg-violet-tint text-brand-violet"
-                      : "text-charcoal"
-                  }`}
-                >
-                  {item.label}
-                </Link>
+                <Fragment key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={close}
+                    aria-current={active ? "page" : undefined}
+                    className={`rounded-xl px-3 py-3 text-base font-medium transition-colors hover:bg-violet-tint hover:text-brand-violet ${
+                      active
+                        ? "bg-violet-tint text-brand-violet"
+                        : "text-charcoal"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                  {item.href === "/solutions" && <ServicesAccordion onNavigate={close} />}
+                </Fragment>
               );
             })}
           </nav>
