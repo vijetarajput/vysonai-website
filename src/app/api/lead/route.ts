@@ -27,16 +27,18 @@ function kolkataTime(date: Date) {
 }
 
 function telegramText(lead: Lead, page: string) {
-  const number = `91${lead.whatsapp}`;
+  const number = lead.whatsapp; // E.164, for example +447911123456
+  const waDigits = number.replace(/\D/g, ""); // wa.me links have no plus sign
   const wants = lead.interests.length > 0 ? lead.interests.join(", ") : "Not specified";
 
   return [
     `🔔 <b>New lead – ${escapeHtml(siteConfig.name)}</b>`,
     `Name: ${escapeHtml(lead.name)}`,
-    `WhatsApp: +${number} (<a href="https://wa.me/${number}">open chat</a>)`,
+    `WhatsApp: ${escapeHtml(number)} (<a href="https://wa.me/${waDigits}">open chat</a>)`,
     `Email: ${lead.email ? escapeHtml(lead.email) : "Not provided"}`,
     `Business: ${escapeHtml(lead.businessType)}`,
     `Wants: ${escapeHtml(wants)}`,
+    `Note: ${lead.message ? escapeHtml(lead.message) : "None"}`,
     `Page: ${escapeHtml(page)}`,
     `Time: ${kolkataTime(new Date())}`,
   ].join("\n");
@@ -89,10 +91,12 @@ async function forwardToN8n(lead: Lead, page: string) {
       headers,
       body: JSON.stringify({
         name: lead.name,
-        whatsapp: `91${lead.whatsapp}`,
+        whatsapp: lead.whatsapp, // E.164, for example +447911123456
+        country: lead.country,
         email: lead.email,
         businessType: lead.businessType,
         interests: lead.interests,
+        message: lead.message,
         consent: true,
         page,
         source: siteConfig.url,

@@ -9,12 +9,15 @@ export default function DemoButton({
   children = "Get Free Demo",
   className = "",
   interests,
+  message,
   onOpen,
 }: {
   children?: ReactNode;
   className?: string;
   /** Preselects these "What do you want to automate?" chips. */
   interests?: Interest[];
+  /** Prefills the optional "What would you like to solve?" note. */
+  message?: string;
   onOpen?: () => void;
 }) {
   const { open } = useLeadModal();
@@ -24,7 +27,7 @@ export default function DemoButton({
       type="button"
       onClick={() => {
         onOpen?.();
-        open({ interests });
+        open({ interests, message });
       }}
       className={className}
     >

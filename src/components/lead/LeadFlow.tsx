@@ -4,16 +4,19 @@ import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import BrandName from "@/components/BrandName";
 import { BusinessIcon, CheckIcon } from "@/components/lead/icons";
+import PhoneField from "@/components/lead/PhoneField";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import {
   BUSINESS_TYPES,
   INTERESTS,
+  MESSAGE_MAX,
   validateLead,
   type BusinessType,
   type Interest,
   type LeadErrors,
   type LeadField,
 } from "@/lib/lead";
+import { DEFAULT_COUNTRY, type CountryCode } from "@/lib/phone";
 
 type Step = 1 | 2 | "done";
 
@@ -22,6 +25,8 @@ type Props = {
   layout: "modal" | "inline";
   /** Preselects "What do you want to automate?" chips. */
   initialInterests?: Interest[];
+  /** Prefills the optional "What would you like to solve?" note. */
+  initialMessage?: string;
   onClose?: () => void;
 };
 
@@ -57,16 +62,18 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-export default function LeadFlow({ layout, initialInterests, onClose }: Props) {
+export default function LeadFlow({ layout, initialInterests, initialMessage, onClose }: Props) {
   const uid = useId();
   const id = (name: string) => `${uid}-${name}`;
 
   const [step, setStep] = useState<Step>(1);
   const [business, setBusiness] = useState<BusinessType | "">("");
   const [name, setName] = useState("");
+  const [country, setCountry] = useState<CountryCode>(DEFAULT_COUNTRY);
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [interests, setInterests] = useState<Interest[]>(initialInterests ?? []);
+  const [message, setMessage] = useState(initialMessage ?? "");
   const [consent, setConsent] = useState(false);
   const [touched, setTouched] = useState<Partial<Record<LeadField, boolean>>>({});
   const [serverErrors, setServerErrors] = useState<LeadErrors>({});
@@ -89,9 +96,11 @@ export default function LeadFlow({ layout, initialInterests, onClose }: Props) {
   const check = validateLead({
     businessType: business,
     name,
+    country,
     whatsapp: phone,
     email,
     interests,
+    message,
     consent,
   });
   const errors: LeadErrors = check.ok ? {} : check.errors;
@@ -136,9 +145,11 @@ export default function LeadFlow({ layout, initialInterests, onClose }: Props) {
         body: JSON.stringify({
           businessType: business,
           name,
+          country,
           whatsapp: phone,
           email,
           interests,
+          message,
           consent,
           website: honeypot,
           page: window.location.pathname,
@@ -256,30 +267,24 @@ export default function LeadFlow({ layout, initialInterests, onClose }: Props) {
         <label htmlFor={id("whatsapp")} className="mb-1.5 block text-sm font-semibold">
           WhatsApp number <span className="text-red-700">*</span>
         </label>
-        <div className="flex">
-          <span
-            aria-hidden="true"
-            className={`inline-flex items-center rounded-l-xl border border-r-0 bg-violet-tint px-4 text-base font-medium text-charcoal ${borderFor("whatsapp")}`}
-          >
-            +91
-          </span>
-          <input
-            id={id("whatsapp")}
-            type="tel"
-            inputMode="numeric"
-            autoComplete="tel-national"
-            placeholder="10-digit mobile number"
-            value={phone}
-            onChange={(e) => {
-              setPhone(e.target.value.replace(/[^\d\s+-]/g, "").slice(0, 16));
-              clearServer("whatsapp");
-            }}
-            onBlur={() => touch("whatsapp")}
-            aria-invalid={!!shownError("whatsapp")}
-            aria-describedby={shownError("whatsapp") ? id("whatsapp-error") : undefined}
-            className={`${inputBase} rounded-l-none ${borderFor("whatsapp")}`}
-          />
-        </div>
+        <PhoneField
+          id={id("whatsapp")}
+          country={country}
+          onCountryChange={(code) => {
+            setCountry(code);
+            clearServer("whatsapp");
+          }}
+          value={phone}
+          onValueChange={(value) => {
+            setPhone(value);
+            clearServer("whatsapp");
+          }}
+          onBlur={() => touch("whatsapp")}
+          invalid={!!shownError("whatsapp")}
+          describedBy={shownError("whatsapp") ? id("whatsapp-error") : undefined}
+          borderClass={borderFor("whatsapp")}
+          inputClass={inputBase}
+        />
         <FieldError id={id("whatsapp-error")} message={shownError("whatsapp")} />
       </div>
 
@@ -332,6 +337,28 @@ export default function LeadFlow({ layout, initialInterests, onClose }: Props) {
           })}
         </div>
       </fieldset>
+
+      <div>
+        <label htmlFor={id("message")} className="mb-1.5 block text-sm font-semibold">
+          What would you like to solve?{" "}
+          <span className="font-normal text-muted-strong">(optional)</span>
+        </label>
+        <textarea
+          id={id("message")}
+          rows={2}
+          maxLength={MESSAGE_MAX}
+          placeholder="e.g. Customers wait too long for replies"
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+            clearServer("message");
+          }}
+          aria-invalid={!!shownError("message")}
+          aria-describedby={shownError("message") ? id("message-error") : undefined}
+          className={`${inputBase} resize-y ${borderFor("message")}`}
+        />
+        <FieldError id={id("message-error")} message={shownError("message")} />
+      </div>
 
       <div>
         <label className="flex items-start gap-3 text-sm leading-relaxed text-charcoal">

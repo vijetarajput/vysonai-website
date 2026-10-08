@@ -17,10 +17,11 @@ const sections: LegalSection[] = [
     paragraphs: ["When you fill in our demo form, we collect:"],
     items: [
       "Your name",
-      "Your WhatsApp number",
+      "Your WhatsApp number, with its country code (stored in international format)",
       "Your email address, only if you choose to give it",
       "Your business type (for example gym or clinic)",
       "The things you told us you want to automate, if you chose any",
+      "A short note about what you would like to solve, only if you choose to write one",
     ],
   },
   {

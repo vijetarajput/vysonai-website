@@ -3,6 +3,7 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import RollCallMarquee from "@/components/RollCallMarquee";
 import LeadModalProvider from "@/components/lead/LeadModal";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col bg-page text-charcoal">
         <LeadModalProvider>
+          <RollCallMarquee />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

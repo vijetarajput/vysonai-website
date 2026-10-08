@@ -10,10 +10,17 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import LeadFlow from "@/components/lead/LeadFlow";
+import dynamic from "next/dynamic";
 import type { Interest } from "@/lib/lead";
 
-type OpenOptions = { interests?: Interest[] };
+// The form (and its phone-number library) loads only when the modal is first opened.
+const LeadFlow = dynamic(() => import("@/components/lead/LeadFlow"));
+
+type OpenOptions = {
+  interests?: Interest[];
+  /** Prefills the optional "What would you like to solve?" note. */
+  message?: string;
+};
 
 const LeadModalContext = createContext<{ open: (options?: OpenOptions) => void }>({
   open: () => {},
@@ -31,11 +38,13 @@ export function useLeadModal() {
 export default function LeadModalProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [interests, setInterests] = useState<Interest[] | undefined>();
+  const [message, setMessage] = useState<string | undefined>();
   const [session, setSession] = useState(0); // new key = a fresh, empty form each time
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const open = useCallback((options?: OpenOptions) => {
     setInterests(options?.interests);
+    setMessage(options?.message);
     setSession((n) => n + 1);
     setIsOpen(true);
   }, []);
@@ -76,6 +85,7 @@ export default function LeadModalProvider({ children }: { children: ReactNode })
             key={session}
             layout="modal"
             initialInterests={interests}
+            initialMessage={message}
             onClose={close}
           />
         )}

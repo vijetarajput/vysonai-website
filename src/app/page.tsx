@@ -3,6 +3,7 @@ import ComparisonTable from "@/components/ComparisonTable";
 import DemoSection from "@/components/DemoSection";
 import Hero from "@/components/Hero";
 import JsonLd from "@/components/JsonLd";
+import PayslipCalculator from "@/components/PayslipCalculator";
 import ServiceCards from "@/components/ServiceCards";
 import { siteConfig } from "@/config/site";
 
@@ -40,6 +41,7 @@ export default function HomePage() {
       <Hero />
       <ServiceCards />
       <ComparisonTable />
+      <PayslipCalculator />
       <DemoSection />
     </>
   );
