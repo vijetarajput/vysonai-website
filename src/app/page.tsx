@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import ComparisonTable from "@/components/ComparisonTable";
 import DemoSection from "@/components/DemoSection";
 import Hero from "@/components/Hero";
 import JsonLd from "@/components/JsonLd";
-import PayslipCalculator from "@/components/PayslipCalculator";
+import Calculator from "@/components/Calculator";
 import ServiceCards from "@/components/ServiceCards";
 import { siteConfig } from "@/config/site";
 
@@ -40,8 +39,7 @@ export default function HomePage() {
       <JsonLd data={organizationJsonLd} />
       <Hero />
       <ServiceCards />
-      <ComparisonTable />
-      <PayslipCalculator />
+      <Calculator />
       <DemoSection />
     </>
   );

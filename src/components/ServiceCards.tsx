@@ -1,46 +1,68 @@
-import ServiceCard from "@/components/ServiceCard";
-import ServiceMiniVisual from "@/components/ServiceMiniVisuals";
+import Link from "next/link";
+import ServiceIcon from "@/components/ServiceIcon";
 import DemoButton from "@/components/lead/DemoButton";
-import { serviceCards } from "@/content/services";
+import { offerings, type Offering } from "@/content/services";
+
+const cardClass =
+  "group flex h-full w-full flex-col rounded-2xl border border-border bg-white p-4 text-left shadow-soft transition-all duration-200 hover:border-brand-violet motion-safe:hover:-translate-y-1 hover:shadow-md focus-visible:border-brand-violet sm:p-5";
+
+function CardBody({ offering }: { offering: Offering }) {
+  const cta = offering.href ? "Learn more" : "Talk to us";
+  return (
+    <>
+      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-tint text-brand-violet">
+        <ServiceIcon name={offering.icon} size={24} />
+      </span>
+      <span className="mt-4 block font-heading text-base font-bold leading-snug text-charcoal sm:text-lg">
+        {offering.title}
+      </span>
+      <span className="mt-1.5 block flex-1 text-sm leading-relaxed text-muted-strong">
+        {offering.text}
+      </span>
+      <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-violet">
+        {cta}
+        <span
+          aria-hidden="true"
+          className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"
+        >
+          →
+        </span>
+      </span>
+    </>
+  );
+}
 
 /**
- * Home page services section: four small, curiosity-driven cards that lead to the
- * service pages, plus a slim strip for visitors who are not sure which one fits.
- * Desktop: one row of 4. Tablet: 2x2. Mobile: a swipeable row with the next card peeking.
+ * Home services section: 8 simple cards. 4 columns on desktop, 2 on tablet and mobile.
+ * The whole card is a link. Cards 6 to 8 open the "Book your free call" form instead.
  */
 export default function ServiceCards() {
   return (
-    <>
-      <section id="services" className="scroll-mt-16 bg-white">
-        <div className="mx-auto max-w-6xl px-4 pb-8 pt-16 sm:px-6 sm:pt-20 sm:pb-12">
-          <div className="text-center">
-            <h2>Where is your business losing time and money?</h2>
-            <p className="measure mx-auto mt-3 text-muted-strong">
-              Tap a card to see how it works for a business like yours.
-            </p>
-          </div>
-
-          <ul className="-mx-4 mt-8 flex snap-x snap-mandatory scroll-pl-4 gap-4 overflow-x-auto px-4 pb-6 pt-3 [scrollbar-width:none] sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-2 cards:grid-cols-4 [&::-webkit-scrollbar]:hidden">
-            {serviceCards.map((card) => (
-              <li key={card.slug} className="w-[272px] shrink-0 snap-start sm:w-auto">
-                <ServiceCard card={card} visual={<ServiceMiniVisual slug={card.slug} />} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Slim strip for visitors who are not sure */}
-      <section className="border-y border-brand-violet/10 bg-violet-tint">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-3 px-4 py-5 text-center sm:flex-row sm:gap-6 sm:px-6">
-          <p className="font-heading text-lg font-bold text-charcoal">
-            Not sure which one fits your business?
+    <section id="services" className="scroll-mt-16 bg-white">
+      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+        <div className="text-center">
+          <h2>What we can do for your business</h2>
+          <p className="measure mx-auto mt-3 text-lg text-muted-strong">
+            Pick what you need. We set it up and make it work for you.
           </p>
-          <DemoButton className="inline-flex items-center justify-center rounded-full bg-brand-violet px-6 py-2.5 text-sm font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark">
-            Book a free 15-minute call
-          </DemoButton>
         </div>
-      </section>
-    </>
+
+        <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+          {offerings.map((offering) => (
+            <li key={offering.title}>
+              {offering.href ? (
+                <Link href={offering.href} className={cardClass}>
+                  <CardBody offering={offering} />
+                </Link>
+              ) : (
+                <DemoButton interests={offering.interest ? [offering.interest] : undefined} className={cardClass}>
+                  <CardBody offering={offering} />
+                </DemoButton>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }

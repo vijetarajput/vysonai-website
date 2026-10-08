@@ -3,29 +3,25 @@
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import BrandName from "@/components/BrandName";
-import { BusinessIcon, CheckIcon } from "@/components/lead/icons";
+import { CheckIcon } from "@/components/lead/icons";
 import PhoneField from "@/components/lead/PhoneField";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import {
-  BUSINESS_TYPES,
   INTERESTS,
   MESSAGE_MAX,
   validateLead,
-  type BusinessType,
   type Interest,
   type LeadErrors,
   type LeadField,
 } from "@/lib/lead";
 import { DEFAULT_COUNTRY, type CountryCode } from "@/lib/phone";
 
-type Step = 1 | 2 | "done";
-
 type Props = {
   /** "modal" shows the gradient side panel; "inline" is a simple card for pages. */
   layout: "modal" | "inline";
-  /** Preselects "What do you want to automate?" chips. */
+  /** Preselects the "What do you need help with?" chips. */
   initialInterests?: Interest[];
-  /** Prefills the optional "What would you like to solve?" note. */
+  /** Prefills the optional "Tell us a bit more" box. */
   initialMessage?: string;
   onClose?: () => void;
 };
@@ -35,23 +31,8 @@ const DELIVERY_FAILED = "Sorry, something went wrong. Please message us on Whats
 const inputBase =
   "w-full rounded-xl border bg-white px-4 py-3 text-base text-charcoal placeholder:text-muted focus:border-brand-violet focus:outline-none focus:ring-2 focus:ring-brand-violet/30";
 
-const stepContent = {
-  1: {
-    label: "Step 1 of 2",
-    title: "What type of business do you run?",
-    text: "This helps us prepare a demo made for you.",
-  },
-  2: {
-    label: "Step 2 of 2",
-    title: "Where should we send your demo?",
-    text: "We'll WhatsApp you within 24 hours.",
-  },
-  done: {
-    label: "All done",
-    title: "Thank you!",
-    text: "",
-  },
-} as const;
+const TITLE = "Book your free call";
+const SUBTEXT = "15 minutes. No cost, no commitment. We'll message you within 24 hours.";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
@@ -66,8 +47,6 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
   const uid = useId();
   const id = (name: string) => `${uid}-${name}`;
 
-  const [step, setStep] = useState<Step>(1);
-  const [business, setBusiness] = useState<BusinessType | "">("");
   const [name, setName] = useState("");
   const [country, setCountry] = useState<CountryCode>(DEFAULT_COUNTRY);
   const [phone, setPhone] = useState("");
@@ -75,26 +54,21 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
   const [interests, setInterests] = useState<Interest[]>(initialInterests ?? []);
   const [message, setMessage] = useState(initialMessage ?? "");
   const [consent, setConsent] = useState(false);
+  const [done, setDone] = useState(false);
   const [touched, setTouched] = useState<Partial<Record<LeadField, boolean>>>({});
   const [serverErrors, setServerErrors] = useState<LeadErrors>({});
   const [formError, setFormError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const userMoved = useRef(false);
+  const finished = useRef(false);
 
-  // After the person moves between steps, move keyboard focus to the new step title.
+  // After sending, move keyboard focus to the "Thank you" title.
   useEffect(() => {
-    if (userMoved.current) titleRef.current?.focus();
-  }, [step]);
-
-  function goTo(next: Step) {
-    userMoved.current = true;
-    setStep(next);
-  }
+    if (done && finished.current) titleRef.current?.focus();
+  }, [done]);
 
   const check = validateLead({
-    businessType: business,
     name,
     country,
     whatsapp: phone,
@@ -110,14 +84,7 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
   const touch = (field: LeadField) => setTouched((t) => ({ ...t, [field]: true }));
   const clearServer = (field: LeadField) =>
     setServerErrors((e) => (e[field] ? { ...e, [field]: undefined } : e));
-  const borderFor = (field: LeadField) =>
-    shownError(field) ? "border-red-600" : "border-border";
-
-  function chooseBusiness(type: BusinessType) {
-    setBusiness(type);
-    clearServer("businessType");
-    goTo(2);
-  }
+  const borderFor = (field: LeadField) => (shownError(field) ? "border-red-600" : "border-border");
 
   function toggleInterest(item: Interest) {
     setInterests((list) =>
@@ -131,7 +98,7 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
     setFormError("");
 
     if (!check.ok) {
-      setTouched({ name: true, whatsapp: true, email: true, consent: true, businessType: true });
+      setTouched({ name: true, whatsapp: true, email: true, message: true, consent: true });
       return;
     }
 
@@ -143,7 +110,6 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          businessType: business,
           name,
           country,
           whatsapp: phone,
@@ -158,10 +124,10 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
       const data = await response.json().catch(() => ({}));
 
       if (response.ok && data.ok) {
-        goTo("done");
+        finished.current = true;
+        setDone(true);
       } else if (data.errors) {
         setServerErrors(data.errors);
-        if (data.errors.businessType) goTo(1);
       } else {
         setFormError(data.message ?? DELIVERY_FAILED);
       }
@@ -173,49 +139,10 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
   }
 
   const Heading = layout === "modal" ? "h2" : "h3";
-  const content = stepContent[step];
+  const title = done ? "Thank you!" : TITLE;
   const titleId = id("title");
 
-  const stepList = [
-    { label: "Choose business", done: step !== 1 },
-    { label: "Your details", done: step === "done" },
-  ];
-
-  /* ---------- the form body for each step ---------- */
-
-  const businessStep = (
-    <div>
-      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-        {BUSINESS_TYPES.map((type) => {
-          const selected = business === type;
-          return (
-            <li key={type}>
-              <button
-                type="button"
-                aria-pressed={selected}
-                onClick={() => chooseBusiness(type)}
-                className={`flex h-full w-full flex-col items-center gap-3 rounded-2xl border-2 px-3 py-5 text-center transition-colors hover:border-brand-violet hover:bg-violet-tint ${
-                  selected
-                    ? "border-brand-violet bg-violet-tint"
-                    : "border-border bg-white"
-                }`}
-              >
-                <span className="text-brand-violet">
-                  <BusinessIcon type={type} />
-                </span>
-                <span className="font-heading text-base font-semibold text-charcoal">
-                  {type}
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-      <FieldError id={id("business-error")} message={shownError("businessType")} />
-    </div>
-  );
-
-  const detailsStep = (
+  const form = (
     <form onSubmit={onSubmit} noValidate className="space-y-5">
       {/* Hidden spam trap: people never see or fill this */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
@@ -224,22 +151,6 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
           <input type="text" name="website" tabIndex={-1} autoComplete="off" />
         </label>
       </div>
-
-      {business && (
-        <div className="flex items-center justify-between gap-3 rounded-2xl bg-violet-tint px-4 py-3">
-          <p className="flex items-center gap-3 text-sm text-charcoal">
-            <span className="text-brand-violet">
-              <BusinessIcon type={business} size={24} />
-            </span>
-            <span>
-              Business: <span className="font-semibold">{business}</span>
-            </span>
-          </p>
-          <button type="button" onClick={() => goTo(1)} className="link-brand text-sm font-medium">
-            Change
-          </button>
-        </div>
-      )}
 
       <div>
         <label htmlFor={id("name")} className="mb-1.5 block text-sm font-semibold">
@@ -312,7 +223,7 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
 
       <fieldset>
         <legend className="mb-2 block text-sm font-semibold">
-          What do you want to automate?{" "}
+          What do you need help with?{" "}
           <span className="font-normal text-muted-strong">(optional)</span>
         </legend>
         <div className="flex flex-wrap gap-2">
@@ -324,7 +235,7 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
                 type="button"
                 aria-pressed={selected}
                 onClick={() => toggleInterest(item)}
-                className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-sm font-medium transition-colors ${
                   selected
                     ? "border-brand-violet bg-brand-violet text-white"
                     : "border-border bg-white text-charcoal hover:border-brand-violet hover:bg-violet-tint"
@@ -340,14 +251,14 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
 
       <div>
         <label htmlFor={id("message")} className="mb-1.5 block text-sm font-semibold">
-          What would you like to solve?{" "}
+          Tell us a bit more{" "}
           <span className="font-normal text-muted-strong">(optional)</span>
         </label>
         <textarea
           id={id("message")}
-          rows={2}
+          rows={3}
           maxLength={MESSAGE_MAX}
-          placeholder="e.g. Customers wait too long for replies"
+          placeholder="e.g. We miss calls when we're busy. Not sure yet? Leave it blank."
           value={message}
           onChange={(e) => {
             setMessage(e.target.value);
@@ -399,40 +310,33 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
         )}
       </div>
 
-      <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center">
-        <button
-          type="button"
-          onClick={() => goTo(1)}
-          className="rounded-full border-2 border-border px-6 py-3 text-base font-medium text-charcoal transition-colors hover:bg-violet-tint"
-        >
-          Back
-        </button>
+      <div>
         <button
           type="submit"
           disabled={!check.ok || submitting}
           aria-describedby={!check.ok ? id("hint") : undefined}
-          className="flex-1 rounded-full bg-brand-violet px-6 py-3 text-base font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-violet"
+          className="w-full rounded-full bg-brand-violet px-6 py-3 text-base font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-violet"
         >
-          {submitting ? "Sending..." : "Get Free Demo"}
+          {submitting ? "Sending..." : "Book my free call"}
         </button>
+        {!check.ok && (
+          <p id={id("hint")} className="mt-3 text-center text-sm text-muted-strong">
+            {errors.email && !errors.name && !errors.whatsapp && !errors.consent
+              ? "Please check your email address to continue."
+              : "Add your name and WhatsApp number, and tick the box to continue."}
+          </p>
+        )}
       </div>
-      {!check.ok && (
-        <p id={id("hint")} className="text-center text-sm text-muted-strong">
-          {errors.email && !errors.name && !errors.whatsapp && !errors.consent
-            ? "Please check your email address to continue."
-            : "Add your name and WhatsApp number, and tick the box to continue."}
-        </p>
-      )}
     </form>
   );
 
-  const doneStep = (
+  const doneView = (
     <div role="status" className="py-4 text-center">
       <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-violet-tint text-brand-violet">
         <CheckIcon size={26} />
       </span>
       <p className="mt-5 font-heading text-2xl font-bold leading-tight tracking-tight text-charcoal">
-        Thank you! We&apos;ll WhatsApp you within 24 hours.
+        Thank you! We&apos;ll message you on WhatsApp within 24 hours.
       </p>
       <div className="mt-6 flex flex-col items-center gap-3">
         <WhatsAppButton label="Chat with us on WhatsApp now" large />
@@ -445,22 +349,17 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
     </div>
   );
 
-  const body = step === 1 ? businessStep : step === 2 ? detailsStep : doneStep;
+  const body = done ? doneView : form;
 
   /* ---------- layouts ---------- */
 
   if (layout === "inline") {
     return (
       <div>
-        <p className="text-sm font-semibold text-brand-violet">{content.label}</p>
-        <Heading
-          ref={titleRef}
-          tabIndex={-1}
-          className="mt-1 text-2xl focus:outline-none"
-        >
-          {step === "done" ? "All done" : content.title}
+        <Heading ref={titleRef} tabIndex={-1} className="text-2xl focus:outline-none">
+          {title}
         </Heading>
-        {content.text && <p className="mt-1 text-muted-strong">{content.text}</p>}
+        {!done && <p className="mt-1 text-muted-strong">{SUBTEXT}</p>}
         <div className="mt-6">{body}</div>
       </div>
     );
@@ -470,43 +369,15 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
     <div className="relative flex h-dvh flex-col md:h-auto md:max-h-[90dvh] md:min-h-[520px] md:flex-row">
       {/* Gradient panel: a header strip on mobile, a side panel on desktop */}
       <aside className="on-dark bg-brand-gradient-diagonal px-6 py-5 pr-16 text-white md:flex md:w-[35%] md:shrink-0 md:flex-col md:p-8">
-        <p className="text-sm font-semibold">{content.label}</p>
         <Heading
           id={titleId}
           ref={titleRef}
           tabIndex={-1}
-          className="mt-2 text-xl leading-tight text-white focus:outline-none md:text-2xl"
+          className="text-xl leading-tight text-white focus:outline-none md:text-2xl"
         >
-          {content.title}
+          {title}
         </Heading>
-        {content.text && <p className="mt-2 hidden text-sm md:block">{content.text}</p>}
-
-        <ol className="mt-8 hidden space-y-4 md:block">
-          {stepList.map((item, index) => {
-            const current = (step === 1 && index === 0) || (step === 2 && index === 1);
-            return (
-              <li key={item.label} className="flex items-center gap-3 text-sm font-medium">
-                <span
-                  aria-hidden="true"
-                  className={`flex h-7 w-7 items-center justify-center rounded-full border-2 text-xs font-bold ${
-                    item.done
-                      ? "border-white bg-white text-brand-violet"
-                      : current
-                        ? "border-white text-white"
-                        : "border-white/60 text-white/80"
-                  }`}
-                >
-                  {item.done ? <CheckIcon size={14} /> : index + 1}
-                </span>
-                <span>
-                  {item.label}
-                  {item.done && <span className="sr-only"> (done)</span>}
-                  {current && <span className="sr-only"> (current step)</span>}
-                </span>
-              </li>
-            );
-          })}
-        </ol>
+        {!done && <p className="mt-2 text-sm">{SUBTEXT}</p>}
       </aside>
 
       <div className="flex-1 overflow-y-auto bg-white p-6 md:p-10">{body}</div>

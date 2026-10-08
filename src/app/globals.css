@@ -576,16 +576,7 @@ body {
   }
 }
 
-/* Roll-call strip above the header: slow right-to-left loop, paused on hover or keyboard focus. */
-@keyframes rollcall-scroll {
-  to {
-    transform: translateX(-50%);
-  }
-}
-.rollcall-track {
-  animation: rollcall-scroll 90s linear infinite;
-}
-.rollcall:hover .rollcall-track,
-.rollcall:focus-within .rollcall-track {
-  animation-play-state: paused;
+/* Announcement bar: hidden before first paint when the visitor already closed it. */
+html[data-announcement-hidden] .announcement-bar {
+  display: none;
 }

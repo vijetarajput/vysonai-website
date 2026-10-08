@@ -16,7 +16,10 @@ export type IconName =
   | "bag"
   | "book"
   | "globe"
-  | "search";
+  | "search"
+  | "megaphone"
+  | "users"
+  | "sparkle";
 
 export type ServiceSlug =
   | "whatsapp-automation"
@@ -68,7 +71,7 @@ export const whatsappAutomation: ServiceContent = {
     "Built on the official WhatsApp Business API, so reminders, renewals and follow-ups go out on time without you or your staff typing them one by one.",
   visual: "whatsapp",
   reviewsBonus: true,
-  interests: ["Reminders", "Follow-ups"],
+  interests: ["WhatsApp customer service"],
   before: [
     "You or your staff type reminders one by one, whenever you remember.",
     "Renewals and follow-ups slip through the cracks on busy days.",
@@ -162,7 +165,7 @@ export const chatbot: ServiceContent = {
   subtext:
     "An AI assistant that replies from your own prices, timings and services, in your customers' language, and saves every lead for you.",
   visual: "chatbot",
-  interests: ["Chatbot"],
+  interests: ["Website chatbot"],
   before: [
     "Visitors with a question leave when nobody is around to answer.",
     "You repeat the same price and timing answers all day.",
@@ -255,7 +258,7 @@ export const aiDashboard: ServiceContent = {
   subtext:
     "Sales, stock, customers and payments in one place. Ask in your own language, and get alerts and a Monday report without having to check.",
   visual: "dashboard",
-  interests: ["Customer dashboard", "Weekly report"],
+  interests: ["CRM", "Stock management"],
   before: [
     "Sales are in one register, stock in another, and payments in your head.",
     "To find your best-selling product, you add up bills by hand.",
@@ -451,70 +454,66 @@ export const aiReceptionist: ServiceContent = {
   ctaHeading: "Want to stop missing calls?",
 };
 
-/** Cards on the home page that lead to each service page. */
-export type ServiceCardData = {
-  slug: ServiceSlug;
-  href: string;
-  eyebrow: string;
+/**
+ * What we offer: the 8 cards in the Home services section and the 8 entries in the header
+ * "Services" dropdown. An item with `href` opens a service page. An item with `interest`
+ * opens the "Book your free call" form with that choice already picked.
+ */
+export type Offering = {
   title: string;
-  reveal: string;
+  text: string;
+  icon: IconName;
+  href?: string;
+  interest?: Interest;
 };
 
-export const serviceCards: ServiceCardData[] = [
+export const offerings: Offering[] = [
   {
-    slug: "whatsapp-automation",
-    href: "/services/whatsapp-automation",
-    eyebrow: "WhatsApp Automation",
-    title: whatsappAutomation.question,
-    reveal: "Reminders, follow-ups and renewals that run themselves.",
-  },
-  {
-    slug: "chatbot",
-    href: "/services/chatbot",
-    eyebrow: "AI Chatbot",
-    title: chatbot.question,
-    reveal: "An AI assistant that replies in your customers' language and saves every lead.",
-  },
-  {
-    slug: "ai-dashboard",
-    href: "/services/ai-dashboard",
-    eyebrow: "AI Dashboard",
-    title: aiDashboard.question,
-    reveal: "\"Which product sold most this week?\" Answer in seconds, plus stock alerts.",
-  },
-  {
-    slug: "ai-receptionist",
-    href: "/services/ai-receptionist",
-    eyebrow: "AI Receptionist",
-    title: aiReceptionist.question,
-    reveal: "An AI receptionist that answers 24/7 and books the appointment.",
-  },
-];
-
-/** Menu entries for the header "Services" dropdown and the mobile accordion. */
-export const serviceMenu: { href: string; title: string; text: string; icon: IconName }[] = [
-  {
-    href: "/services/whatsapp-automation",
-    title: "WhatsApp Automation",
-    text: "Instant replies and reminders on WhatsApp",
-    icon: "chat",
-  },
-  {
-    href: "/services/chatbot",
-    title: "AI Chatbot",
-    text: "Answer website visitors and capture leads 24/7",
-    icon: "globe",
-  },
-  {
-    href: "/services/ai-dashboard",
-    title: "AI Dashboard",
-    text: "Ask your business questions, get answers in seconds",
-    icon: "chart",
-  },
-  {
-    href: "/services/ai-receptionist",
     title: "AI Receptionist",
-    text: "Every call answered, appointments booked",
+    text: "Picks up every call, day or night, and books appointments for you.",
     icon: "phone",
+    href: "/services/ai-receptionist",
+  },
+  {
+    title: "WhatsApp Customer Service",
+    text: "Replies to your customers on WhatsApp instantly and sends reminders.",
+    icon: "chat",
+    href: "/services/whatsapp-automation",
+  },
+  {
+    title: "Website Chatbot",
+    text: "Chats with visitors on your website and collects their number.",
+    icon: "globe",
+    href: "/services/chatbot",
+  },
+  {
+    title: "CRM",
+    text: "Keeps all your customers in one list and reminds you to follow up.",
+    icon: "users",
+    href: "/services/ai-dashboard",
+  },
+  {
+    title: "Stock Management",
+    text: "Tells you what's selling and what's about to run out.",
+    icon: "bag",
+    href: "/services/ai-dashboard",
+  },
+  {
+    title: "Meta Ads",
+    text: "Runs Facebook and Instagram ads that bring you new customers.",
+    icon: "megaphone",
+    interest: "Meta Ads",
+  },
+  {
+    title: "LinkedIn Outreach",
+    text: "Sends personal messages to the right people and books meetings for you.",
+    icon: "mail",
+    interest: "LinkedIn outreach",
+  },
+  {
+    title: "Something else?",
+    text: "Tell us a task you do every day. We'll automate it.",
+    icon: "sparkle",
+    interest: "Something else",
   },
 ];

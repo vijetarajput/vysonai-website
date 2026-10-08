@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ServiceIcon from "@/components/ServiceIcon";
 import DemoButton from "@/components/lead/DemoButton";
-import { serviceMenu } from "@/content/services";
+import { offerings, type Offering } from "@/content/services";
 
 function Chevron({ open }: { open: boolean }) {
   return (
@@ -25,6 +25,57 @@ function Chevron({ open }: { open: boolean }) {
     >
       <path d="m6 9 6 6 6-6" />
     </svg>
+  );
+}
+
+/** One entry in the Services menu: a link to a service page, or a button that opens the form. */
+function MenuItem({
+  item,
+  onDone,
+  variant,
+  pathname,
+}: {
+  item: Offering;
+  onDone: () => void;
+  variant: "desktop" | "mobile";
+  pathname?: string;
+}) {
+  const desktop = variant === "desktop";
+  const className = desktop
+    ? "flex h-full w-full items-start gap-3 rounded-xl p-3 text-left transition-colors hover:bg-violet-tint focus-visible:bg-violet-tint"
+    : "flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-violet-tint";
+  const content = (
+    <>
+      <span className="mt-0.5 shrink-0 text-brand-violet">
+        <ServiceIcon name={item.icon} size={desktop ? 22 : 20} />
+      </span>
+      <span className="min-w-0">
+        <span className={`block font-bold text-charcoal ${desktop ? "text-sm" : "text-[15px]"}`}>
+          {item.title}
+        </span>
+        <span className="mt-0.5 block text-[13px] leading-snug text-muted-strong">
+          {item.text}
+        </span>
+      </span>
+    </>
+  );
+
+  if (item.href) {
+    return (
+      <Link
+        href={item.href}
+        onClick={onDone}
+        aria-current={pathname === item.href ? "page" : undefined}
+        className={className}
+      >
+        {content}
+      </Link>
+    );
+  }
+  return (
+    <DemoButton interests={item.interest ? [item.interest] : undefined} onOpen={onDone} className={className}>
+      {content}
+    </DemoButton>
   );
 }
 
@@ -161,23 +212,9 @@ export function ServicesDropdown() {
             className="rounded-2xl border border-border bg-white p-3 shadow-[0_18px_44px_-14px_rgba(17,24,39,0.22)]"
           >
             <ul className="grid grid-cols-2 gap-1">
-              {serviceMenu.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={close}
-                    className="flex h-full items-start gap-3 rounded-xl p-3 transition-colors hover:bg-violet-tint focus-visible:bg-violet-tint"
-                  >
-                    <span className="mt-0.5 shrink-0 text-brand-violet">
-                      <ServiceIcon name={item.icon} size={22} />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block text-sm font-bold text-charcoal">{item.title}</span>
-                      <span className="mt-0.5 block text-[13px] leading-snug text-muted-strong">
-                        {item.text}
-                      </span>
-                    </span>
-                  </Link>
+              {offerings.map((item) => (
+                <li key={item.title}>
+                  <MenuItem item={item} onDone={close} variant="desktop" />
                 </li>
               ))}
             </ul>
@@ -197,7 +234,7 @@ export function ServicesDropdown() {
   );
 }
 
-/** Mobile menu: "Services" as an accordion with the same four items. */
+/** Mobile menu: "Services" as an accordion with the same eight items. */
 export function ServicesAccordion({ onNavigate }: { onNavigate: () => void }) {
   const pathname = usePathname();
   const active = pathname.startsWith("/services");
@@ -218,24 +255,9 @@ export function ServicesAccordion({ onNavigate }: { onNavigate: () => void }) {
         <Chevron open={open} />
       </button>
       <ul id="mobile-services" hidden={!open} className="mt-1 space-y-1 pl-3">
-        {serviceMenu.map((item) => (
-          <li key={item.href}>
-            <Link
-              href={item.href}
-              onClick={onNavigate}
-              aria-current={pathname === item.href ? "page" : undefined}
-              className="flex items-start gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-violet-tint"
-            >
-              <span className="mt-0.5 shrink-0 text-brand-violet">
-                <ServiceIcon name={item.icon} size={20} />
-              </span>
-              <span className="min-w-0">
-                <span className="block text-[15px] font-bold text-charcoal">{item.title}</span>
-                <span className="mt-0.5 block text-[13px] leading-snug text-muted-strong">
-                  {item.text}
-                </span>
-              </span>
-            </Link>
+        {offerings.map((item) => (
+          <li key={item.title}>
+            <MenuItem item={item} onDone={onNavigate} variant="mobile" pathname={pathname} />
           </li>
         ))}
       </ul>

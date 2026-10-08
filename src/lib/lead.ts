@@ -3,24 +3,22 @@ import { DEFAULT_COUNTRY, isCountryCode, toE164, type CountryCode } from "@/lib/
 
 // Shared by the lead form (browser) and the /api/lead route (server).
 
-export const BUSINESS_TYPES = ["Gym", "Clinic", "Salon", "Coaching", "Retail / Shop", "Other"] as const;
-export type BusinessType = (typeof BUSINESS_TYPES)[number];
-
-/** Optional "What do you want to automate?" choices. */
+/** Optional "What do you need help with?" choices. */
 export const INTERESTS = [
-  "Reminders",
-  "Follow-ups",
-  "Customer dashboard",
-  "Weekly report",
-  "Chatbot",
   "AI receptionist",
+  "WhatsApp customer service",
+  "Website chatbot",
+  "CRM",
+  "Stock management",
+  "Meta Ads",
+  "LinkedIn outreach",
+  "Something else",
 ] as const;
 export type Interest = (typeof INTERESTS)[number];
 
-export const MESSAGE_MAX = 300;
+export const MESSAGE_MAX = 500;
 
 export type LeadField =
-  | "businessType"
   | "name"
   | "whatsapp"
   | "email"
@@ -30,14 +28,13 @@ export type LeadField =
 export type LeadErrors = Partial<Record<LeadField, string>>;
 
 export const messages = {
-  businessType: "Please choose the type of business you run.",
   nameEmpty: "Please enter your name.",
   nameShort: "Please enter your full name (at least 2 letters).",
   whatsappEmpty: "Please enter your WhatsApp number.",
   whatsappInvalid: "Please enter a valid number for the selected country.",
   email: "Please enter a valid email address, like you@business.com, or leave it empty.",
   interests: "Please choose from the options shown.",
-  message: `Please keep this note under ${MESSAGE_MAX} characters.`,
+  message: `Please keep your message under ${MESSAGE_MAX} characters.`,
   consent: "Please tick the box so we can message you on WhatsApp.",
 };
 
@@ -79,7 +76,6 @@ const messageSchema = z
   .default("");
 
 const detailsSchema = z.object({
-  businessType: z.enum(BUSINESS_TYPES, { error: messages.businessType }),
   name: z
     .string({ error: messages.nameEmpty })
     .trim()

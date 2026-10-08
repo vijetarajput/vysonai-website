@@ -36,9 +36,8 @@ function telegramText(lead: Lead, page: string) {
     `Name: ${escapeHtml(lead.name)}`,
     `WhatsApp: ${escapeHtml(number)} (<a href="https://wa.me/${waDigits}">open chat</a>)`,
     `Email: ${lead.email ? escapeHtml(lead.email) : "Not provided"}`,
-    `Business: ${escapeHtml(lead.businessType)}`,
-    `Wants: ${escapeHtml(wants)}`,
-    `Note: ${lead.message ? escapeHtml(lead.message) : "None"}`,
+    `Needs: ${escapeHtml(wants)}`,
+    `Message: ${lead.message ? escapeHtml(lead.message) : "Not shared"}`,
     `Page: ${escapeHtml(page)}`,
     `Time: ${kolkataTime(new Date())}`,
   ].join("\n");
@@ -94,7 +93,6 @@ async function forwardToN8n(lead: Lead, page: string) {
         whatsapp: lead.whatsapp, // E.164, for example +447911123456
         country: lead.country,
         email: lead.email,
-        businessType: lead.businessType,
         interests: lead.interests,
         message: lead.message,
         consent: true,

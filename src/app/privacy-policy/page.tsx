@@ -19,9 +19,8 @@ const sections: LegalSection[] = [
       "Your name",
       "Your WhatsApp number, with its country code (stored in international format)",
       "Your email address, only if you choose to give it",
-      "Your business type (for example gym or clinic)",
-      "The things you told us you want to automate, if you chose any",
-      "A short note about what you would like to solve, only if you choose to write one",
+      "What you need help with, if you pick any of the choices",
+      "A short message, only if you choose to write one",
     ],
   },
   {
