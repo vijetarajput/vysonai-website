@@ -26,14 +26,12 @@ type Glow = { color: string; left: number; top: number };
 
 const slides: {
   Slide: ComponentType<SlideProps>;
-  emoji: string;
   title: string;
   line: string;
   glows: [Glow, Glow, Glow];
 }[] = [
   {
     Slide: WhatsAppSlide,
-    emoji: "💬",
     title: "WhatsApp on autopilot",
     line: "Every customer gets an instant reply, even at midnight.",
     glows: [
@@ -44,7 +42,6 @@ const slides: {
   },
   {
     Slide: DashboardSlide,
-    emoji: "📊",
     title: "Your whole business, one screen",
     line: "Sales, stock and reports in seconds.",
     glows: [
@@ -55,7 +52,6 @@ const slides: {
   },
   {
     Slide: ChatbotSlide,
-    emoji: "🌐",
     title: "A website that catches leads while you sleep",
     line: "Your AI chatbot answers and collects every enquiry.",
     glows: [
@@ -66,7 +62,6 @@ const slides: {
   },
   {
     Slide: ReceptionistSlide,
-    emoji: "📞",
     title: "Never miss a call again",
     line: "A 24/7 AI receptionist that books clients for you.",
     glows: [
@@ -222,7 +217,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
         className="relative -mx-4 mt-6 flex snap-x snap-mandatory scroll-pl-4 gap-3 overflow-x-auto px-4 pb-4 pt-3 [scrollbar-width:none] sm:-mx-6 sm:scroll-pl-6 sm:px-6 lg:mx-0 lg:mt-8 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-3 [&::-webkit-scrollbar]:hidden"
         {...hoverProps}
       >
-        {slides.map(({ emoji, title, line }, index) => {
+        {slides.map(({ title, line }, index) => {
           const isActive = index === active;
           return (
             <button
@@ -238,20 +233,12 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
               tabIndex={isActive ? 0 : -1}
               onClick={() => select(index)}
               onKeyDown={(e) => onKeyDown(e, index)}
-              className={`relative flex w-[268px] shrink-0 snap-start flex-col items-start gap-2 overflow-hidden rounded-2xl border-2 px-4 pb-6 pt-4 text-left transition-[transform,box-shadow,border-color,background-color] duration-300 lg:w-auto ${
+              className={`relative flex w-[268px] shrink-0 snap-start flex-col items-start justify-start gap-1.5 self-stretch overflow-hidden rounded-2xl border-2 px-4 pb-6 pt-3 text-left transition-[transform,box-shadow,border-color,background-color] duration-300 lg:w-auto ${
                 isActive
                   ? "-translate-y-1 border-brand-violet bg-white shadow-[0_18px_40px_-14px_rgb(124_58_237/0.5)]"
                   : "border-border bg-white/70 hover:border-brand-violet/40 hover:bg-white"
               }`}
             >
-              <span
-                aria-hidden="true"
-                className={`flex h-10 w-10 items-center justify-center rounded-xl text-xl transition-colors ${
-                  isActive ? "bg-violet-tint" : "bg-[#f3f4f6]"
-                }`}
-              >
-                {emoji}
-              </span>
               <span className="font-heading text-base font-bold leading-snug text-charcoal">{title}</span>
               <span className="text-sm leading-snug text-muted-strong">{line}</span>
 
