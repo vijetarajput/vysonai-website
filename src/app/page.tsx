@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import ComparisonTable from "@/components/ComparisonTable";
 import DemoSection from "@/components/DemoSection";
 import FinalCta from "@/components/FinalCta";
-import Founder from "@/components/Founder";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
 import JsonLd from "@/components/JsonLd";
@@ -44,7 +43,6 @@ export default function HomePage() {
       <ServiceCards />
       <ComparisonTable />
       <HowItWorks background="tint" />
-      <Founder />
       <DemoSection />
       <FinalCta />
     </>
