@@ -143,9 +143,9 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
   const titleId = id("title");
 
   const form = (
-    <form onSubmit={onSubmit} noValidate className="space-y-5">
+    <form onSubmit={onSubmit} noValidate className="relative space-y-5">
       {/* Hidden spam trap: people never see or fill this */}
-      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+      <div aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-px w-px overflow-hidden opacity-0">
         <label>
           Leave this empty
           <input type="text" name="website" tabIndex={-1} autoComplete="off" />

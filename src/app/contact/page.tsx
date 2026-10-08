@@ -20,7 +20,7 @@ export default function ContactPage() {
     <>
       <Breadcrumbs items={[{ label: "Contact", href: "/contact" }]} />
       <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-4 pb-4 pt-3 text-center sm:px-6 sm:pt-4">
+        <div className="site-container pt-2 text-center">
           <h1 className="text-[1.75rem] sm:text-4xl lg:text-[2.5rem]">
             Let&apos;s Talk About Your Business
           </h1>
@@ -30,7 +30,7 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 pb-12 pt-2 sm:px-6 sm:pb-16 lg:grid-cols-[1.4fr_1fr] lg:items-start lg:gap-8">
+        <div className="site-container section-gap grid grid-cols-[minmax(0,1fr)] gap-6 pb-10 md:pb-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-start lg:gap-8 lg:pb-[4.5rem]">
           <div>
             <h2 className="sr-only">Request a free demo</h2>
             <div className="rounded-3xl border border-border bg-white p-5 shadow-soft sm:p-6">

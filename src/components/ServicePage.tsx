@@ -60,14 +60,14 @@ function Section({
 }) {
   return (
     <section className={tone === "tint" ? "bg-violet-tint" : "bg-white"}>
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <div className="site-container section-y">
         <h2 className="text-center">{title}</h2>
         {intro && (
           <p className="measure mx-auto mt-3 text-center text-lg leading-relaxed text-muted-strong">
             {intro}
           </p>
         )}
-        <div className="mt-10">{children}</div>
+        <div className="section-gap">{children}</div>
       </div>
     </section>
   );
@@ -101,7 +101,7 @@ export default function ServicePage({
       />
       {/* 1. Hero */}
       <section id="service-hero" className="bg-white">
-        <div className="mx-auto grid max-w-[1320px] items-center gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12 lg:px-8">
+        <div className="site-container hero-y grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
           <div>
             <div className="flex flex-wrap items-center gap-3">
               <p className="text-sm font-semibold text-brand-violet">{content.question}</p>

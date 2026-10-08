@@ -141,17 +141,14 @@ export default function Calculator() {
   const note = `Calculator: AI could save about ${result.weekly} hours a week on messages, calls, follow-ups and records.`;
 
   return (
-    <section
-      id="calculator"
-      className="scroll-mt-16 bg-[linear-gradient(180deg,#ffffff_0%,#F5F3FF_100%)]"
-    >
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+    <section id="calculator" className="scroll-mt-16 bg-white">
+      <div className="site-container section-y">
         <div className="mx-auto max-w-2xl text-center">
           <h2>How many hours can AI save your business?</h2>
           <p className="mt-3 text-lg text-muted-strong">Move the sliders to match your week.</p>
         </div>
 
-        <div className="mt-10 grid grid-cols-[minmax(0,1fr)] items-stretch gap-6 lg:grid-cols-2 lg:gap-8">
+        <div className="section-gap grid grid-cols-[minmax(0,1fr)] items-stretch gap-6 lg:grid-cols-2 lg:gap-8">
           {/* Inputs */}
           <div className="rounded-3xl border border-border bg-white p-6 shadow-soft sm:p-8">
             <div className="space-y-6">
@@ -225,15 +222,7 @@ export default function Calculator() {
               {announcement}
             </div>
 
-            <details className="mx-auto mt-6 max-w-md text-sm">
-              <summary className="link-brand cursor-pointer font-medium">How we calculate</summary>
-              <p className="mt-2 text-muted-strong">
-                We guess how much of each job AI can do for you: 70% of messages, 60% of calls, 80%
-                of follow-ups and 70% of records. We add those hours up, then multiply by 4.33 weeks
-                in a month and divide by 8 hours in a working day.
-              </p>
-            </details>
-            <p className="mt-3 text-sm text-muted-strong">This is an estimate, not a guarantee.</p>
+            <p className="mt-6 text-sm text-muted-strong">This is an estimate, not a guarantee.</p>
 
             <div className="mt-6">
               <DemoButton

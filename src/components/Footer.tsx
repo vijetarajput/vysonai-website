@@ -7,9 +7,9 @@ import { siteConfig } from "@/config/site";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-violet-tint">
+    <footer className="border-t border-border bg-white">
       {/* extra bottom padding on mobile so the floating WhatsApp button never covers content */}
-      <div className="mx-auto max-w-6xl px-4 pb-24 pt-12 sm:px-6 sm:pb-12">
+      <div className="site-container pb-24 pt-10 sm:pb-10 md:pt-12 md:pb-12">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           <div>
             <Image

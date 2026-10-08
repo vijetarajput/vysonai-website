@@ -30,7 +30,7 @@ export default function LegalPage({
     <>
     <Breadcrumbs items={[{ label: title, href: path }]} width="narrow" />
     <section className="bg-white">
-      <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-20">
+      <div className="site-container section-y"><div className="mx-auto max-w-3xl">
         <h1>{title}</h1>
         <p className="mt-3 text-sm text-muted-strong">Last updated: {updated}</p>
         <p className="mt-6 text-lg leading-relaxed text-muted-strong">
@@ -67,7 +67,7 @@ export default function LegalPage({
             .
           </p>
         </section>
-      </div>
+      </div></div>
     </section>
     </>
   );

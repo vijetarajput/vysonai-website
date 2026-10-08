@@ -49,7 +49,7 @@ export default function AnnouncementBar() {
       aria-label="Announcement"
       className="announcement-bar relative border-b border-border bg-violet-tint"
     >
-      <div className="mx-auto flex min-h-9 max-w-6xl items-center justify-center py-1.5 pl-4 pr-11 text-center text-[12px] leading-tight text-charcoal sm:text-[13px]">
+      <div className="mx-auto flex min-h-9 w-full max-w-[1280px] items-center justify-center py-1.5 pl-4 pr-11 text-center text-[12px] leading-tight text-charcoal sm:text-[13px]">
         <p>
           <span className="hidden sm:inline">
             Free 15-minute call: find out how many hours AI can save your business.

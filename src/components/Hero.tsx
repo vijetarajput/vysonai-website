@@ -41,7 +41,7 @@ function HeroText() {
 
 export default function Hero() {
   return (
-    <section className="flex bg-white lg:min-h-[90vh] lg:items-center">
+    <section className="bg-white">
       <HeroShowcase intro={<HeroText />} />
     </section>
   );

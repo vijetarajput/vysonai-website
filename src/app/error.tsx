@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function ErrorPage({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6 sm:py-28">
+      <div className="mx-auto max-w-2xl px-4 section-y text-center sm:px-6">
         <h1>Something went wrong</h1>
         <p className="measure mx-auto mt-5 text-lg text-muted-strong">
           Sorry about that. Please try again. If it keeps happening, write to us from the contact page.

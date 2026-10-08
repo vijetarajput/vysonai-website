@@ -48,10 +48,10 @@ export default function ReviewsBonus({ tone = "tint" }: { tone?: "white" | "tint
 
   return (
     <section className={tone === "tint" ? "bg-violet-tint" : "bg-white"}>
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <div className="site-container section-y">
         <h2 className="text-center">Bonus: More Google reviews, on autopilot</h2>
 
-        <div className="mt-10 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="section-gap grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
           {/* Left: short text and 3 steps on a thin line */}
           <div className="mx-auto w-full max-w-md lg:mx-0 lg:max-w-none">
             <h3 className="text-2xl">Happy customers are your best advertising.</h3>

@@ -24,10 +24,11 @@ export default function Faq({
           })),
         }}
       />
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
+      <div className="site-container section-y">
+        <div className="mx-auto max-w-3xl">
         <h2 className="text-center">{title}</h2>
 
-        <div className="mt-10 space-y-3">
+        <div className="section-gap space-y-3">
           {items.map((item) => (
             <details
               key={item.q}
@@ -55,6 +56,7 @@ export default function Faq({
               </p>
             </details>
           ))}
+        </div>
         </div>
       </div>
     </section>

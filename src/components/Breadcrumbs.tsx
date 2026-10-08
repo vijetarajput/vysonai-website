@@ -10,9 +10,9 @@ export type Crumb = {
 
 // Left edge of the bar matches the page content below it.
 const widths = {
-  default: "max-w-6xl",
-  narrow: "max-w-3xl",
-  wide: "max-w-[1320px] lg:px-8",
+  default: "",
+  narrow: "mx-auto max-w-3xl",
+  wide: "",
 } as const;
 
 /**
@@ -43,10 +43,11 @@ export default function Breadcrumbs({
 
   return (
     <div className="bg-white">
-      <div className={`mx-auto px-4 sm:px-6 ${widths[width]}`}>
+      <div className="site-container">
+       <div className={widths[width]}>
         <nav
           aria-label="Breadcrumb"
-          className="overflow-x-auto pb-1 pt-3 text-[13px] leading-5 text-muted sm:text-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="overflow-x-auto overscroll-x-contain pb-1 pt-3 text-[13px] leading-5 text-muted sm:text-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           <ol className="flex w-max min-w-full flex-nowrap items-center whitespace-nowrap">
             {trail.map((crumb, index) => {
@@ -75,6 +76,7 @@ export default function Breadcrumbs({
             })}
           </ol>
         </nav>
+       </div>
       </div>
       <JsonLd data={jsonLd} />
     </div>

@@ -142,8 +142,8 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
   };
 
   return (
-    <div className="mx-auto w-full max-w-[1320px] px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-6">
-      <div className="grid items-center gap-10 lg:grid-cols-[2fr_3fr] lg:gap-12">
+    <div className="site-container hero-y">
+      <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
         {intro}
 
         <section
@@ -227,7 +227,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
         ref={listRef}
         role="tablist"
         aria-label="Choose a service example"
-        className="relative -mx-4 mt-4 flex snap-x snap-mandatory scroll-pl-4 gap-3 overflow-x-auto px-4 pb-3 pt-2 [scrollbar-width:none] sm:-mx-6 sm:scroll-pl-6 sm:px-6 lg:mx-0 lg:mt-4 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-1 [&::-webkit-scrollbar]:hidden"
+        className="relative -mx-4 mt-4 flex snap-x overscroll-x-contain snap-mandatory scroll-pl-4 gap-3 overflow-x-auto px-4 pb-3 pt-2 [scrollbar-width:none] sm:-mx-6 sm:scroll-pl-6 sm:px-6 lg:mx-0 lg:mt-4 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-1 [&::-webkit-scrollbar]:hidden"
         {...hoverProps}
       >
         {slides.map(({ title, line }, index) => {

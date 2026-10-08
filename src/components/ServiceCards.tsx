@@ -38,8 +38,8 @@ function CardBody({ offering }: { offering: Offering }) {
  */
 export default function ServiceCards() {
   return (
-    <section id="services" className="scroll-mt-16 bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+    <section id="services" className="scroll-mt-16 bg-violet-tint">
+      <div className="site-container section-y">
         <div className="text-center">
           <h2>What we can do for your business</h2>
           <p className="measure mx-auto mt-3 text-lg text-muted-strong">
@@ -47,7 +47,7 @@ export default function ServiceCards() {
           </p>
         </div>
 
-        <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+        <ul className="section-gap grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
           {offerings.map((offering) => (
             <li key={offering.title}>
               {offering.href ? (

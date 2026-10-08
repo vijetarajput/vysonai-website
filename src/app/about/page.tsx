@@ -80,7 +80,7 @@ export default function AboutPage() {
 
       {/* 1. Intro (overflow-x-clip keeps the halo glow from widening the page on mobile) */}
       <section className="overflow-x-clip bg-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 py-10 sm:px-6 sm:py-14 md:grid-cols-[400px_1fr] md:gap-10">
+        <div className="site-container hero-y grid grid-cols-[minmax(0,1fr)] items-center gap-6 md:grid-cols-[minmax(0,400px)_minmax(0,1fr)] md:gap-10">
           <FounderPhoto />
           <div className="text-center md:text-left">
             <p className="text-sm font-semibold uppercase tracking-wider text-brand-violet">
@@ -103,7 +103,7 @@ export default function AboutPage() {
 
       {/* 2. What I'm building */}
       <section className="bg-violet-tint">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+        <div className="site-container section-y">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-semibold uppercase tracking-wider text-brand-violet">
               The <BrandName /> mission
@@ -119,7 +119,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+          <ul className="section-gap grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
             {tiles.map((tile) => (
               <li
                 key={tile.title}
@@ -136,7 +136,7 @@ export default function AboutPage() {
             ))}
           </ul>
 
-          <p className="mx-auto mt-12 max-w-3xl text-center font-heading text-2xl font-bold leading-snug text-charcoal sm:text-3xl">
+          <p className="section-gap mx-auto max-w-3xl text-center font-heading text-2xl font-bold leading-snug text-charcoal sm:text-3xl">
             One partner. One system. Your business, growing while you sleep.
           </p>
           <div className="mt-8 text-center">
