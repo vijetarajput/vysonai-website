@@ -23,16 +23,7 @@ function ChipIcon({ children }: { children: ReactNode }) {
 
 const chips = [
   {
-    label: "Reminders",
-    icon: (
-      <ChipIcon>
-        <path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
-        <path d="M13.7 21a2 2 0 01-3.4 0" />
-      </ChipIcon>
-    ),
-  },
-  {
-    label: "Follow-ups",
+    label: "WhatsApp Automation",
     icon: (
       <ChipIcon>
         <path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.4A8 8 0 1121 12z" />
@@ -41,7 +32,7 @@ const chips = [
     ),
   },
   {
-    label: "Customer dashboard",
+    label: "Customer Dashboard",
     icon: (
       <ChipIcon>
         <rect x="3" y="3" width="7" height="9" rx="1.5" />
@@ -52,29 +43,47 @@ const chips = [
     ),
   },
   {
-    label: "Weekly report",
+    label: "AI Chatbot",
     icon: (
       <ChipIcon>
-        <rect x="3" y="5" width="18" height="14" rx="2" />
-        <path d="M3 7l9 6 9-6" />
+        <rect x="4" y="8" width="16" height="12" rx="3" />
+        <path d="M12 8V4M9 13h.01M15 13h.01M9.5 16.5h5" />
+      </ChipIcon>
+    ),
+  },
+  {
+    label: "AI Receptionist",
+    icon: (
+      <ChipIcon>
+        <path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z" />
       </ChipIcon>
     ),
   },
 ];
-
 export default function Hero() {
   return (
     <section className="bg-white">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
         <div>
-          <h1 className="text-[44px] font-extrabold leading-[1.05] tracking-[-0.03em] md:text-[72px]">
-            Never Miss a Customer Again
+          <h1 className="text-balance">
+            <span className="block font-sans text-base font-medium leading-snug text-muted-strong md:text-xl">
+              We help your business
+            </span>
+            <span className="mt-3 block text-[40px] font-extrabold leading-[1.05] tracking-[-0.03em] text-charcoal md:text-[64px]">
+              <span className="inline-block">Save Time.</span>{" "}
+              <span className="inline-block">Save Money.</span>
+            </span>
+            <span className="mt-2 block text-[32px] font-extrabold leading-[1.1] tracking-[-0.025em] text-charcoal md:text-5xl">
+              <span className="inline-block">Grow Your</span>{" "}
+              <span className="text-brand-violet">
+                <span className="inline-block">Profit &amp;</span>{" "}
+                <span className="inline-block">Productivity.</span>
+              </span>
+            </span>
+            <span className="mt-4 block font-sans text-[17px] font-normal leading-snug text-muted-strong md:text-xl">
+              with custom AI solutions built for your business.
+            </span>
           </h1>
-          <p className="mt-6 max-w-2xl text-2xl leading-snug text-muted-strong sm:text-[28px]">
-            Automatic WhatsApp reminders, follow-ups and a simple customer
-            dashboard.
-          </p>
-
           <ul className="mt-7 flex flex-wrap gap-2.5">
             {chips.map((chip) => (
               <li
