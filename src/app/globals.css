@@ -596,12 +596,6 @@ body {
   }
 }
 
-/* On service pages the sticky mobile bar replaces the floating WhatsApp button */
-@media (max-width: 767px) {
-  body:has([data-sticky-bar]) [data-floating-wa] {
-    display: none;
-  }
-}
 /* Header "Services" dropdown: short fade and slide in. Static for reduced motion. */
 @keyframes dd-in {
   from {

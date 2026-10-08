@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
   useEffect,
   useId,
@@ -10,6 +9,8 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
+import DemoButton from "@/components/lead/DemoButton";
+import type { Interest } from "@/lib/lead";
 import ChatbotSlide from "@/components/showcase/ChatbotSlide";
 import DashboardSlide from "@/components/showcase/DashboardSlide";
 import { useDocumentHidden, useReducedMotion } from "@/components/showcase/hooks";
@@ -29,13 +30,13 @@ const slides: {
   Slide: ComponentType<SlideProps>;
   title: string;
   line: string;
-  /** Detailed page for this service. */
-  href: string;
+  /** Choice preselected in the "Book your free call" form (service pages are being rebuilt). */
+  interest: Interest;
   glows: [Glow, Glow, Glow];
 }[] = [
   {
     Slide: WhatsAppSlide,
-    href: "/services/whatsapp-automation",
+    interest: "WhatsApp customer service",
     title: "WhatsApp on autopilot",
     line: "Every customer gets an instant reply, even at midnight.",
     glows: [
@@ -46,7 +47,7 @@ const slides: {
   },
   {
     Slide: DashboardSlide,
-    href: "/services/ai-dashboard",
+    interest: "CRM",
     title: "Your whole business, one screen",
     line: "Sales, stock and reports in seconds.",
     glows: [
@@ -57,7 +58,7 @@ const slides: {
   },
   {
     Slide: ChatbotSlide,
-    href: "/services/chatbot",
+    interest: "Website chatbot",
     title: "A website that catches leads while you sleep",
     line: "Your AI chatbot answers and collects every enquiry.",
     glows: [
@@ -68,7 +69,7 @@ const slides: {
   },
   {
     Slide: ReceptionistSlide,
-    href: "/services/ai-receptionist",
+    interest: "AI receptionist",
     title: "Never miss a call again",
     line: "A 24/7 AI receptionist that books clients for you.",
     glows: [
@@ -188,7 +189,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
 
           {/* Fixed-height stage: room for the "Sample" label plus the device */}
           <div className="relative h-[500px] lg:h-[452px]">
-            {slides.map(({ Slide, href }, index) => {
+            {slides.map(({ Slide, interest }, index) => {
               const isActive = index === active;
               return (
                 <div
@@ -205,12 +206,12 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
                       : "invisible translate-x-8 scale-[0.96] opacity-0"
                   }`}
                 >
-                  <Link
-                    href={href}
+                  <DemoButton
+                    interests={[interest]}
                     className="absolute left-1 top-0 z-10 rounded text-xs font-semibold text-brand-violet transition-colors hover:text-brand-violet-dark"
                   >
-                    See how it works <span aria-hidden="true">&rarr;</span>
-                  </Link>
+                    Talk to us <span aria-hidden="true">&rarr;</span>
+                  </DemoButton>
                   <span className="absolute right-1 top-0 text-[10px] font-medium uppercase tracking-wider text-muted">
                     Sample
                   </span>

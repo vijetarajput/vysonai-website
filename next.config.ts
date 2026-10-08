@@ -6,16 +6,13 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   async redirects() {
     return [
-      // The Solutions pages were removed. Their content now lives on the service pages.
-      { source: "/solutions", destination: "/#services", permanent: true },
-      { source: "/solutions/gyms", destination: "/services/whatsapp-automation", permanent: true },
-      { source: "/solutions/clinics", destination: "/services/whatsapp-automation", permanent: true },
-      // The CRM service was renamed to the AI Dashboard.
-      {
-        source: "/services/crm",
-        destination: "/services/ai-dashboard",
-        permanent: true,
-      },
+      // The service pages were removed and will be rebuilt. Until then, send visitors to the
+      // services section on Home. These are temporary (307) so search engines keep the old URLs.
+      { source: "/services", destination: "/#services", permanent: false },
+      { source: "/services/:path*", destination: "/#services", permanent: false },
+      // The old Solutions pages never came back: same temporary destination.
+      { source: "/solutions", destination: "/#services", permanent: false },
+      { source: "/solutions/:path*", destination: "/#services", permanent: false },
     ];
   },
   turbopack: {

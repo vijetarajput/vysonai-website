@@ -1,4 +1,3 @@
-import Link from "next/link";
 import ServiceIcon from "@/components/ServiceIcon";
 import DemoButton from "@/components/lead/DemoButton";
 import { offerings, type Offering } from "@/content/services";
@@ -7,7 +6,6 @@ const cardClass =
   "group flex h-full w-full flex-col rounded-2xl border border-border bg-white p-4 text-left shadow-soft transition-all duration-200 hover:border-brand-violet motion-safe:hover:-translate-y-1 hover:shadow-md focus-visible:border-brand-violet sm:p-5";
 
 function CardBody({ offering }: { offering: Offering }) {
-  const cta = offering.href ? "Learn more" : "Talk to us";
   return (
     <>
       <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-tint text-brand-violet">
@@ -20,7 +18,7 @@ function CardBody({ offering }: { offering: Offering }) {
         {offering.text}
       </span>
       <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-violet">
-        {cta}
+        Talk to us
         <span
           aria-hidden="true"
           className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"
@@ -34,7 +32,8 @@ function CardBody({ offering }: { offering: Offering }) {
 
 /**
  * Home services section: 8 simple cards. 4 columns on desktop, 2 on tablet and mobile.
- * The whole card is a link. Cards 6 to 8 open the "Book your free call" form instead.
+ * The whole card is a button: it opens the "Book your free call" form with that service picked.
+ * (The individual service pages were removed and will be rebuilt later.)
  */
 export default function ServiceCards() {
   return (
@@ -50,15 +49,9 @@ export default function ServiceCards() {
         <ul className="section-gap grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
           {offerings.map((offering) => (
             <li key={offering.title}>
-              {offering.href ? (
-                <Link href={offering.href} className={cardClass}>
-                  <CardBody offering={offering} />
-                </Link>
-              ) : (
-                <DemoButton interests={offering.interest ? [offering.interest] : undefined} className={cardClass}>
-                  <CardBody offering={offering} />
-                </DemoButton>
-              )}
+              <DemoButton interests={[offering.interest]} className={cardClass}>
+                <CardBody offering={offering} />
+              </DemoButton>
             </li>
           ))}
         </ul>
