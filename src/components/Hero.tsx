@@ -33,8 +33,8 @@ function HeroText() {
       </div>
 
       <p className="mt-7 border-t border-border pt-4 text-sm leading-relaxed text-muted-strong">
-        Built on product and data experience from London and Dubai · For businesses in India, the
-        UK and the US
+        Built on product and data experience from London and Dubai · For businesses in the US,
+        the UK and India
       </p>
     </div>
   );

@@ -77,7 +77,7 @@ export default function AboutPage() {
               I took everything I learned in London and Dubai and turned it into one
               simple mission: give every business an AI team that never sleeps.{" "}
               <BrandName /> builds AI agents and automations for businesses in
-              India, the UK and the US, so the repetitive work gets done
+              the US, the UK and India, so the repetitive work gets done
               automatically, day and night, while owners and their teams focus on
               customers and growth.
             </p>
