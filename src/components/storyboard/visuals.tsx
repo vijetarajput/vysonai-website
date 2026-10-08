@@ -205,9 +205,9 @@ function MenuIcon({ name }: { name: keyof typeof icons }) {
 const appointments = [
   { time: "09:30 AM", name: "Rahul Mehta", phone: "+91 98765 4XXXX", status: "Confirmed" },
   { time: "10:00 AM", name: "Priya Shah", phone: "+91 99887 7XXXX", status: "Confirmed" },
-  { time: "11:30 AM", name: "Sarah Thomas", phone: "+44 7700 900123", status: "New · Booked by AI", ai: true },
+  { time: "11:30 AM", name: "Sarah Thomas", phone: "+44 7700 900123", status: "New · Booked by AI", ai: "new" as const },
   { time: "12:15 PM", name: "Aman Verma", phone: "+91 91234 5XXXX", status: "Confirmed" },
-  { time: "04:15 PM", name: "James Carter", phone: "+1 (555) 010-0142", status: "Confirmed" },
+  { time: "04:15 PM", name: "James Carter", phone: "+1 (555) 010-0142", status: "Booked by AI", ai: "booked" as const },
 ];
 
 const rowGrid = "@lg:grid @lg:grid-cols-[66px_minmax(0,1fr)_minmax(104px,1.1fr)_128px] @lg:gap-2.5";
@@ -259,8 +259,8 @@ export function DashboardMonitor() {
                   Today&apos;s appointments
                 </p>
               </div>
-              <span className="rounded-full bg-violet-tint px-2.5 py-1 text-[10px] font-semibold text-brand-violet">
-                6 booked · 2 by AI tonight
+              <span className="inline-flex items-center gap-1 rounded-full bg-violet-tint px-2.5 py-1 text-[10px] font-semibold text-brand-violet">
+                <SparkleIcon size={10} />2 by AI
               </span>
             </div>
 
@@ -277,9 +277,9 @@ export function DashboardMonitor() {
                 {appointments.map((row) => (
                   <li
                     key={row.time}
-                    style={row.ai ? at(2000) : undefined}
+                    style={row.ai === "new" ? at(2000) : undefined}
                     className={`flex flex-wrap items-center gap-x-2 gap-y-0.5 border-b border-border px-0.5 py-1.5 text-[10px] last:border-b-0 @lg:py-2 @lg:text-[11px] ${rowGrid} ${
-                      row.ai ? "sb-slide rounded-md bg-violet-tint ring-1 ring-brand-violet/25" : ""
+                      row.ai === "new" ? "sb-slide rounded-md bg-violet-tint ring-1 ring-brand-violet/25" : ""
                     }`}
                   >
                     <span className="shrink-0 font-semibold tabular-nums text-charcoal">{row.time}</span>
@@ -290,10 +290,12 @@ export function DashboardMonitor() {
                       <span className="shrink-0 whitespace-nowrap tabular-nums text-muted-strong @lg:min-w-0 @lg:truncate">{row.phone}</span>
                       {row.ai ? (
                         <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-brand-violet/10 px-1.5 py-0.5 text-[10px] font-semibold text-brand-violet @lg:justify-self-start">
-                          <span aria-hidden="true" className="relative flex h-1.5 w-1.5">
-                            <span className="sb-ping absolute inline-flex h-full w-full rounded-full bg-brand-violet opacity-60" />
-                            <span className="relative h-1.5 w-1.5 rounded-full bg-brand-violet" />
-                          </span>
+                          {row.ai === "new" && (
+                            <span aria-hidden="true" className="relative flex h-1.5 w-1.5">
+                              <span className="sb-ping absolute inline-flex h-full w-full rounded-full bg-brand-violet opacity-60" />
+                              <span className="relative h-1.5 w-1.5 rounded-full bg-brand-violet" />
+                            </span>
+                          )}
                           {row.status}
                         </span>
                       ) : (
