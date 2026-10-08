@@ -236,3 +236,74 @@ body {
     transform: none;
   }
 }
+
+/* ---------- Bold hero: floating cards, chart reveal, count-up ---------- */
+@keyframes vy-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Floating mini-cards pop in a little after their slide appears (delay: --pd) */
+.vy-pop {
+  opacity: 0;
+  transform: scale(0.8) translateY(8px);
+  transition:
+    opacity 0.25s ease-out,
+    transform 0.25s ease-out;
+}
+
+[data-active="true"] .vy-pop {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.45s ease-out var(--pd, 1000ms),
+    transform 0.6s cubic-bezier(0.2, 1.3, 0.3, 1) var(--pd, 1000ms);
+}
+
+[data-active="true"] .vy-float {
+  animation: vy-float 4.2s ease-in-out infinite;
+  animation-delay: var(--fd, 0ms);
+}
+
+/* The sales chart is revealed from left to right */
+.vy-clip {
+  clip-path: inset(-6px 100% -6px -6px);
+  transition: clip-path 0.3s ease-out;
+}
+
+[data-active="true"] .vy-clip {
+  clip-path: inset(-6px -6px -6px -6px);
+  transition: clip-path 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.45s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vy-pop,
+  [data-active="true"] .vy-pop {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  [data-active="true"] .vy-float {
+    animation: none;
+  }
+  .vy-clip,
+  [data-active="true"] .vy-clip {
+    clip-path: none;
+    transition: none;
+  }
+}
+
+@media (scripting: none) {
+  .vy-pop {
+    opacity: 1;
+    transform: none;
+  }
+  .vy-clip {
+    clip-path: none;
+  }
+}

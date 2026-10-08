@@ -25,7 +25,7 @@ export function PhoneShell({
   return (
     <figure
       aria-label={label}
-      className={`relative mx-auto flex h-[490px] w-[256px] flex-col overflow-hidden rounded-[2.25rem] border-[7px] border-[#d1d5db] bg-white shadow-[0_24px_60px_-20px_rgb(31_41_55/0.35)] ${className}`}
+      className={`relative mx-auto flex h-full w-[256px] flex-col xl:w-[296px] overflow-hidden rounded-[2.25rem] border-[7px] border-[#d1d5db] bg-white shadow-[0_24px_60px_-20px_rgb(31_41_55/0.35)] ${className}`}
     >
       <div
         aria-hidden="true"
@@ -49,7 +49,7 @@ export function BrowserFrame({
   return (
     <figure
       aria-label={label}
-      className="relative flex h-[490px] w-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-[0_24px_60px_-20px_rgb(31_41_55/0.35)]"
+      className="relative mx-auto flex h-full w-full max-w-[640px] flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-[0_24px_60px_-20px_rgb(31_41_55/0.35)]"
     >
       <div
         aria-hidden="true"
@@ -162,5 +162,38 @@ export function PersonIcon({ size = 18 }: { size?: number }) {
       <circle cx="12" cy="8" r="4" />
       <path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8z" />
     </svg>
+  );
+}
+
+/**
+ * A small card that floats next to the device. It pops in `delay` ms after the slide
+ * becomes active (see .vy-pop / .vy-float in globals.css) and then bobs gently.
+ * Place it with `className` (absolute position classes).
+ */
+export function FloatCard({
+  delay,
+  className = "",
+  bob = 0,
+  wide = false,
+  children,
+}: {
+  delay: number;
+  className?: string;
+  bob?: number;
+  /** Keep the text on one line (use when there is room beside the card). */
+  wide?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div className={`vy-pop absolute z-20 w-max ${className}`} style={cssVars({ "--pd": `${delay}ms` })}>
+      <div
+        className={`vy-float flex items-center gap-2 rounded-2xl border border-border bg-white px-3 py-2 text-[12px] font-semibold leading-snug text-charcoal shadow-[0_14px_34px_-10px_rgb(31_41_55/0.35)] sm:text-[13px] ${
+          wide ? "whitespace-nowrap" : "max-w-[132px] sm:max-w-[176px] lg:max-w-[164px] xl:max-w-[260px]"
+        }`}
+        style={cssVars({ "--fd": `${bob}ms` })}
+      >
+        {children}
+      </div>
+    </div>
   );
 }

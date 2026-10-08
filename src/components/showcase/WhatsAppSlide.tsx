@@ -1,7 +1,13 @@
 "use client";
 
 import { useChatSequence } from "@/components/showcase/hooks";
-import { ChatRow, DoubleTick, PhoneShell, type SlideProps } from "@/components/showcase/parts";
+import {
+  ChatRow,
+  DoubleTick,
+  FloatCard,
+  PhoneShell,
+  type SlideProps,
+} from "@/components/showcase/parts";
 
 // Sample content. "FitZone Gym" and "Rahul" are fictional.
 const messages = [
@@ -18,19 +24,18 @@ const messages = [
   { from: "member", text: "YES", time: "10:43 AM" },
   {
     from: "business",
-    text: "Done! ✅ Membership renewed till 15 March. See you tomorrow, Rahul!",
+    text: "Done! ✅ Renewed till 15 March. See you tomorrow, Rahul!",
     time: "10:43 AM",
   },
 ] as const;
 
-const typingMs = [700, 900, 450, 1000];
+const typingMs = [600, 800, 350, 800];
 
 export default function WhatsAppSlide({ active, live }: SlideProps) {
   const { shown, typingIndex } = useChatSequence(active, live, typingMs);
-  const allShown = !live || shown >= messages.length;
 
   return (
-    <div className="relative mx-auto h-full w-full max-w-[420px]">
+    <div className="relative mx-auto h-full w-full max-w-[470px]">
       <PhoneShell label="Example WhatsApp conversation from FitZone Gym">
         <div className="flex items-center gap-3 border-b border-border bg-white px-4 pb-3 pt-8">
           <div
@@ -62,7 +67,7 @@ export default function WhatsAppSlide({ active, live }: SlideProps) {
                 }`}
                 typingClass={outgoing ? "bg-[#ede9fe]" : "bg-white shadow-sm"}
               >
-                <p className="text-[12px] leading-[1.4] text-charcoal">{m.text}</p>
+                <p className="text-[12px] leading-[1.4] text-charcoal xl:text-[13px]">{m.text}</p>
                 <div className="mt-0.5 flex items-center justify-end gap-1 text-[10px] text-muted">
                   <span>{m.time}</span>
                   {outgoing && <DoubleTick className="text-brand-blue" />}
@@ -81,14 +86,12 @@ export default function WhatsAppSlide({ active, live }: SlideProps) {
         </div>
       </PhoneShell>
 
-      {/* Floating notification, overlapping the phone's top-right corner */}
-      <div
-        className={`absolute -right-1 top-10 w-[112px] rounded-2xl border border-border bg-white px-3 py-2 text-[11px] font-semibold leading-snug text-charcoal shadow-[0_12px_30px_-8px_rgb(31_41_55/0.3)] transition-[opacity,transform] duration-500 motion-reduce:transition-none ${
-          allShown ? "scale-100 opacity-100" : "scale-90 opacity-0"
-        }`}
-      >
-        🔔 3 members renewed today
-      </div>
+      <FloatCard delay={4300} className="left-0 top-0 sm:left-[calc(100%-127px)] sm:top-24 xl:left-[calc(100%-107px)]">
+        <span aria-hidden="true">🔔</span> 3 members renewed today
+      </FloatCard>
+      <FloatCard delay={1400} bob={900} className="bottom-3 left-0 sm:left-auto sm:right-[calc(100%-127px)] sm:bottom-6 xl:right-[calc(100%-107px)]">
+        <span aria-hidden="true">⚡</span> Replied in 2 seconds
+      </FloatCard>
     </div>
   );
 }

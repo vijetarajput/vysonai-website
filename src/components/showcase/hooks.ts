@@ -27,6 +27,9 @@ export function useDocumentHidden() {
   );
 }
 
+/** Pause between one message and the next typing indicator. */
+const GAP_MS = 320;
+
 /**
  * Drives "messages appear one by one". For each message it first shows a typing
  * indicator (typingMs[i]) and then the message itself.
@@ -56,7 +59,7 @@ export function useChatSequence(active: boolean, live: boolean, typingMs: number
         timers.push(setTimeout(() => setState({ shown: index, typingIndex: index }), time));
         time += Number(value);
         timers.push(setTimeout(() => setState({ shown: index + 1, typingIndex: -1 }), time));
-        time += 450;
+        time += GAP_MS;
       });
     }
 
