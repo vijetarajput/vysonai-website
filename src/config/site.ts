@@ -13,7 +13,6 @@ export const siteConfig = {
   whatsappNumber,
   whatsappMessage,
   linkedin: "https://www.linkedin.com/company/vysonai",
-  founderLinkedin: "https://www.linkedin.com/in/viijetar",
   udyam: "UDYAM-GJ-01-0682560",
 
   // Opens WhatsApp chat. The number itself is never shown as page text.

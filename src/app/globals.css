@@ -561,3 +561,17 @@ body {
     animation: none;
   }
 }
+/* About page: founder halo rays rotate once every 40s. */
+@keyframes founder-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.founder-rays {
+  animation: founder-spin 40s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .founder-rays {
+    animation: none;
+  }
+}
