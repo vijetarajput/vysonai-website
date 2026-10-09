@@ -59,7 +59,7 @@ export default function AboutPage() {
               their work to run smarter.
             </p>
             <div className="mt-8">
-              <DemoButton className={buttonClass}>Book a free call</DemoButton>
+              <DemoButton className={buttonClass} />
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@ export default function AboutPage() {
           </div>
 
           <div className="section-gap text-center">
-            <DemoButton className={buttonClass}>Book a free call</DemoButton>
+            <DemoButton className={buttonClass} />
           </div>
         </div>
       </section>

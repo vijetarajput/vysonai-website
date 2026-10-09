@@ -14,7 +14,7 @@ export default function ServiceHero({
   title,
   text,
   interests,
-  buttonLabel = "Book a free call",
+  buttonLabel,
   note,
   scene,
 }: {
@@ -22,7 +22,7 @@ export default function ServiceHero({
   title: ReactNode;
   text: string;
   interests: Interest[];
-  buttonLabel?: string;
+  buttonLabel?: ReactNode;
   /** Small muted line under the button, for example a target caveat. */
   note?: string;
   scene: ReactNode;

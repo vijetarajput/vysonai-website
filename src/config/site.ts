@@ -43,7 +43,7 @@ export const siteConfig = {
     { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Terms", href: "/terms" },
   ],
-  cta: { label: "Get Free Demo" },
+  cta: { label: "Book a free 30-min business audit" },
 } as const;
 
 export type SiteConfig = typeof siteConfig;

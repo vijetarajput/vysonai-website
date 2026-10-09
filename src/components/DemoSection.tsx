@@ -1,7 +1,7 @@
 import LeadFlow from "@/components/lead/LeadFlow";
 
 const steps = [
-  { title: "Free 15-minute call", text: "Tell us how your business works today." },
+  { title: "Free 30-minute business audit", text: "We look at how your business works today and spot what AI can take off your hands." },
   { title: "A demo made for you", text: "See it working with your kind of business." },
   { title: "1-month pilot", text: "Try it with real customers before you commit." },
 ];
@@ -37,7 +37,7 @@ export default function DemoSection() {
         <div>
           <h2>Ready to automate your manual work and grow your profit?</h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-strong">
-            See a free demo for your business. No cost, no commitment. Here&apos;s what happens
+            Book a free 30-minute business audit. No cost, no commitment. Here&apos;s what happens
             next:
           </p>
 
@@ -67,7 +67,7 @@ export default function DemoSection() {
 
           <p className="mt-8 flex items-start gap-2 text-sm text-muted-strong">
             <LockIcon />
-            We only use your number to contact you about the demo.
+            We only use your number to contact you about the audit.
           </p>
         </div>
 

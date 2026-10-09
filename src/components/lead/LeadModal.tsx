@@ -77,7 +77,7 @@ export default function LeadModalProvider({ children }: { children: ReactNode })
         onClick={(event) => {
           if (event.target === event.currentTarget) close(); // click on the backdrop
         }}
-        aria-label="Book your free call"
+        aria-label="Book your free business audit"
         className="m-auto h-dvh max-h-none w-full max-w-none overflow-hidden bg-white p-0 text-charcoal backdrop:bg-charcoal/40 backdrop:backdrop-blur-sm md:h-fit md:max-w-4xl md:rounded-3xl md:shadow-[0_30px_80px_-20px_rgb(31_41_55/0.45)]"
       >
         {isOpen && (

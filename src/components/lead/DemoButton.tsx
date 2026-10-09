@@ -4,9 +4,21 @@ import type { ReactNode } from "react";
 import { useLeadModal } from "@/components/lead/LeadModal";
 import type { Interest } from "@/lib/lead";
 
+/** Long CTA from 640px up; short label on smaller screens so the button never wraps. */
+export function CtaLabel({ suffix = "" }: { suffix?: string }) {
+  return (
+    <>
+      <span className="whitespace-nowrap sm:hidden">Book free audit{suffix}</span>
+      <span className="hidden whitespace-nowrap sm:inline">
+        Book a free 30-min business audit{suffix}
+      </span>
+    </>
+  );
+}
+
 /** Opens the 2-step demo form in a modal. */
 export default function DemoButton({
-  children = "Get Free Demo",
+  children = <CtaLabel />,
   className = "",
   interests,
   message,

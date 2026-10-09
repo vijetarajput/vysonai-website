@@ -30,7 +30,7 @@ const slides: {
   Slide: ComponentType<SlideProps>;
   title: string;
   line: string;
-  /** Choice preselected in the "Book your free call" form (service pages are being rebuilt). */
+  /** Choice preselected in the "Book your free business audit" form (service pages are being rebuilt). */
   interest: Interest;
   glows: [Glow, Glow, Glow];
 }[] = [

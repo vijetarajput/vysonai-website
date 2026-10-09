@@ -6,7 +6,7 @@ import { siteConfig } from "@/config/site";
 
 const title = "Contact Us";
 const description =
-  "Tell us about your business and get a free demo of WhatsApp automation, a customer dashboard and an AI receptionist. We reply within 24 hours.";
+  "Tell us about your business and book a free 30-minute business audit. We reply within 24 hours.";
 
 export const metadata: Metadata = {
   title,
@@ -25,14 +25,14 @@ export default function ContactPage() {
             Let&apos;s Talk About Your Business
           </h1>
           <p className="mx-auto mt-2 max-w-4xl text-base leading-snug text-muted-strong sm:text-lg">
-            Tell us what you do and where to reach you. We&apos;ll set up a free demo made for
-            your business.
+            Tell us what you do and where to reach you. We&apos;ll book a free 30-minute business
+            audit for you.
           </p>
         </div>
 
         <div className="site-container section-gap grid grid-cols-[minmax(0,1fr)] gap-6 pb-10 md:pb-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-start lg:gap-8 lg:pb-[4.5rem]">
           <div>
-            <h2 className="sr-only">Request a free demo</h2>
+            <h2 className="sr-only">Request a free business audit</h2>
             <div className="rounded-3xl border border-border bg-white p-5 shadow-soft sm:p-6">
               <LeadFlow layout="inline" />
             </div>

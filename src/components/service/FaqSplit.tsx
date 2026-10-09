@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { FaqJsonLd, FaqList, type FaqItem } from "@/components/Faq";
 import DemoButton from "@/components/lead/DemoButton";
 import TwoColumnSection from "@/components/service/TwoColumnSection";
@@ -13,15 +14,15 @@ const buttonClass =
 export default function FaqSplit({
   items,
   title = "Quick questions",
-  helpText = "Can\u2019t find your answer? Book a free call and ask us.",
-  buttonLabel = "Book a free call",
+  helpText = "Can\u2019t find your answer? Book a free business audit and ask us.",
+  buttonLabel,
   interests,
   background = "tint",
 }: {
   items: FaqItem[];
   title?: string;
   helpText?: string;
-  buttonLabel?: string;
+  buttonLabel?: ReactNode;
   interests?: Interest[];
   background?: "white" | "tint";
 }) {

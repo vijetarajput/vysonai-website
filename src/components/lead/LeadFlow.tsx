@@ -31,8 +31,9 @@ const DELIVERY_FAILED = "Sorry, something went wrong. Please message us on Whats
 const inputBase =
   "w-full rounded-xl border bg-white px-4 py-3 text-base text-charcoal placeholder:text-muted focus:border-brand-violet focus:outline-none focus:ring-2 focus:ring-brand-violet/30";
 
-const TITLE = "Book your free call";
-const SUBTEXT = "15 minutes. No cost, no commitment. We'll message you within 24 hours.";
+const TITLE = "Book your free business audit";
+const SUBTEXT =
+  "30 minutes. No cost, no commitment. We'll look at how you work today and show you where AI can save time. We'll message you within 24 hours.";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
@@ -317,9 +318,9 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
           type="submit"
           disabled={!check.ok || submitting}
           aria-describedby={!check.ok ? id("hint") : undefined}
-          className="w-full rounded-full bg-brand-violet px-6 py-3 text-base font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-violet"
+          className="w-full whitespace-nowrap rounded-full bg-brand-violet px-6 py-3 text-base font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-violet"
         >
-          {submitting ? "Sending..." : "Book my free call"}
+          {submitting ? "Sending..." : "Book my free audit"}
         </button>
         {!check.ok && (
           <p id={id("hint")} className="mt-3 text-center text-sm text-muted-strong">

@@ -34,7 +34,7 @@ function CardBody({ offering }: { offering: Offering }) {
 /**
  * Home services section: 8 simple cards. 4 columns on desktop, 2 on tablet and mobile.
  * The whole card is a link to its service page when there is one ("Learn more"). Otherwise it is
- * a button that opens the "Book your free call" form with that service picked ("Talk to us").
+ * a button that opens the "Book your free business audit" form with that service picked ("Talk to us").
  */
 export default function ServiceCards() {
   return (

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ServiceIcon from "@/components/ServiceIcon";
-import DemoButton from "@/components/lead/DemoButton";
+import DemoButton, { CtaLabel } from "@/components/lead/DemoButton";
 import { offerings, type Offering } from "@/content/services";
 
 function Chevron({ open }: { open: boolean }) {
@@ -223,7 +223,7 @@ export function ServicesDropdown() {
                 onOpen={close}
                 className="font-medium text-brand-violet underline-offset-4 hover:underline"
               >
-                Book a free call →
+                <CtaLabel suffix=" →" />
               </DemoButton>
             </div>
           </div>

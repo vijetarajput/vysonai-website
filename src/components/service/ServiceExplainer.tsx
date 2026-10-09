@@ -31,7 +31,7 @@ export function ExplainerIcon({ children }: { children: ReactNode }) {
 
 /**
  * Short service explainer: H2, intro, three icon blocks, a "Works well for" line,
- * a sample dashboard, two honest notes and a Book a free call button.
+ * a sample dashboard, two honest notes and a Book a free 30-min business audit button.
  */
 export default function ServiceExplainer({
   title,
@@ -101,9 +101,7 @@ export default function ServiceExplainer({
             </ul>
           </div>
           <div className="mt-6">
-            <DemoButton interests={interests} className={buttonClass}>
-              Book a free call
-            </DemoButton>
+            <DemoButton interests={interests} className={buttonClass} />
           </div>
         </>
       }

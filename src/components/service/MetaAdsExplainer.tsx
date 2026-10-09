@@ -110,9 +110,7 @@ export default function MetaAdsExplainer({ interests }: { interests: Interest[] 
             </ul>
           </div>
           <div className="mt-6">
-            <DemoButton interests={interests} className={buttonClass}>
-              Book a free call
-            </DemoButton>
+            <DemoButton interests={interests} className={buttonClass} />
           </div>
         </>
       }

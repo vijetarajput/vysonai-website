@@ -229,7 +229,10 @@ export default function Calculator() {
                 message={note}
                 className="inline-flex items-center justify-center rounded-full bg-brand-violet px-7 py-3.5 text-base font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark"
               >
-                Book a free call to get your real number
+                <span className="whitespace-nowrap sm:hidden">Book free audit</span>
+                <span className="hidden whitespace-nowrap sm:inline">
+                  Book a free 30-min audit to get your real number
+                </span>
               </DemoButton>
             </div>
           </div>
