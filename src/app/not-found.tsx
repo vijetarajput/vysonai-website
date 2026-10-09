@@ -4,6 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Page not found",
   description: "This page could not be found.",
+  openGraph: { title: "Page not found | VYSON-AI", description: "This page could not be found." },
 };
 
 export default function NotFound() {

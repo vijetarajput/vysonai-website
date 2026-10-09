@@ -5,7 +5,7 @@ import LeadFlow from "@/components/lead/LeadFlow";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { siteConfig } from "@/config/site";
 
-const title = "Contact Us";
+const title = "Book a Free Business Audit";
 const description =
   "Tell us about your business and book a free 30-minute business audit. We reply within 24 hours.";
 

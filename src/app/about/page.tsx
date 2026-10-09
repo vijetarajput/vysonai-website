@@ -6,17 +6,16 @@ import JsonLd from "@/components/JsonLd";
 import DemoButton from "@/components/lead/DemoButton";
 import { siteConfig } from "@/config/site";
 
-const title = `About ${siteConfig.founder}, Founder of ${siteConfig.name}`;
+const title = `About ${siteConfig.founder}, Founder`;
 const description =
   "Viijeta R is the founder of VYSON-AI, bringing product and data experience from London and Dubai to build AI automation that works 24/7 for businesses.";
 
 export const metadata: Metadata = {
-  // `absolute` skips the "| VYSON-AI" suffix, because the brand is already in this title.
-  title: { absolute: title },
+  title,
   description,
   alternates: { canonical: "/about" },
   openGraph: {
-    title,
+    title: `${title} | ${siteConfig.name}`,
     description,
     url: "/about",
     type: "profile",

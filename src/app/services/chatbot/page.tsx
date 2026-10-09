@@ -5,17 +5,17 @@ import ChatbotExplainer from "@/components/service/ChatbotExplainer";
 import ServiceHero from "@/components/service/ServiceHero";
 import type { Interest } from "@/lib/lead";
 
-const title = "Website Assistant, Working 24/7 | VYSON-AI";
+const title = "Website Chatbot, 24/7";
 const description =
   "An AI website assistant that chats with every visitor, answers their questions and collects their number, even while you sleep.";
 const path = "/services/chatbot";
 const interests: Interest[] = ["Website chatbot"];
 
 export const metadata: Metadata = {
-  title: { absolute: title },
+  title,
   description,
   alternates: { canonical: path },
-  openGraph: { title, description, url: path, type: "website" },
+  openGraph: { title: `${title} | VYSON-AI`, description, url: path, type: "website" },
 };
 
 export default function ChatbotPage() {

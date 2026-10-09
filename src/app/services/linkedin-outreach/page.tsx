@@ -5,17 +5,17 @@ import LinkedInExplainer from "@/components/service/LinkedInExplainer";
 import ServiceHero from "@/components/service/ServiceHero";
 import type { Interest } from "@/lib/lead";
 
-const title = "Get 10–20 Sales Meetings Every Month | VYSON-AI";
+const title = "LinkedIn Outreach: 10–20 Meetings a Month";
 const description =
   "Our in-house LinkedIn outreach system finds your ideal clients, starts personal conversations and books sales meetings for you, aiming for 10–20 meetings a month.";
 const path = "/services/linkedin-outreach";
 const interests: Interest[] = ["LinkedIn outreach"];
 
 export const metadata: Metadata = {
-  title: { absolute: title },
+  title,
   description,
   alternates: { canonical: path },
-  openGraph: { title, description, url: path, type: "website" },
+  openGraph: { title: `${title} | VYSON-AI`, description, url: path, type: "website" },
 };
 
 export default function LinkedInOutreachPage() {
