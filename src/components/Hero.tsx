@@ -10,8 +10,8 @@ import HeroShowcase from "@/components/showcase/HeroShowcase";
 function HeroText() {
   return (
     <div className="[container-type:inline-size]">
-      <h1 className="font-extrabold leading-[1.04] tracking-[-0.03em] [font-size:min(68px,calc(100cqw/14.4))]">
-        <span className="block whitespace-nowrap text-charcoal">Get AI Agents Working for You.</span>
+      <h1 className="font-extrabold leading-[1.04] tracking-[-0.03em] [font-size:min(68px,calc(100cqw/16.2))]">
+        <span className="block whitespace-nowrap text-charcoal">Get AI Employees Working for You.</span>
         <span className="block whitespace-nowrap text-brand-violet">24/7.</span>
       </h1>
 
