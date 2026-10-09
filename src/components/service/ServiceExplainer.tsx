@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import DemoButton from "@/components/lead/DemoButton";
 import TwoColumnSection from "@/components/service/TwoColumnSection";
-import { AnimateOnView } from "@/components/storyboard/client";
+import { AnimateOnView } from "@/components/AnimateOnView";
 import type { Interest } from "@/lib/lead";
 
 const buttonClass =

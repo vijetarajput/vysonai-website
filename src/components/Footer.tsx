@@ -21,6 +21,7 @@ export default function Footer() {
               alt={siteConfig.name}
               width={1098}
               height={612}
+              sizes="180px"
               className="h-auto w-[180px]"
             />
             <p className="measure mt-4 max-w-xs text-sm leading-relaxed text-muted-strong">

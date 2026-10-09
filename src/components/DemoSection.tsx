@@ -1,4 +1,4 @@
-import LeadFlow from "@/components/lead/LeadFlow";
+import LeadFlowLazy from "@/components/lead/LeadFlowLazy";
 
 const steps = [
   { title: "Free 30-minute business audit", text: "We look at how your business works today and spot what AI can take off your hands." },
@@ -72,7 +72,7 @@ export default function DemoSection() {
         </div>
 
         <div className="rounded-3xl border border-border bg-white p-6 shadow-soft sm:p-8">
-          <LeadFlow layout="inline" />
+          <LeadFlowLazy layout="inline" />
         </div>
       </div>
     </section>

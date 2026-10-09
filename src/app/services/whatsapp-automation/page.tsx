@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ServiceHero from "@/components/service/ServiceHero";
-import WhatsAppExplainer from "@/components/service/WhatsAppExplainer";
 import WhatsAppScene from "@/components/WhatsAppScene";
 import type { Interest } from "@/lib/lead";
+
+const WhatsAppExplainer = dynamic(() => import("@/components/service/WhatsAppExplainer"));
 
 const title = "WhatsApp Assistant, 24/7";
 const description =

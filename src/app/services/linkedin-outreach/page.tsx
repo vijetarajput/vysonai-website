@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import LinkedInScene from "@/components/LinkedInScene";
-import LinkedInExplainer from "@/components/service/LinkedInExplainer";
 import ServiceHero from "@/components/service/ServiceHero";
 import type { Interest } from "@/lib/lead";
+
+const LinkedInExplainer = dynamic(() => import("@/components/service/LinkedInExplainer"));
 
 const title = "LinkedIn Outreach: 10–20 Meetings a Month";
 const description =

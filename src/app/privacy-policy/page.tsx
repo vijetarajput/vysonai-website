@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Link from "next/link";
 import BrandName from "@/components/BrandName";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { siteConfig } from "@/config/site";
@@ -194,9 +195,9 @@ export default function PrivacyPolicyPage() {
                 <ol className="mt-3 grid list-decimal gap-x-8 gap-y-1.5 pl-5 text-[15px] leading-snug marker:text-brand-violet sm:grid-cols-2">
                   {sections.map((section) => (
                     <li key={section.id}>
-                      <a href={`#${section.id}`} className="link-brand">
+                      <Link href={`#${section.id}`} className="link-brand">
                         {section.title}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ol>

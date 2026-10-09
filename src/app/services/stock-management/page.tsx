@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import StockScene from "@/components/StockScene";
 import ServiceHero from "@/components/service/ServiceHero";
-import StockExplainer from "@/components/service/StockExplainer";
 import type { Interest } from "@/lib/lead";
+
+const StockExplainer = dynamic(() => import("@/components/service/StockExplainer"));
 
 const title = "AI Stock Management";
 const description =

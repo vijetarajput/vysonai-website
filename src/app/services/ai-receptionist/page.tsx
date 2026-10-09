@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ReceptionistScene from "@/components/ReceptionistScene";
-import ReceptionistExplainer from "@/components/service/ReceptionistExplainer";
 import ServiceHero from "@/components/service/ServiceHero";
 import type { Interest } from "@/lib/lead";
+
+const ReceptionistExplainer = dynamic(
+  () => import("@/components/service/ReceptionistExplainer"),
+);
 
 const title = "AI Receptionist, 24/7";
 const description =

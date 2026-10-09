@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import MetaAdsScene from "@/components/MetaAdsScene";
-import MetaAdsExplainer from "@/components/service/MetaAdsExplainer";
 import ServiceHero from "@/components/service/ServiceHero";
 import type { Interest } from "@/lib/lead";
+
+const MetaAdsExplainer = dynamic(() => import("@/components/service/MetaAdsExplainer"));
 
 const title = "Facebook & Instagram Ads";
 const description =

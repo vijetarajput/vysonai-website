@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ChatbotScene from "@/components/ChatbotScene";
-import ChatbotExplainer from "@/components/service/ChatbotExplainer";
 import ServiceHero from "@/components/service/ServiceHero";
 import type { Interest } from "@/lib/lead";
+
+const ChatbotExplainer = dynamic(() => import("@/components/service/ChatbotExplainer"));
 
 const title = "Website Chatbot, 24/7";
 const description =

@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import {
   useEffect,
   useId,
@@ -11,12 +12,13 @@ import {
 } from "react";
 import DemoButton from "@/components/lead/DemoButton";
 import type { Interest } from "@/lib/lead";
-import ChatbotSlide from "@/components/showcase/ChatbotSlide";
-import DashboardSlide from "@/components/showcase/DashboardSlide";
 import { useDocumentHidden, useReducedMotion } from "@/components/showcase/hooks";
 import type { SlideProps } from "@/components/showcase/parts";
-import ReceptionistSlide from "@/components/showcase/ReceptionistSlide";
 import WhatsAppSlide from "@/components/showcase/WhatsAppSlide";
+
+const DashboardSlide = dynamic(() => import("@/components/showcase/DashboardSlide"));
+const ChatbotSlide = dynamic(() => import("@/components/showcase/ChatbotSlide"));
+const ReceptionistSlide = dynamic(() => import("@/components/showcase/ReceptionistSlide"));
 
 const SLIDE_MS = 6000;
 
@@ -98,11 +100,32 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
   const [round, setRound] = useState(0); // changes on every click so the progress bar restarts
   const [hovering, setHovering] = useState(false);
   const [focusing, setFocusing] = useState(false);
+  const [seen, setSeen] = useState(() => slides.map((_, i) => i === 0));
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const listRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
 
-  const paused = hovering || focusing || tabHidden;
+  useEffect(() => {
+    const node = rootRef.current;
+    if (!node) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
+      threshold: 0.2,
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  const paused = hovering || focusing || tabHidden || !inView;
   const count = slides.length;
+
+  useEffect(() => {
+    setSeen((s) => (s[active] ? s : s.map((v, i) => v || i === active)));
+  }, [active]);
 
   function select(index: number) {
     setActive(index);
@@ -143,7 +166,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
   };
 
   return (
-    <div className="site-container pb-6 pt-6 md:pb-8 md:pt-8 lg:pb-10 lg:pt-6">
+    <div ref={rootRef} className="site-container pb-6 pt-6 md:pb-8 md:pt-8 lg:pb-10 lg:pt-6">
       <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-10">
         {intro}
 
@@ -191,6 +214,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
           <div className="relative h-[500px] lg:h-[452px]">
             {slides.map(({ Slide, interest }, index) => {
               const isActive = index === active;
+              const play = isActive && (inView || reduced);
               return (
                 <div
                   key={index}
@@ -199,7 +223,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
                   aria-labelledby={`${uid}-tab-${index}`}
                   aria-hidden={!isActive}
                   inert={!isActive}
-                  data-active={isActive}
+                  data-active={play}
                   className={`absolute inset-0 pt-[26px] transition-[opacity,transform,visibility] duration-[600ms] ease-out motion-reduce:transition-none ${
                     isActive
                       ? "visible translate-x-0 scale-100 opacity-100"
@@ -215,7 +239,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
                   <span className="absolute right-1 top-0 text-[10px] font-medium uppercase tracking-wider text-muted">
                     Sample
                   </span>
-                  <Slide active={isActive} live={!reduced} />
+                  {seen[index] ? <Slide active={play} live={!reduced} /> : null}
                 </div>
               );
             })}

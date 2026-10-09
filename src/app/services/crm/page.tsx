@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CrmScene from "@/components/CrmScene";
-import CrmExplainer from "@/components/service/CrmExplainer";
 import ServiceHero from "@/components/service/ServiceHero";
 import type { Interest } from "@/lib/lead";
+
+const CrmExplainer = dynamic(() => import("@/components/service/CrmExplainer"));
 
 const title = "Simple CRM for Your Business";
 const description =
