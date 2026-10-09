@@ -10,7 +10,7 @@ const splits = {
 /**
  * Reusable two-column section for service pages.
  * Standard section spacing, columns aligned to the top, stacked on mobile.
- * Put the heading inside a column (left-aligned), for example with <ChecklistColumn>.
+ * Put the heading inside a column (left-aligned).
  */
 export default function TwoColumnSection({
   left,

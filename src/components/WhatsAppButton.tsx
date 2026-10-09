@@ -11,7 +11,7 @@ export default function WhatsAppButton({
   className?: string;
   large?: boolean;
 }) {
-  if (!siteConfig.showWhatsApp) return null;
+  if (!siteConfig.showWhatsApp || !siteConfig.whatsappUrl) return null;
 
   return (
     <a

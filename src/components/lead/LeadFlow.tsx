@@ -11,6 +11,7 @@ import { siteConfig } from "@/config/site";
 import {
   INTERESTS,
   MESSAGE_MAX,
+  NAME_MAX,
   validateLead,
   type Interest,
   type LeadErrors,
@@ -174,6 +175,7 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
           onBlur={() => touch("name")}
           aria-invalid={!!shownError("name")}
           aria-describedby={shownError("name") ? id("name-error") : undefined}
+          maxLength={NAME_MAX}
           className={`${inputBase} ${borderFor("name")}`}
         />
         <FieldError id={id("name-error")} message={shownError("name")} />
@@ -297,7 +299,7 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
             <Link
               href="/privacy-policy"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               className="link-brand font-medium"
             >
               Privacy Policy

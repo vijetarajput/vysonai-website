@@ -16,7 +16,9 @@ export const INTERESTS = [
 ] as const;
 export type Interest = (typeof INTERESTS)[number];
 
+export const NAME_MAX = 60;
 export const MESSAGE_MAX = 500;
+export const NAME_PATTERN = /^[\p{L}][\p{L} .'\u2019\u2018-]*[\p{L}.]$/u;
 
 export type LeadField =
   | "name"
@@ -30,6 +32,7 @@ export type LeadErrors = Partial<Record<LeadField, string>>;
 export const messages = {
   nameEmpty: "Please enter your name.",
   nameShort: "Please enter your full name (at least 2 letters).",
+  nameInvalid: "Please enter a name using letters, spaces and punctuation only.",
   whatsappEmpty: "Please enter your WhatsApp number.",
   whatsappInvalid: "Please enter a valid number for the selected country.",
   email: "Please enter a valid email address.",
@@ -82,8 +85,9 @@ const detailsSchema = z.object({
     .trim()
     .min(1, messages.nameEmpty)
     .min(2, messages.nameShort)
-    .max(80, messages.nameShort)
-    .refine((value) => !/[\r\n]/.test(value), messages.nameShort),
+    .max(NAME_MAX, messages.nameShort)
+    .refine((value) => !/[\r\n]/.test(value), messages.nameShort)
+    .regex(NAME_PATTERN, messages.nameInvalid),
   email: emailSchema,
   interests: z
     .array(z.enum(INTERESTS, { error: messages.interests }), { error: messages.interests })

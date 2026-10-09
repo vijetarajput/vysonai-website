@@ -100,7 +100,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
   const [round, setRound] = useState(0); // changes on every click so the progress bar restarts
   const [hovering, setHovering] = useState(false);
   const [focusing, setFocusing] = useState(false);
-  const [seen, setSeen] = useState(() => slides.map((_, i) => i === 0));
+  const [maxSeen, setMaxSeen] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const listRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -110,8 +110,8 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
     const node = rootRef.current;
     if (!node) return;
     if (typeof IntersectionObserver === "undefined") {
-      setInView(true);
-      return;
+      const timer = window.setTimeout(() => setInView(true), 0);
+      return () => window.clearTimeout(timer);
     }
     const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
       threshold: 0.2,
@@ -123,18 +123,14 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
   const paused = hovering || focusing || tabHidden || !inView;
   const count = slides.length;
 
-  useEffect(() => {
-    setSeen((s) => (s[active] ? s : s.map((v, i) => v || i === active)));
-  }, [active]);
-
   function select(index: number) {
     setActive(index);
     setRound((n) => n + 1);
+    setMaxSeen((seen) => Math.max(seen, index));
   }
 
   function next() {
-    setActive((i) => (i + 1) % count);
-    setRound((n) => n + 1);
+    select((active + 1) % count);
   }
 
   function onKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
@@ -239,7 +235,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
                   <span className="absolute right-1 top-0 text-[10px] font-medium uppercase tracking-wider text-muted">
                     Sample
                   </span>
-                  {seen[index] ? <Slide active={play} live={!reduced} /> : null}
+                  {index <= maxSeen ? <Slide active={play} live={!reduced} /> : null}
                 </div>
               );
             })}

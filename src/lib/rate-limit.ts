@@ -25,6 +25,9 @@ export function isRateLimited(key: string, limit = 5, windowMs = 10 * 60 * 1000)
 }
 
 export function clientIp(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  return forwarded?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
+  const vercel = request.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim();
+  if (vercel) return vercel;
+  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  if (forwarded) return forwarded;
+  return request.headers.get("x-real-ip")?.trim() || "unknown";
 }

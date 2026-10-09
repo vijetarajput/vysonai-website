@@ -1,4 +1,5 @@
-const whatsappNumber = "91XXXXXXXXXX"; // fill in your real number (digits only, with country code)
+const showWhatsApp = false as boolean;
+const whatsappNumber = "";
 const whatsappMessage = "Hi, I want to know about AI automation for my business.";
 
 export const siteConfig = {
@@ -13,11 +14,11 @@ export const siteConfig = {
   whatsappNumber,
   whatsappMessage,
   // Public Chat on WhatsApp CTAs (floating button, footer, contact, form). Flip to true to bring them back.
-  showWhatsApp: false as boolean,
+  showWhatsApp,
   udyam: "UDYAM-GJ-01-0682560",
 
-  // Opens WhatsApp chat. The number itself is never shown as page text.
-  whatsappUrl: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`,
+  // Public WhatsApp chat URL. Empty while showWhatsApp is false so no wa.me link is shipped.
+  whatsappUrl: "",
 
   // SEO (plain text only: titles and meta tags never use the BrandName component)
   seoTitle: "WhatsApp Automation, CRM & AI Receptionist",

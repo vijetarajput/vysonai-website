@@ -7,7 +7,7 @@ import { siteConfig } from "@/config/site";
  * covers content.
  */
 export default function FloatingWhatsApp() {
-  if (!siteConfig.showWhatsApp) return null;
+  if (!siteConfig.showWhatsApp || !siteConfig.whatsappUrl) return null;
 
   return (
     <div data-floating-wa className="group fixed bottom-4 right-4 z-40 sm:bottom-6 sm:right-6">

@@ -5,7 +5,18 @@ import { validateLead, type Lead } from "@/lib/lead";
 import { clientIp, isRateLimited } from "@/lib/rate-limit";
 
 const TIMEOUT_MS = 10_000;
-const FROM = "VYSON-AI Website <onboarding@resend.dev>";
+const MAX_BODY_BYTES = 10 * 1024;
+const ALLOWED_FIELDS = new Set([
+  "name",
+  "country",
+  "whatsapp",
+  "email",
+  "interests",
+  "message",
+  "consent",
+  "website",
+  "page",
+]);
 
 const DELIVERY_FAILED = siteConfig.showWhatsApp
   ? "Sorry, something went wrong. Please message us on WhatsApp instead."
@@ -14,6 +25,20 @@ const DELIVERY_FAILED = siteConfig.showWhatsApp
 function fail(message: string, status: number) {
   return NextResponse.json({ ok: false, message }, { status });
 }
+
+function methodNotAllowed() {
+  return NextResponse.json(
+    { ok: false, message: "Method not allowed." },
+    { status: 405, headers: { Allow: "POST" } },
+  );
+}
+
+export const GET = methodNotAllowed;
+export const PUT = methodNotAllowed;
+export const PATCH = methodNotAllowed;
+export const DELETE = methodNotAllowed;
+export const HEAD = methodNotAllowed;
+export const OPTIONS = methodNotAllowed;
 
 /** Escapes characters that would be treated as HTML markup. */
 function escapeHtml(value: string) {
@@ -28,6 +53,17 @@ function escapeHtml(value: string) {
 /** Escapes the characters Telegram's HTML mode treats as markup. */
 function escapeTelegram(value: string) {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/** Strips CR/LF so values cannot split email headers. */
+function headerSafe(value: string) {
+  return value.replace(/[\r\n]+/g, " ").trim();
+}
+
+function fromAddress() {
+  const raw = process.env.EMAIL_FROM?.trim() ?? "";
+  if (!raw || /[\r\n]/.test(raw)) return null;
+  return raw.includes("<") ? raw : `VYSON-AI Website <${raw}>`;
 }
 
 function kolkataTime(date: Date) {
@@ -64,7 +100,7 @@ function telegramText(lead: Lead, page: string) {
 }
 
 function emailSubject(lead: Lead) {
-  return `🔔 New lead: ${lead.name} – ${needsLabel(lead)}`;
+  return `🔔 New lead: ${headerSafe(lead.name)} – ${headerSafe(needsLabel(lead))}`;
 }
 
 function emailText(lead: Lead, page: string, at: Date) {
@@ -86,7 +122,7 @@ function emailText(lead: Lead, page: string, at: Date) {
 function emailHtml(lead: Lead, page: string, at: Date) {
   const message = lead.message ? escapeHtml(lead.message) : "Not shared";
   const wa = waMeUrl(lead.whatsapp);
-  const mail = `mailto:${escapeHtml(lead.email)}`;
+  const mail = `mailto:${encodeURIComponent(lead.email)}`;
   const row = (label: string, value: string) =>
     `<p style="margin:0 0 12px 0;font-size:15px;line-height:1.5"><strong>${label}:</strong> ${value}</p>`;
 
@@ -116,7 +152,7 @@ async function sendToTelegram(text: string) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!token || !chatId) {
-    console.error("Lead delivery: Telegram sendMessage failed: not configured");
+    console.error("Lead delivery: Telegram is not configured");
     return false;
   }
 
@@ -132,19 +168,12 @@ async function sendToTelegram(text: string) {
       }),
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
-    const data = (await response.json().catch(() => null)) as {
-      ok?: boolean;
-      description?: string;
-    } | null;
+    const data = (await response.json().catch(() => null)) as { ok?: boolean } | null;
     if (response.ok && data?.ok === true) return true;
-    const reason =
-      typeof data?.description === "string" && data.description
-        ? data.description
-        : `HTTP ${response.status}`;
-    console.error(`Lead delivery: Telegram sendMessage failed: ${reason}`);
+    console.error("Lead delivery: Telegram sendMessage failed");
   } catch {
     // The error text can contain the request URL (which includes the token), so it is not logged.
-    console.error("Lead delivery: Telegram sendMessage failed: network error");
+    console.error("Lead delivery: Telegram sendMessage failed");
   }
   return false;
 }
@@ -153,8 +182,9 @@ async function sendToTelegram(text: string) {
 async function sendLeadEmail(lead: Lead, page: string) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_NOTIFY_EMAIL;
-  if (!apiKey || !to || /[\r\n]/.test(to)) {
-    console.error("Lead delivery: Resend send failed: not configured");
+  const from = fromAddress();
+  if (!apiKey || !to || /[\r\n]/.test(to) || !from) {
+    console.error("Lead delivery: Resend is not configured");
     return false;
   }
 
@@ -164,9 +194,9 @@ async function sendLeadEmail(lead: Lead, page: string) {
     const resend = new Resend(apiKey);
     const { data, error } = await resend.emails.send(
       {
-        from: FROM,
+        from,
         to,
-        replyTo: lead.email,
+        replyTo: headerSafe(lead.email),
         subject: emailSubject(lead),
         html: emailHtml(lead, page, at),
         text: emailText(lead, page, at),
@@ -174,13 +204,12 @@ async function sendLeadEmail(lead: Lead, page: string) {
       { signal },
     );
     if (error) {
-      const reason = error.statusCode === null && signal.aborted ? "timeout" : error.name;
-      console.error(`Lead delivery: Resend send failed: ${reason}`);
+      console.error("Lead delivery: Resend send failed");
       return false;
     }
     return Boolean(data?.id);
   } catch {
-    console.error("Lead delivery: Resend send failed: network error");
+    console.error("Lead delivery: Resend send failed");
     return false;
   }
 }
@@ -213,10 +242,10 @@ async function forwardToN8n(lead: Lead, page: string) {
       }),
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
-    if (!response.ok) console.error(`Lead delivery: n8n responded with HTTP ${response.status}.`);
+    if (!response.ok) console.error("Lead delivery: n8n webhook failed");
     return response.ok;
   } catch {
-    console.error("Lead delivery: could not reach n8n.");
+    console.error("Lead delivery: n8n webhook failed");
     return false;
   }
 }
@@ -231,9 +260,28 @@ export async function POST(request: Request) {
     );
   }
 
+  const declaredLength = Number(request.headers.get("content-length") ?? "0");
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES) {
+    return fail("We could not read your details. Please try again.", 413);
+  }
+
+  let raw: string;
+  try {
+    raw = await request.text();
+  } catch {
+    return fail("We could not read your details. Please try again.", 400);
+  }
+  if (raw.length > MAX_BODY_BYTES) {
+    return fail("We could not read your details. Please try again.", 413);
+  }
+
   let body: Record<string, unknown>;
   try {
-    body = await request.json();
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return fail("We could not read your details. Please try again.", 400);
+    }
+    body = parsed as Record<string, unknown>;
   } catch {
     return fail("We could not read your details. Please try again.", 400);
   }
@@ -241,6 +289,10 @@ export async function POST(request: Request) {
   // Hidden "website" field: real people leave it empty. Pretend success for bots.
   if (typeof body.website === "string" && body.website.trim() !== "") {
     return NextResponse.json({ ok: true });
+  }
+
+  if (Object.keys(body).some((key) => !ALLOWED_FIELDS.has(key))) {
+    return fail("We could not read your details. Please try again.", 400);
   }
 
   const result = validateLead(body);
