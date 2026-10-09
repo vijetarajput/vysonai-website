@@ -118,7 +118,7 @@ function emailHtml(lead: Lead, page: string, at: Date) {
 }
 
 /** Logs only Resend's error name and message. Never logs the API key or personal data. */
-function logResendFailure(error: unknown) {
+function logEmailFailure(error: unknown) {
   const name =
     error && typeof error === "object" && "name" in error && typeof error.name === "string"
       ? error.name
@@ -127,7 +127,33 @@ function logResendFailure(error: unknown) {
     error && typeof error === "object" && "message" in error && typeof error.message === "string"
       ? error.message
       : "send failed";
-  console.error(`Lead delivery: Resend ${name}: ${message}`);
+  console.error(`Lead delivery: email failed: ${name}: ${message}`);
+}
+
+/** Escapes the characters Telegram's HTML mode treats as markup. */
+function escapeTelegram(value: string) {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function telegramText(lead: Lead, page: string) {
+  const number = lead.whatsapp; // E.164, for example +447911123456
+  const wants = lead.interests.length > 0 ? lead.interests.join(", ") : "Not specified";
+  const href = waMeUrl(number);
+
+  return [
+    `🔔 <b>New lead – ${escapeTelegram(siteConfig.name)}</b>`,
+    `Name: ${escapeTelegram(lead.name)}`,
+    `WhatsApp: ${escapeTelegram(number)} (<a href="${href}">open chat</a>)`,
+    `Email: ${escapeTelegram(lead.email)}`,
+    `Needs: ${escapeTelegram(wants)}`,
+    `Message: ${lead.message ? escapeTelegram(lead.message) : "Not shared"}`,
+    `Page: ${escapeTelegram(page)}`,
+    `Time: ${escapeTelegram(kolkataTime(new Date()))}`,
+  ].join("\n");
+}
+
+function isDelivered(result: PromiseSettledResult<boolean>) {
+  return result.status === "fulfilled" && result.value === true;
 }
 
 /** Emails the lead. Never logs personal data, the API key, or the notify address. */
@@ -135,7 +161,7 @@ async function sendLeadEmail(lead: Lead, page: string) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_NOTIFY_EMAIL;
   if (!apiKey || !to || /[\r\n]/.test(to)) {
-    console.error("Lead delivery: Resend Error: not configured");
+    console.error("Lead delivery: email failed: Error: not configured");
     return false;
   }
 
@@ -155,14 +181,45 @@ async function sendLeadEmail(lead: Lead, page: string) {
       { signal },
     );
     if (error) {
-      logResendFailure(error);
+      logEmailFailure(error);
       return false;
     }
     return Boolean(data?.id);
   } catch (error) {
-    logResendFailure(error);
+    logEmailFailure(error);
     return false;
   }
+}
+
+/** Returns true only when Telegram confirms it accepted the message. Skips silently if not configured. */
+async function sendToTelegram(lead: Lead, page: string) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return false;
+
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: telegramText(lead, page),
+        parse_mode: "HTML",
+        disable_web_page_preview: true,
+      }),
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+    const data = (await response.json().catch(() => null)) as
+      | { ok?: boolean; description?: string }
+      | null;
+    if (response.ok && data?.ok === true) return true;
+    const description = typeof data?.description === "string" ? data.description : "send failed";
+    console.error(`Lead delivery: telegram failed: ${response.status} ${description}`);
+  } catch {
+    // The error text can contain the request URL (which includes the token), so it is not logged.
+    console.error("Lead delivery: telegram failed: 0 network error");
+  }
+  return false;
 }
 
 /** Optional extra copy to n8n. Its result never changes what the visitor sees. */
@@ -254,12 +311,13 @@ export async function POST(request: Request) {
   const page = typeof body.page === "string" && body.page ? body.page.slice(0, 200) : "Unknown";
   const lead = result.lead;
 
-  const [emailResult] = await Promise.allSettled([
+  const [emailResult, telegramResult] = await Promise.allSettled([
     sendLeadEmail(lead, page),
+    sendToTelegram(lead, page),
     forwardToN8n(lead, page),
   ]);
 
-  if (emailResult.status !== "fulfilled" || emailResult.value !== true) {
+  if (!isDelivered(emailResult) && !isDelivered(telegramResult)) {
     return fail(DELIVERY_FAILED, 502);
   }
 
