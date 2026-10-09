@@ -7,6 +7,7 @@ const builtServices = [
   "chatbot",
   "crm",
   "stock-management",
+  "meta-ads",
 ];
 
 const nextConfig: NextConfig = {

@@ -76,6 +76,7 @@ export const offerings: Offering[] = [
     title: "Meta Ads",
     text: "Runs Facebook and Instagram ads that bring you new customers.",
     icon: "megaphone",
+    href: "/services/meta-ads",
     interest: "Meta Ads",
   },
   {

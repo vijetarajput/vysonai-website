@@ -101,6 +101,12 @@ const icons = {
       <path d="M9 8h6M9 12h6M9 16h3" />
     </>
   ),
+  Campaigns: (
+    <>
+      <path d="M4 10v4M4 10l13-5v14L4 14" />
+      <path d="M17 8.5a3.5 3.5 0 0 1 0 7" />
+    </>
+  ),
   Settings: (
     <>
       <circle cx="12" cy="12" r="3" />
@@ -215,6 +221,7 @@ export function HeaderPill({ children }: { children: ReactNode }) {
 
 const pillTone = {
   violet: "bg-brand-violet/10 text-brand-violet",
+  solid: "bg-brand-violet text-white",
   grey: "bg-gray-100 text-muted-strong",
   red: "bg-red-50 text-red-600",
   amber: "bg-amber-50 text-amber-700",
@@ -252,7 +259,7 @@ export const freshRow = "sb-slide rounded-md bg-violet-tint ring-1 ring-brand-vi
 /* Phone with a chat from a business                                   */
 /* ------------------------------------------------------------------ */
 
-export type PhoneMessage = { text: ReactNode; time: string };
+export type PhoneMessage = { text: ReactNode; time: string; from?: "them" | "us" };
 
 /** Phone mockup with a chat (brand colors, no app logo). Messages appear one by one. */
 export function ChatPhone({
@@ -297,19 +304,28 @@ export function ChatPhone({
         <p className="mx-auto rounded-full bg-white px-2.5 py-0.5 text-[10px] font-medium text-muted-strong shadow-soft">
           {chip}
         </p>
-        {messages.map((m, i) => (
-          <div key={i} className="ss-in max-w-[90%]" style={at(700 + i * 800)}>
-            <div className="rounded-2xl rounded-tl-md border border-border bg-white px-3 pb-1.5 pt-2 text-[12.5px] leading-snug text-charcoal shadow-soft">
-              {m.text}
-              <span className="mt-1 flex items-center justify-end gap-1 text-[10px] text-muted">
-                {m.time}
-                <span className="text-brand-blue">
-                  <DoubleTick />
+        {messages.map((m, i) => {
+          const us = m.from === "us";
+          return (
+            <div key={i} className={`ss-in max-w-[90%] ${us ? "ml-auto" : ""}`} style={at(700 + i * 800)}>
+              <div
+                className={`px-3 pb-1.5 pt-2 text-[12.5px] leading-snug shadow-soft ${
+                  us
+                    ? "rounded-2xl rounded-tr-md bg-brand-violet text-white"
+                    : "rounded-2xl rounded-tl-md border border-border bg-white text-charcoal"
+                }`}
+              >
+                {m.text}
+                <span className={`mt-1 flex items-center justify-end gap-1 text-[10px] ${us ? "text-white/75" : "text-muted"}`}>
+                  {m.time}
+                  <span className={us ? "text-white/90" : "text-brand-blue"}>
+                    <DoubleTick />
+                  </span>
                 </span>
-              </span>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
         {extra}
       </div>
       <div aria-hidden="true" className="border-t border-border bg-white px-3 py-2">

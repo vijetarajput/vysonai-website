@@ -9,6 +9,7 @@ const paths = [
   "/services/chatbot",
   "/services/crm",
   "/services/stock-management",
+  "/services/meta-ads",
   "/about",
   "/contact",
   "/privacy-policy",

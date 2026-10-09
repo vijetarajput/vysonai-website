@@ -932,3 +932,31 @@ body {
     max-width: none;
   }
 }
+
+/* A soft radius that pulses around a map pin */
+.sb-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0.28;
+}
+[data-active="true"] .sb-pulse {
+  animation: sb-pulse 2.4s ease-out infinite;
+}
+@keyframes sb-pulse {
+  0% {
+    transform: scale(0.72);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.28);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-pulse,
+  [data-active="true"] .sb-pulse {
+    animation: none;
+    opacity: 0.22;
+    transform: none;
+  }
+}
