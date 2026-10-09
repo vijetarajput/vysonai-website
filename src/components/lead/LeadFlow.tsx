@@ -37,7 +37,7 @@ const inputBase =
 
 const TITLE = "Book your free business audit";
 const SUBTEXT =
-  "30 minutes. No cost, no commitment. We'll look at how you work today and show you where AI can save time. We'll message you within 24 hours.";
+  "30 minutes. No cost, no commitment. We'll look at how you work today and show you where AI can save time. We usually reply within 1 hour (9 AM – 9 PM IST).";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;

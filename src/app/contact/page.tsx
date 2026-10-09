@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import EmailButton from "@/components/EmailButton";
 import LeadFlow from "@/components/lead/LeadFlow";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { siteConfig } from "@/config/site";
 
 const title = "Book a Free Business Audit";
 const description =
-  "Tell us about your business and book a free 30-minute business audit. We reply within 24 hours.";
+  "Tell us about your business and book a free 30-minute business audit. We usually reply within 1 hour (9 AM – 9 PM IST).";
 
 export const metadata: Metadata = {
   title,
@@ -46,11 +45,7 @@ export default function ContactPage() {
                 <li>
                   <WhatsAppButton large label="Chat on WhatsApp" />
                 </li>
-              ) : (
-                <li>
-                  <EmailButton large label="Email us" />
-                </li>
-              )}
+              ) : null}
               <li>
                 <span className="block text-sm font-semibold text-muted-strong">Email</span>
                 <a href={`mailto:${siteConfig.email}`} className="link-brand break-all">
@@ -63,7 +58,7 @@ export default function ContactPage() {
               </li>
             </ul>
             <p className="mt-4 border-t border-border pt-4 font-medium text-charcoal">
-              We reply within 24 hours.
+              We usually reply within 1 hour (9 AM – 9 PM IST).
             </p>
           </aside>
         </div>
