@@ -66,6 +66,7 @@ const emailSchema = z
   .toLowerCase()
   .min(1, messages.email)
   .max(100, messages.email)
+  .refine((value) => !/[\r\n]/.test(value), messages.email)
   .refine((value) => z.email().safeParse(value).success, messages.email);
 
 /** Optional short note. Trimmed, at most MESSAGE_MAX characters. */
@@ -81,7 +82,8 @@ const detailsSchema = z.object({
     .trim()
     .min(1, messages.nameEmpty)
     .min(2, messages.nameShort)
-    .max(80, messages.nameShort),
+    .max(80, messages.nameShort)
+    .refine((value) => !/[\r\n]/.test(value), messages.nameShort),
   email: emailSchema,
   interests: z
     .array(z.enum(INTERESTS, { error: messages.interests }), { error: messages.interests })
