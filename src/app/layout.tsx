@@ -41,7 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
-          <FloatingWhatsApp />
+          {siteConfig.showWhatsApp ? <FloatingWhatsApp /> : null}
         </LeadModalProvider>
       </body>
     </html>

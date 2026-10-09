@@ -12,6 +12,8 @@ export const siteConfig = {
   countryCode: "IN",
   whatsappNumber,
   whatsappMessage,
+  // Public Chat on WhatsApp CTAs (floating button, footer, contact, form). Flip to true to bring them back.
+  showWhatsApp: false as boolean,
   udyam: "UDYAM-GJ-01-0682560",
 
   // Opens WhatsApp chat. The number itself is never shown as page text.

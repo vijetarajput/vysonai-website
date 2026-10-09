@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import EmailButton from "@/components/EmailButton";
 import LeadFlow from "@/components/lead/LeadFlow";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { siteConfig } from "@/config/site";
@@ -41,9 +42,15 @@ export default function ContactPage() {
           <aside className="rounded-3xl bg-violet-tint p-5 sm:p-6">
             <h2 className="text-xl sm:text-2xl">Prefer to reach us directly?</h2>
             <ul className="mt-4 space-y-3 text-charcoal">
-              <li>
-                <WhatsAppButton large label="Chat on WhatsApp" />
-              </li>
+              {siteConfig.showWhatsApp ? (
+                <li>
+                  <WhatsAppButton large label="Chat on WhatsApp" />
+                </li>
+              ) : (
+                <li>
+                  <EmailButton large label="Email us" />
+                </li>
+              )}
               <li>
                 <span className="block text-sm font-semibold text-muted-strong">Email</span>
                 <a href={`mailto:${siteConfig.email}`} className="link-brand break-all">

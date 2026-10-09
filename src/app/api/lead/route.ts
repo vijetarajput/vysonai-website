@@ -7,8 +7,9 @@ import { clientIp, isRateLimited } from "@/lib/rate-limit";
 const TIMEOUT_MS = 10_000;
 const FROM = "VYSON-AI Website <onboarding@resend.dev>";
 
-const DELIVERY_FAILED =
-  "Sorry, something went wrong. Please message us on WhatsApp instead.";
+const DELIVERY_FAILED = siteConfig.showWhatsApp
+  ? "Sorry, something went wrong. Please message us on WhatsApp instead."
+  : `Sorry, something went wrong. Please email us at ${siteConfig.email} and we'll get back to you.`;
 
 function fail(message: string, status: number) {
   return NextResponse.json({ ok: false, message }, { status });
@@ -223,7 +224,9 @@ async function forwardToN8n(lead: Lead, page: string) {
 export async function POST(request: Request) {
   if (isRateLimited(clientIp(request))) {
     return fail(
-      "Too many requests. Please wait a few minutes and try again, or chat with us on WhatsApp.",
+      siteConfig.showWhatsApp
+        ? "Too many requests. Please wait a few minutes and try again, or chat with us on WhatsApp."
+        : `Too many requests. Please wait a few minutes and try again, or email us at ${siteConfig.email}.`,
       429,
     );
   }

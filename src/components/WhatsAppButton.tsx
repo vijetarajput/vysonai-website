@@ -11,6 +11,8 @@ export default function WhatsAppButton({
   className?: string;
   large?: boolean;
 }) {
+  if (!siteConfig.showWhatsApp) return null;
+
   return (
     <a
       href={siteConfig.whatsappUrl}

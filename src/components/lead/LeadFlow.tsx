@@ -5,7 +5,9 @@ import { useEffect, useId, useRef, useState } from "react";
 import BrandName from "@/components/BrandName";
 import { CheckIcon } from "@/components/lead/icons";
 import PhoneField from "@/components/lead/PhoneField";
+import EmailButton from "@/components/EmailButton";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { siteConfig } from "@/config/site";
 import {
   INTERESTS,
   MESSAGE_MAX,
@@ -26,7 +28,9 @@ type Props = {
   onClose?: () => void;
 };
 
-const DELIVERY_FAILED = "Sorry, something went wrong. Please message us on WhatsApp instead.";
+const DELIVERY_FAILED = siteConfig.showWhatsApp
+  ? "Sorry, something went wrong. Please message us on WhatsApp instead."
+  : `Sorry, something went wrong. Please email us at ${siteConfig.email} and we'll get back to you.`;
 
 const inputBase =
   "w-full rounded-xl border bg-white px-4 py-3 text-base text-charcoal placeholder:text-muted focus:border-brand-violet focus:outline-none focus:ring-2 focus:ring-brand-violet/30";
@@ -308,7 +312,11 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
         {formError && (
           <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3">
             <p className="text-sm font-medium text-red-700">{formError}</p>
-            <WhatsAppButton label="Chat on WhatsApp" className="mt-3" />
+            {siteConfig.showWhatsApp ? (
+              <WhatsAppButton label="Chat on WhatsApp" className="mt-3" />
+            ) : (
+              <EmailButton label="Email us" className="mt-3" />
+            )}
           </div>
         )}
       </div>
@@ -336,17 +344,22 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
       <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-violet-tint text-brand-violet">
         <CheckIcon size={26} />
       </span>
-      <p className="mt-5 font-heading text-2xl font-bold leading-tight tracking-tight text-charcoal">
-        Thank you! We&apos;ll message you on WhatsApp within 24 hours.
+      <p className="mt-5 text-base leading-relaxed text-muted-strong sm:text-lg">
+        Your free business audit request is in. We&apos;ll get in touch shortly. We usually reply
+        within 1 hour (9 AM – 9 PM IST).
       </p>
-      <div className="mt-6 flex flex-col items-center gap-3">
-        <WhatsAppButton label="Chat with us on WhatsApp now" large />
-        {onClose && (
-          <button type="button" onClick={onClose} className="link-brand text-sm font-medium">
-            Close
-          </button>
-        )}
-      </div>
+      {siteConfig.showWhatsApp || onClose ? (
+        <div className="mt-6 flex flex-col items-center gap-3">
+          {siteConfig.showWhatsApp ? (
+            <WhatsAppButton label="Chat with us on WhatsApp now" large />
+          ) : null}
+          {onClose ? (
+            <button type="button" onClick={onClose} className="link-brand text-sm font-medium">
+              Close
+            </button>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 

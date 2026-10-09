@@ -9,7 +9,11 @@ export default function Footer() {
   return (
     <footer className="border-t border-border bg-violet-tint">
       {/* extra bottom padding on mobile so the floating WhatsApp button never covers content */}
-      <div className="site-container pb-24 pt-10 sm:pb-10 md:pt-12 md:pb-12">
+      <div
+        className={`site-container pt-10 md:pt-12 md:pb-12 ${
+          siteConfig.showWhatsApp ? "pb-24 sm:pb-10" : "pb-10"
+        }`}
+      >
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           <div>
             <Image
@@ -46,9 +50,11 @@ export default function Footer() {
                 </a>
               </li>
               <li>{siteConfig.location}</li>
-              <li className="pt-1">
-                <WhatsAppButton />
-              </li>
+              {siteConfig.showWhatsApp ? (
+                <li className="pt-1">
+                  <WhatsAppButton />
+                </li>
+              ) : null}
             </ul>
           </div>
         </div>
