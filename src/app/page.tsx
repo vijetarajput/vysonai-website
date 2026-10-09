@@ -6,7 +6,7 @@ import Calculator from "@/components/Calculator";
 import ServiceCards from "@/components/ServiceCards";
 import { siteConfig } from "@/config/site";
 
-const title = "Your AI Team, Working 24/7 | VYSON-AI";
+const title = "Get AI Agents Working for You 24/7 | VYSON-AI";
 const description =
   "VYSON-AI builds AI agents that handle your calls, customers, stock and marketing day and night, for businesses in the US, the UK and India.";
 

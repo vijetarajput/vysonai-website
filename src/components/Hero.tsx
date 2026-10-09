@@ -10,9 +10,9 @@ import HeroShowcase from "@/components/showcase/HeroShowcase";
 function HeroText() {
   return (
     <div className="[container-type:inline-size]">
-      <h1 className="font-extrabold leading-[1.04] tracking-[-0.03em] [font-size:min(68px,11cqw)]">
-        <span className="block whitespace-nowrap text-charcoal">Meet your AI team.</span>
-        <span className="block whitespace-nowrap text-brand-violet">Working 24/7.</span>
+      <h1 className="font-extrabold leading-[1.04] tracking-[-0.03em] [font-size:min(68px,calc(100cqw/14.4))]">
+        <span className="block whitespace-nowrap text-charcoal">Get AI Agents Working for You.</span>
+        <span className="block whitespace-nowrap text-brand-violet">24/7.</span>
       </h1>
 
       <p className="mt-5 max-w-[34rem] text-lg leading-snug text-muted-strong md:text-xl">
@@ -26,7 +26,7 @@ function HeroText() {
           href="/#services"
           className="inline-flex items-center justify-center rounded-full border-2 border-brand-violet px-7 py-3.5 text-base font-medium text-brand-violet transition-colors hover:bg-violet-tint"
         >
-          Meet the team <span aria-hidden="true">&nbsp;&darr;</span>
+          See what they can do <span aria-hidden="true">&nbsp;&darr;</span>
         </Link>
       </div>
 
