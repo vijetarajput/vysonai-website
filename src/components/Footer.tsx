@@ -61,7 +61,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-border pt-6 text-sm text-muted-strong">
-          <p className="text-xs">MSME Registered: {siteConfig.udyam}</p>
+          <p className="text-xs">MSME registered (Udyam), Government of India</p>
           <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p>
               &copy; <CurrentYear /> <BrandName />. All rights reserved.

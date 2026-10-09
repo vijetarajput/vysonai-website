@@ -32,8 +32,8 @@ const sections: PolicySection[] = [
     body: (
       <>
         <p>
-          <BrandName /> is an MSME-registered business ({siteConfig.udyam}) based
-          in {siteConfig.location}.
+          <BrandName /> is an MSME-registered business (Udyam, Government of India) based
+          in {siteConfig.location}. Registration details are available on request.
         </p>
         <p>Contact: {email}</p>
       </>

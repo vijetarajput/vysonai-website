@@ -15,7 +15,6 @@ export const siteConfig = {
   whatsappMessage,
   // Public Chat on WhatsApp CTAs (floating button, footer, contact, form). Flip to true to bring them back.
   showWhatsApp,
-  udyam: "UDYAM-GJ-01-0682560",
 
   // Public WhatsApp chat URL. Empty while showWhatsApp is false so no wa.me link is shipped.
   whatsappUrl: "",
