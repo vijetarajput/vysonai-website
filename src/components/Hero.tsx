@@ -16,8 +16,8 @@ function HeroText() {
       </h1>
 
       <p className="mt-5 max-w-[34rem] text-lg leading-snug text-muted-strong md:text-xl">
-        We build AI agents that handle your calls, customers, stock and marketing, day and night,
-        so you can focus on growth.
+        We build AI agents that handle your calls, WhatsApp chats, customers, stock and marketing,
+        day and night, so you can focus on growth.
       </p>
 
       <div className="mt-7 flex flex-col gap-3 sm:flex-row">

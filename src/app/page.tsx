@@ -8,7 +8,7 @@ import { siteConfig } from "@/config/site";
 
 const title = "VYSON-AI | AI Agents Working for You 24/7";
 const description =
-  "VYSON-AI builds AI agents that handle your calls, customers, stock and marketing day and night, for businesses in the US, the UK and India.";
+  "VYSON-AI builds AI agents that handle your calls, WhatsApp chats, customers, stock and marketing day and night, for businesses in the US, the UK and India.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
