@@ -10,6 +10,7 @@ const paths = [
   "/services/crm",
   "/services/stock-management",
   "/services/meta-ads",
+  "/services/linkedin-outreach",
   "/about",
   "/contact",
   "/privacy-policy",

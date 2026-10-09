@@ -8,6 +8,7 @@ const builtServices = [
   "crm",
   "stock-management",
   "meta-ads",
+  "linkedin-outreach",
 ];
 
 const nextConfig: NextConfig = {

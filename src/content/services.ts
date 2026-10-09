@@ -83,6 +83,7 @@ export const offerings: Offering[] = [
     title: "LinkedIn Outreach",
     text: "Sends personal messages to the right people and books meetings for you.",
     icon: "mail",
+    href: "/services/linkedin-outreach",
     interest: "LinkedIn outreach",
   },
   {

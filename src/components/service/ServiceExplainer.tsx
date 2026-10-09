@@ -36,6 +36,7 @@ export function ExplainerIcon({ children }: { children: ReactNode }) {
 export default function ServiceExplainer({
   title,
   intro,
+  afterIntro,
   blocks,
   worksWellFor,
   visual,
@@ -45,6 +46,8 @@ export default function ServiceExplainer({
 }: {
   title: string;
   intro: string;
+  /** Optional extra left-column content after the intro, for example a row of step chips. */
+  afterIntro?: ReactNode;
   blocks: [ExplainerBlock, ExplainerBlock, ExplainerBlock];
   worksWellFor: string;
   visual: ReactNode;
@@ -60,6 +63,7 @@ export default function ServiceExplainer({
         <>
           <h2>{title}</h2>
           <p className="mt-4 max-w-xl text-lg leading-snug text-muted-strong">{intro}</p>
+          {afterIntro}
           <ul className="mt-8 space-y-6">
             {blocks.map((block) => (
               <li key={block.title} className="flex items-start gap-3.5">
