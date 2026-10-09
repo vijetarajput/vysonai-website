@@ -1,15 +1,7 @@
-import {
-  ChatPhone,
-  HeaderPill,
-  MonitorFrame,
-  StatusPill,
-  at,
-  freshRow,
-} from "@/components/storyboard/shared";
-import { CountUp } from "@/components/storyboard/client";
+import type { ReactNode } from "react";
 import { SparkleIcon } from "@/components/showcase/parts";
 
-/** Gradient offer card used in the hero, the ad design step and the mini feed. */
+/** Gradient offer card used in the hero post and the Feed / Stories / Reels mockups. */
 export function OfferCard({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
   const pad = size === "sm" ? "p-2.5" : size === "lg" ? "px-3.5 py-4" : "px-3.5 py-3.5";
   const text = size === "sm" ? "text-[11px]" : size === "lg" ? "text-[16px]" : "text-[14px]";
@@ -86,203 +78,113 @@ export function SponsoredPost({ compact = false }: { compact?: boolean }) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Step 1: plan and design the ad                                      */
-/* ------------------------------------------------------------------ */
-
-const chips = [
-  { label: "📍 5 km around your shop", className: "left-0 top-1" },
-  { label: "👥 Age 22-45", className: "right-0 top-[3.25rem]" },
-  { label: "💜 Interested in beauty", className: "bottom-1 left-1/2 -translate-x-1/2" },
-];
-
-export function AdDesignCanvas() {
+function MiniPhone({
+  children,
+  tall = false,
+  className = "",
+}: {
+  children: ReactNode;
+  tall?: boolean;
+  className?: string;
+}) {
   return (
-    <div className="relative mx-auto h-[230px] w-full max-w-[340px]">
-      {chips.map((chip, i) => (
-        <span
-          key={chip.label}
-          className={`ss-in absolute z-10 whitespace-nowrap rounded-full border border-border bg-white px-2.5 py-1 text-[11px] font-semibold text-charcoal shadow-soft ${chip.className}`}
-          style={at(400 + i * 280)}
-        >
-          {chip.label}
-        </span>
-      ))}
-      <div className="absolute left-1/2 top-[52%] w-[210px] -translate-x-1/2 -translate-y-1/2">
-        <OfferCard />
-      </div>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Step 2: ad reaches people nearby                                    */
-/* ------------------------------------------------------------------ */
-
-const avatars: { x: number; y: number; letter: string; fill: string }[] = [
-  { x: 72, y: 78, letter: "P", fill: "#7C3AED" },
-  { x: 128, y: 68, letter: "A", fill: "#2563EB" },
-  { x: 142, y: 112, letter: "G", fill: "#C026D3" },
-  { x: 78, y: 128, letter: "K", fill: "#7C3AED" },
-  { x: 108, y: 86, letter: "R", fill: "#2563EB" },
-];
-
-export function NearbyMap() {
-  return (
-    <div className="flex w-full max-w-[420px] items-center justify-center gap-3">
-      <svg
-        viewBox="0 0 200 200"
-        role="img"
-        aria-label="Map of people near a shop seeing the ad"
-        className="h-auto w-[58%] max-w-[220px] overflow-visible rounded-2xl bg-[#F3F4F6]"
-      >
-        <rect width="200" height="200" rx="16" fill="#F3F4F6" />
-        <g stroke="#E5E7EB" strokeWidth="3" fill="none">
-          <path d="M0 48h200M0 96h200M0 144h200" />
-          <path d="M40 0v200M88 0v200M140 0v200" />
-          <path d="M0 170l70-200M130 200l70-160" />
-        </g>
-        <circle cx="100" cy="100" r="62" className="sb-pulse" fill="#7C3AED" />
-        <circle cx="100" cy="100" r="58" fill="#7C3AED" opacity="0.12" />
-        {avatars.map((a, i) => (
-          <g key={a.letter} className="ss-in" style={at(500 + i * 280)}>
-            <circle cx={a.x} cy={a.y} r="12" fill={a.fill} />
-            <text x={a.x} y={a.y + 4} textAnchor="middle" fontSize="9" fontWeight="700" fill="#fff">
-              {a.letter}
-            </text>
-          </g>
-        ))}
-        <g transform="translate(88 74)">
-          <path d="M12 2C7.6 2 4 5.6 4 10.2 4 16.4 12 26 12 26s8-9.6 8-15.8C20 5.6 16.4 2 12 2z" fill="#7C3AED" />
-          <circle cx="12" cy="10" r="3.2" fill="#fff" />
-        </g>
-      </svg>
-      <figure
-        aria-label="Mini phone showing the sponsored ad in a feed"
-        className="w-[118px] shrink-0 overflow-hidden rounded-[1.15rem] border-[5px] border-[#d1d5db] bg-[#f8f7fc] shadow-soft"
-      >
-        <div aria-hidden="true" className="mx-auto mt-1.5 h-1.5 w-8 rounded-full bg-[#d1d5db]" />
-        <div className="p-1.5 pb-2">
-          <SponsoredPost compact />
-        </div>
-      </figure>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Step 3: leads dashboard                                             */
-/* ------------------------------------------------------------------ */
-
-type LeadStatus = "Replied" | "Booked";
-
-const leads: {
-  name: string;
-  number: string;
-  ad: string;
-  time: string;
-  status: LeadStatus;
-  fresh?: boolean;
-}[] = [
-  { name: "Pooja Verma", number: "+91 98XXX 44XXX", ad: "Hair spa offer", time: "2 min ago", status: "Replied", fresh: true },
-  { name: "Ananya Rao", number: "+91 99XXX 21XXX", ad: "Hair spa offer", time: "1 hr ago", status: "Booked" },
-  { name: "Grace Wilson", number: "+44 7700 900654", ad: "Bridal package", time: "3 hrs ago", status: "Replied" },
-  { name: "Karan Mehta", number: "+91 97XXX 63XXX", ad: "Hair spa offer", time: "Yesterday", status: "Booked" },
-  { name: "Ritu Singh", number: "+91 90XXX 85XXX", ad: "Bridal package", time: "Yesterday", status: "Replied" },
-];
-
-const leadGrid =
-  "@lg:grid @lg:grid-cols-[minmax(0,1.15fr)_minmax(90px,1.05fr)_minmax(0,1fr)_minmax(64px,0.75fr)_64px] @lg:gap-2";
-
-export function AdsLeadsDashboard() {
-  return (
-    <MonitorFrame
-      label="Example dashboard: leads from ads"
-      menu={["Dashboard", "Campaigns", "Leads", "Reports", "Settings"]}
-      active="Leads"
-      heading="Leads from ads"
-      pill={<HeaderPill>36 this week</HeaderPill>}
+    <div
+      className={`flex flex-col overflow-hidden rounded-[1.05rem] border-[5px] border-[#d1d5db] bg-white shadow-soft ${
+        tall ? "h-[196px] w-[92px]" : "h-[150px] w-[108px]"
+      } ${className}`}
     >
-      <div className="mb-2 grid grid-cols-3 gap-1.5">
-        {[
-          { label: "People reached", to: 8240 },
-          { label: "Enquiries", to: 36 },
-          { label: "Cost per enquiry", to: 42, prefix: "₹" },
-        ].map((tile) => (
-          <div key={tile.label} className="rounded-xl bg-violet-tint px-1.5 py-2 text-center">
-            <p className="font-heading text-[13px] font-bold leading-none text-brand-violet @lg:text-[15px]">
-              <CountUp to={tile.to} prefix={tile.prefix} />
-            </p>
-            <p className="mt-1 text-[9px] font-medium leading-tight text-muted-strong">{tile.label}</p>
-          </div>
-        ))}
-      </div>
-      <div
-        className={`hidden border-b border-border px-1.5 pb-1.5 text-[10px] font-semibold uppercase tracking-wide text-muted ${leadGrid}`}
-      >
-        <span>Name</span>
-        <span>Number</span>
-        <span>Ad</span>
-        <span>Time</span>
-        <span>Status</span>
-      </div>
-      <ul>
-        {leads.map((row) => (
-          <li
-            key={row.name}
-            style={row.fresh ? at(2000) : undefined}
-            className={`flex flex-wrap items-center gap-x-2 gap-y-0.5 border-b border-border px-0.5 py-1.5 text-[10px] last:border-b-0 @lg:py-2 @lg:text-[11px] ${leadGrid} ${
-              row.fresh ? freshRow : ""
-            }`}
-          >
-            <span className="order-1 min-w-0 flex-1 truncate font-semibold text-charcoal @lg:flex-none">
-              {row.name}
-            </span>
-            <span className="order-2 @lg:order-5">
-              <StatusPill tone={row.status === "Booked" ? "solid" : "violet"} dot={row.fresh}>
-                {row.status}
-              </StatusPill>
-            </span>
-            <span className="order-3 flex w-full min-w-0 flex-col gap-0.5 @lg:contents">
-              <span className="whitespace-nowrap tabular-nums text-muted-strong @lg:order-2 @lg:truncate">
-                {row.number}
-              </span>
-              <span className="min-w-0 truncate text-muted-strong @lg:order-3">{row.ad}</span>
-              <span className="truncate text-muted @lg:order-4 @lg:text-muted-strong">{row.time}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
-    </MonitorFrame>
+      <div aria-hidden="true" className="mx-auto mt-1 h-1 w-7 rounded-full bg-[#d1d5db]" />
+      {children}
+    </div>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Step 4: assistant replies in seconds                                */
-/* ------------------------------------------------------------------ */
-
-export function AdsReplyPhone() {
+function AdAccount({ onDark = false }: { onDark?: boolean }) {
   return (
-    <div className="relative">
-      <ChatPhone
-        label="Example phone: a WhatsApp-style reply to an ad enquiry"
-        name="Glow Studio Salon"
-        initial="G"
-        messages={[
-          { text: "Hi, I saw your hair spa offer!", time: "11:02 AM" },
-          {
-            text: "Hi Pooja! 👋 Thanks for your interest. Want to book a slot this week?",
-            time: "11:02 AM",
-            from: "us",
-          },
-        ]}
-      />
+    <div className="flex items-center gap-1 px-1.5 pt-1.5">
       <span
-        className="ss-in absolute -right-1 bottom-16 z-10 inline-flex items-center gap-1 rounded-full border border-border bg-white px-2.5 py-1 text-[11px] font-semibold text-charcoal shadow-soft"
-        style={at(2300)}
+        aria-hidden="true"
+        className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white text-[7px] font-bold text-brand-violet"
       >
-        <span aria-hidden="true">⚡</span> Replied in 3 seconds
+        G
+      </span>
+      <span className="min-w-0">
+        <span className={`block truncate text-[7px] font-bold leading-tight ${onDark ? "text-white" : "text-charcoal"}`}>
+          Glow Studio Salon
+        </span>
+        <span className={`block text-[6px] leading-tight ${onDark ? "text-white/80" : "text-muted"}`}>Sponsored</span>
       </span>
     </div>
+  );
+}
+
+function PlayMark() {
+  return (
+    <span
+      aria-hidden="true"
+      className="absolute inset-0 flex items-center justify-center"
+    >
+      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-brand-violet shadow-soft">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5.5v13l11-6.5L8 5.5z" />
+        </svg>
+      </span>
+    </span>
+  );
+}
+
+function TallAd({ play = false }: { play?: boolean }) {
+  return (
+    <div
+      className="relative flex min-h-0 flex-1 flex-col"
+      style={{ background: "linear-gradient(135deg, #7C3AED 0%, #C026D3 100%)" }}
+    >
+      <AdAccount onDark />
+      <p className="mt-auto px-1.5 pb-3 font-heading text-[10px] font-bold leading-tight text-white">
+        20% off your first hair spa
+      </p>
+      {play && <PlayMark />}
+    </div>
+  );
+}
+
+/**
+ * Three small generic phones, slightly overlapping: the same ad as a square feed post,
+ * a tall story and a tall reel. No platform logos.
+ */
+export function AdPlacesVisual() {
+  return (
+    <figure aria-label="Example: the same ad in a feed, a story and a reel" className="relative pt-5">
+      <span className="absolute left-0 top-0 text-[10px] font-medium uppercase tracking-wider text-muted">
+        Sample
+      </span>
+      <div className="mx-auto flex w-full max-w-[340px] items-end justify-center pt-2">
+        <div className="z-10 flex -mr-5 flex-col items-center" style={{ transform: "rotate(-7deg)" }}>
+          <MiniPhone>
+            <AdAccount />
+            <div className="px-1.5 pt-1.5">
+              <OfferCard size="sm" />
+            </div>
+          </MiniPhone>
+          <p className="mt-2.5 text-[12px] font-semibold text-muted-strong" style={{ transform: "rotate(7deg)" }}>
+            Feed
+          </p>
+        </div>
+        <div className="z-20 flex flex-col items-center">
+          <MiniPhone tall>
+            <TallAd />
+          </MiniPhone>
+          <p className="mt-2.5 text-[12px] font-semibold text-muted-strong">Stories</p>
+        </div>
+        <div className="z-10 flex -ml-5 flex-col items-center" style={{ transform: "rotate(7deg)" }}>
+          <MiniPhone tall>
+            <TallAd play />
+          </MiniPhone>
+          <p className="mt-2.5 text-[12px] font-semibold text-muted-strong" style={{ transform: "rotate(-7deg)" }}>
+            Reels
+          </p>
+        </div>
+      </div>
+    </figure>
   );
 }
