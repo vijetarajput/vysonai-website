@@ -15,13 +15,16 @@ export default function ServiceHero({
   text,
   interests,
   buttonLabel = "Book a free call",
+  note,
   scene,
 }: {
   pill?: string;
-  title: string;
+  title: ReactNode;
   text: string;
   interests: Interest[];
   buttonLabel?: string;
+  /** Small muted line under the button, for example a target caveat. */
+  note?: string;
   scene: ReactNode;
 }) {
   return (
@@ -38,6 +41,7 @@ export default function ServiceHero({
               {buttonLabel}
             </DemoButton>
           </div>
+          {note ? <p className="mt-3 max-w-xl text-sm text-muted">{note}</p> : null}
         </div>
         {scene}
       </div>
