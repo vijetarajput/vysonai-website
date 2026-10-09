@@ -72,6 +72,17 @@ const icons = {
     </>
   ),
   Reminders: <path d="M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16zM10 21h4" />,
+  "Follow-ups": (
+    <>
+      <path d="M9 11l3 3 5-6" />
+      <rect x="3" y="3" width="18" height="18" rx="3" />
+    </>
+  ),
+  Reports: (
+    <>
+      <path d="M4 20V10M10 20V4M16 20v-8M20 20H4" />
+    </>
+  ),
   Settings: (
     <>
       <circle cx="12" cy="12" r="3" />
@@ -184,21 +195,25 @@ export function HeaderPill({ children }: { children: ReactNode }) {
   );
 }
 
+const pillTone = {
+  violet: "bg-brand-violet/10 text-brand-violet",
+  grey: "bg-gray-100 text-muted-strong",
+  red: "bg-red-50 text-red-600",
+} as const;
+
 /** Status pill used in dashboard rows. "violet" can show a pulsing dot. */
 export function StatusPill({
   tone,
   dot = false,
   children,
 }: {
-  tone: "violet" | "grey";
+  tone: keyof typeof pillTone;
   dot?: boolean;
   children: ReactNode;
 }) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-1.5 py-0.5 text-[10px] font-semibold @lg:justify-self-start ${
-        tone === "violet" ? "bg-brand-violet/10 text-brand-violet" : "bg-gray-100 text-muted-strong"
-      }`}
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-1.5 py-0.5 text-[10px] font-semibold @lg:justify-self-start ${pillTone[tone]}`}
     >
       {dot && (
         <span aria-hidden="true" className="relative flex h-1.5 w-1.5">

@@ -7,6 +7,7 @@ const paths = [
   "/services/ai-receptionist",
   "/services/whatsapp-automation",
   "/services/chatbot",
+  "/services/crm",
   "/about",
   "/contact",
   "/privacy-policy",

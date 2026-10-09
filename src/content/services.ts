@@ -62,6 +62,7 @@ export const offerings: Offering[] = [
     title: "CRM",
     text: "Keeps all your customers in one list and reminds you to follow up.",
     icon: "users",
+    href: "/services/crm",
     interest: "CRM",
   },
   {
