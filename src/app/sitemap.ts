@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site";
 const paths = [
   "/",
   "/services/ai-receptionist",
+  "/services/whatsapp-automation",
   "/about",
   "/contact",
   "/privacy-policy",

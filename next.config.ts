@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
 
+// Slugs of the service pages that exist. Add each new service page here (and in app/sitemap.ts).
+const builtServices = ["ai-receptionist", "whatsapp-automation"];
+
 const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
@@ -7,10 +10,10 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Service pages that are not built yet go to the services section on Home. Temporary (307)
-      // so search engines keep the old URLs. When a page is built, add its slug to the list below.
+      // so search engines keep the old URLs. When a page is built, add its slug to builtServices above.
       { source: "/services", destination: "/#services", permanent: false },
       {
-        source: "/services/:path((?!ai-receptionist$).*)",
+        source: `/services/:path((?!(?:${builtServices.join("|")})$).*)`,
         destination: "/#services",
         permanent: false,
       },

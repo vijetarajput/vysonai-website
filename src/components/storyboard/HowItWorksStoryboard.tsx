@@ -1,12 +1,7 @@
 import type { ReactNode } from "react";
 import { StepCard } from "@/components/storyboard/client";
-import {
-  CallScreen,
-  CallerIllustration,
-  ConfirmationPhone,
-  DashboardMonitor,
-  Panel,
-} from "@/components/storyboard/visuals";
+import { Panel } from "@/components/storyboard/shared";
+
 
 /** Dotted violet line (used for the path between the number badges). */
 const dotted = "pointer-events-none absolute hidden border-dotted border-brand-violet/60 lg:block";
@@ -55,11 +50,23 @@ function Step({
   );
 }
 
+/** One step: title, the picture, and an optional caption under the picture. */
+export type StoryStep = { title: string; visual: ReactNode; caption?: string };
+
 /**
- * "How it works" for /services/ai-receptionist: a four-step visual storyboard.
+ * "How it works" for service pages: a four-step visual storyboard.
+ * Desktop: steps 1 and 2 side by side, then step 3 (about 65%) and step 4 (about 35%), joined by
+ * a dotted path. Mobile: one column with a dotted line on the left.
  * Everything is HTML, CSS and inline SVG. All names, numbers and times are made up.
  */
-export default function HowItWorksStoryboard() {
+export default function HowItWorksStoryboard({
+  subtitle,
+  steps,
+}: {
+  subtitle: string;
+  steps: [StoryStep, StoryStep, StoryStep, StoryStep];
+}) {
+  const [s1, s2, s3, s4] = steps;
   return (
     <section className="bg-violet-tint">
       <div className="site-container section-y relative">
@@ -68,7 +75,7 @@ export default function HowItWorksStoryboard() {
         </span>
         <h2 className="text-center">How it works</h2>
         <p className="mx-auto mt-3 max-w-xl text-center text-lg leading-snug text-muted-strong">
-          From a phone call to a booked appointment, automatically.
+          {subtitle}
         </p>
 
         <div className="section-gap pl-12 lg:pl-0 lg:pt-8">
@@ -80,11 +87,11 @@ export default function HowItWorksStoryboard() {
             <span aria-hidden="true" className={`${dotted} left-[34px] top-[calc(100%+31px)] w-[calc(50%-34px)] border-t-2`} />
             <span aria-hidden="true" className={`${dotted} left-[33px] top-[calc(100%+32px)] h-[18px] border-l-2`} />
 
-            <Step n={1} title="A customer calls your business">
-              <CallerIllustration />
+            <Step n={1} title={s1.title} caption={s1.caption}>
+              {s1.visual}
             </Step>
-            <Step n={2} title="Your AI receptionist answers and helps">
-              <CallScreen />
+            <Step n={2} title={s2.title} caption={s2.caption}>
+              {s2.visual}
             </Step>
           </div>
 
@@ -96,20 +103,11 @@ export default function HowItWorksStoryboard() {
               className={`${dotted} -top-[15px] left-[34px] w-[calc((100%-24px)*0.65+24px)] border-t-2`}
             />
 
-            <Step
-              n={3}
-              title="Appointment booked in your calendar"
-              caption="See every booking on your dashboard."
-            >
-              <DashboardMonitor />
+            <Step n={3} title={s3.title} caption={s3.caption}>
+              {s3.visual}
             </Step>
-            <Step
-              n={4}
-              last
-              title="Your customer gets a confirmation"
-              caption="Fewer no-shows, without any calls from your team."
-            >
-              <ConfirmationPhone />
+            <Step n={4} last title={s4.title} caption={s4.caption}>
+              {s4.visual}
             </Step>
           </div>
         </div>

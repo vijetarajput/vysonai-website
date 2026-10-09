@@ -809,3 +809,35 @@ body {
     transform: none;
   }
 }
+
+/* A small picture element that pops in (used inside inline SVG) */
+.sb-pop {
+  opacity: 0;
+  transform: scale(0.4);
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  transition:
+    opacity 0.2s ease-out,
+    transform 0.2s ease-out;
+}
+[data-active="true"] .sb-pop {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.4s ease-out var(--d, 0ms),
+    transform 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) var(--d, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-pop,
+  [data-active="true"] .sb-pop {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+@media (scripting: none) {
+  .sb-pop {
+    opacity: 1;
+    transform: none;
+  }
+}

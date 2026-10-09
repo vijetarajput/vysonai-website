@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import type { FaqItem } from "@/components/Faq";
-import DemoButton from "@/components/lead/DemoButton";
 import ReceptionistScene from "@/components/ReceptionistScene";
 import ChecklistColumn from "@/components/service/ChecklistColumn";
 import FaqSplit from "@/components/service/FaqSplit";
 import FitCard from "@/components/service/FitCard";
 import TwoColumnSection from "@/components/service/TwoColumnSection";
+import ServiceHero from "@/components/service/ServiceHero";
 import HowItWorksStoryboard from "@/components/storyboard/HowItWorksStoryboard";
+import {
+  CallScreen,
+  CallerIllustration,
+  ConfirmationPhone,
+  ReceptionistDashboard,
+} from "@/components/storyboard/receptionist";
 import type { Interest } from "@/lib/lead";
 
 const title = "AI Receptionist, Working 24/7 | VYSON-AI";
@@ -22,9 +28,6 @@ export const metadata: Metadata = {
   alternates: { canonical: path },
   openGraph: { title, description, url: path, type: "website" },
 };
-
-const buttonClass =
-  "inline-flex items-center justify-center rounded-full bg-brand-violet px-7 py-3.5 text-base font-medium text-white shadow-soft transition-colors hover:bg-brand-violet-dark";
 
 const whatItDoes = [
   "Picks up 24/7, even on holidays",
@@ -68,39 +71,38 @@ export default function AiReceptionistPage() {
         ]}
       />
 
-      {/* 1. Hero */}
-      <section className="bg-white">
-        <div className="site-container hero-y grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12">
-          <div>
-            <p className="inline-flex rounded-full bg-violet-tint px-3.5 py-1.5 text-sm font-semibold text-brand-violet">
-              Now taking early clients
-            </p>
-            <h1 className="mt-4 text-[2.25rem] leading-[1.1] md:text-5xl">Your 24/7 Receptionist</h1>
-            <p className="mt-4 max-w-xl text-lg leading-snug text-muted-strong md:text-xl">
-              An AI receptionist picks up your calls day and night, answers questions and books
-              appointments for you.
-            </p>
-            <div className="mt-7">
-              <DemoButton interests={interests} className={buttonClass}>
-                Book a free call
-              </DemoButton>
-            </div>
-          </div>
-          <ReceptionistScene />
-        </div>
-      </section>
+      <ServiceHero
+        title="Your 24/7 Receptionist"
+        text="An AI receptionist picks up your calls day and night, answers questions and books appointments for you."
+        interests={interests}
+        scene={<ReceptionistScene />}
+      />
 
-      {/* 2. How it works (storyboard) */}
-      <HowItWorksStoryboard />
-
-      {/* 3. What it does + Works well for */}
+      <HowItWorksStoryboard
+        subtitle="From a phone call to a booked appointment, automatically."
+        steps={[
+          { title: "A customer calls your business", visual: <CallerIllustration /> },
+          { title: "Your AI receptionist answers and helps", visual: <CallScreen /> },
+          {
+            title: "Appointment booked in your calendar",
+            visual: <ReceptionistDashboard />,
+            caption: "See every booking on your dashboard.",
+          },
+          {
+            title: "Your customer gets a confirmation",
+            visual: <ConfirmationPhone />,
+            caption: "Fewer no-shows, without any calls from your team.",
+          },
+        ]}
+      />
+      {/* What it does + Works well for */}
       <TwoColumnSection
         split="55-45"
         left={<ChecklistColumn title="What it does" items={whatItDoes} />}
         right={<FitCard chips={worksFor} interests={interests} />}
       />
 
-      {/* 4. Quick questions */}
+      {/* Quick questions */}
       <FaqSplit items={faqs} interests={interests} />
     </>
   );

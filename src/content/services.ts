@@ -48,6 +48,7 @@ export const offerings: Offering[] = [
     title: "WhatsApp Customer Service",
     text: "Replies to your customers on WhatsApp instantly and sends reminders.",
     icon: "chat",
+    href: "/services/whatsapp-automation",
     interest: "WhatsApp customer service",
   },
   {
