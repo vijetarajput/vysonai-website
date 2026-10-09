@@ -14,7 +14,7 @@ export const builtServices = [
 export const securityHeaders = [
   {
     key: "Content-Security-Policy",
-    // Telegram and Resend are called from the server, not the browser.
+    // Resend is called from the server, not the browser.
     value: [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline'",
