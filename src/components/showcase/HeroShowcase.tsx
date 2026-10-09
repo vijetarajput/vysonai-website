@@ -16,9 +16,15 @@ import { useDocumentHidden, useReducedMotion } from "@/components/showcase/hooks
 import type { SlideProps } from "@/components/showcase/parts";
 import WhatsAppSlide from "@/components/showcase/WhatsAppSlide";
 
-const DashboardSlide = dynamic(() => import("@/components/showcase/DashboardSlide"));
-const ChatbotSlide = dynamic(() => import("@/components/showcase/ChatbotSlide"));
-const ReceptionistSlide = dynamic(() => import("@/components/showcase/ReceptionistSlide"));
+const DashboardSlide = dynamic(() => import("@/components/showcase/DashboardSlide"), {
+  loading: () => null,
+});
+const ChatbotSlide = dynamic(() => import("@/components/showcase/ChatbotSlide"), {
+  loading: () => null,
+});
+const ReceptionistSlide = dynamic(() => import("@/components/showcase/ReceptionistSlide"), {
+  loading: () => null,
+});
 
 const SLIDE_MS = 6000;
 
@@ -87,7 +93,7 @@ const slides: {
  * services on the right, and four large tab cards underneath that also control it.
  *
  * - Each card's progress bar is a CSS animation; when it finishes we move on.
- *   Pausing (hover, keyboard focus, hidden tab) just pauses that animation.
+ *   Pausing (hover, keyboard focus, hidden tab, window scroll, off-screen) just pauses that animation.
  * - All slides sit on top of each other in a box with a fixed height, so the page never jumps.
  * - With "reduce motion" there is no auto-rotation and nothing animates: slide 1 shows complete.
  */
@@ -100,11 +106,11 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
   const [round, setRound] = useState(0); // changes on every click so the progress bar restarts
   const [hovering, setHovering] = useState(false);
   const [focusing, setFocusing] = useState(false);
-  const [maxSeen, setMaxSeen] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const listRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
+  const [windowScrolling, setWindowScrolling] = useState(false);
 
   useEffect(() => {
     const node = rootRef.current;
@@ -120,13 +126,26 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
     return () => observer.disconnect();
   }, []);
 
-  const paused = hovering || focusing || tabHidden || !inView;
+  useEffect(() => {
+    let timeout = 0;
+    const onScroll = () => {
+      setWindowScrolling(true);
+      window.clearTimeout(timeout);
+      timeout = window.setTimeout(() => setWindowScrolling(false), 200);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.clearTimeout(timeout);
+    };
+  }, []);
+
+  const paused = hovering || focusing || tabHidden || !inView || windowScrolling;
   const count = slides.length;
 
   function select(index: number) {
     setActive(index);
     setRound((n) => n + 1);
-    setMaxSeen((seen) => Math.max(seen, index));
   }
 
   function next() {
@@ -142,18 +161,33 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
     else return;
     event.preventDefault();
     select(target);
-    tabRefs.current[target]?.focus();
+    tabRefs.current[target]?.focus({ preventScroll: true });
   }
 
-  // On phones the cards are a swipeable row: keep the active card in view (scrolls only that row)
+  // On phones the cards are a swipeable row: keep the active card in view.
+  // Scroll ONLY this row (never the page). Skip when the row is not a horizontal scroller
+  // (desktop grid is overflow: visible — scrollTo there can be promoted to the window).
   useEffect(() => {
     const box = listRef.current;
     const card = tabRefs.current[active];
-    if (!box || !card || box.scrollWidth <= box.clientWidth + 1) return;
-    box.scrollTo({
-      left: card.offsetLeft - (box.clientWidth - card.offsetWidth) / 2,
-      behavior: reduced ? "auto" : "smooth",
-    });
+    if (!box || !card) return;
+    const overflowX = getComputedStyle(box).overflowX;
+    if (overflowX !== "auto" && overflowX !== "scroll") return;
+    if (box.scrollWidth <= box.clientWidth + 1) return;
+    const viewLeft = box.scrollLeft;
+    const viewRight = viewLeft + box.clientWidth;
+    const cardLeft = card.offsetLeft;
+    const cardRight = cardLeft + card.offsetWidth;
+    if (cardLeft >= viewLeft - 1 && cardRight <= viewRight + 1) return;
+    const left = Math.max(
+      0,
+      Math.min(
+        cardLeft - (box.clientWidth - card.offsetWidth) / 2,
+        box.scrollWidth - box.clientWidth,
+      ),
+    );
+    if (Math.abs(box.scrollLeft - left) < 2) return;
+    box.scrollTo({ left, behavior: reduced ? "auto" : "smooth" });
   }, [active, reduced]);
 
   const hoverProps = {
@@ -162,13 +196,16 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
   };
 
   return (
-    <div ref={rootRef} className="site-container pb-6 pt-6 md:pb-8 md:pt-8 lg:pb-10 lg:pt-6">
+    <div
+      ref={rootRef}
+      className="site-container [overflow-anchor:none] pb-6 pt-6 md:pb-8 md:pt-8 lg:pb-10 lg:pt-6"
+    >
       <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-10">
         {intro}
 
         <section
           aria-label="VYSON-AI service showcase with sample screens and conversations"
-          className="relative min-w-0 overflow-hidden rounded-[2rem] border border-brand-violet/10 bg-violet-tint p-3 sm:p-6 lg:p-5"
+          className="relative min-w-0 overflow-hidden rounded-[2rem] border border-brand-violet/10 bg-violet-tint p-3 [overflow-anchor:none] sm:p-6 lg:p-5"
           onFocus={(e) => setFocusing(e.target.matches(":focus-visible"))}
           onBlur={() => setFocusing(false)}
           {...hoverProps}
@@ -207,7 +244,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
           ))}
 
           {/* Fixed-height stage: room for the "Sample" label plus the device */}
-          <div className="relative h-[500px] lg:h-[452px]">
+          <div className="relative h-[500px] overflow-hidden [overflow-anchor:none] lg:h-[452px]">
             {slides.map(({ Slide, interest }, index) => {
               const isActive = index === active;
               const play = isActive && (inView || reduced);
@@ -235,7 +272,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
                   <span className="absolute right-1 top-0 text-[10px] font-medium uppercase tracking-wider text-muted">
                     Sample
                   </span>
-                  {index <= maxSeen ? <Slide active={play} live={!reduced} /> : null}
+                  <Slide active={play} live={!reduced} />
                 </div>
               );
             })}
@@ -248,7 +285,7 @@ export default function HeroShowcase({ intro }: { intro: ReactNode }) {
         ref={listRef}
         role="tablist"
         aria-label="Choose a service example"
-        className="relative -mx-4 mt-4 flex snap-x overscroll-x-contain snap-mandatory scroll-pl-4 gap-3 overflow-x-auto px-4 pb-3 pt-2 [scrollbar-width:none] sm:-mx-6 sm:scroll-pl-6 sm:px-6 lg:mx-0 lg:mt-4 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-1 [&::-webkit-scrollbar]:hidden"
+        className="relative -mx-4 mt-4 flex snap-x overscroll-x-contain snap-mandatory scroll-pl-4 gap-3 overflow-x-auto overflow-y-hidden px-4 pb-3 pt-2 [overflow-anchor:none] [scrollbar-width:none] sm:-mx-6 sm:scroll-pl-6 sm:px-6 lg:mx-0 lg:mt-4 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-1 lg:snap-none [&::-webkit-scrollbar]:hidden"
         {...hoverProps}
       >
         {slides.map(({ title, line }, index) => {

@@ -40,7 +40,7 @@ function HeroText() {
 
 export default function Hero() {
   return (
-    <section className="bg-white">
+    <section className="bg-white [overflow-anchor:none]">
       <HeroShowcase intro={<HeroText />} />
     </section>
   );
