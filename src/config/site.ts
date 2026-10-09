@@ -4,7 +4,7 @@ const whatsappMessage = "Hi, I want to know about AI automation for my business.
 
 export const siteConfig = {
   name: "VYSON-AI",
-  url: "https://vysonai.com",
+  url: "https://www.vysonai.com",
   tagline: "Your Business Growth Partner",
   founder: "Viijeta R",
   email: "vysonai24@gmail.com",
