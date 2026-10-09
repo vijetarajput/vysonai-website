@@ -8,6 +8,7 @@ const paths = [
   "/services/whatsapp-automation",
   "/services/chatbot",
   "/services/crm",
+  "/services/stock-management",
   "/about",
   "/contact",
   "/privacy-policy",

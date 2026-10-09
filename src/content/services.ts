@@ -69,6 +69,7 @@ export const offerings: Offering[] = [
     title: "Stock Management",
     text: "Tells you what's selling and what's about to run out.",
     icon: "bag",
+    href: "/services/stock-management",
     interest: "Stock management",
   },
   {

@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 // Slugs of the service pages that exist. Add each new service page here (and in app/sitemap.ts).
-const builtServices = ["ai-receptionist", "whatsapp-automation", "chatbot", "crm"];
+const builtServices = [
+  "ai-receptionist",
+  "whatsapp-automation",
+  "chatbot",
+  "crm",
+  "stock-management",
+];
 
 const nextConfig: NextConfig = {
   /* config options here */

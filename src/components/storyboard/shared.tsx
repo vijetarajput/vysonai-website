@@ -83,6 +83,24 @@ const icons = {
       <path d="M4 20V10M10 20V4M16 20v-8M20 20H4" />
     </>
   ),
+  Products: (
+    <>
+      <path d="M3 7l9-4 9 4-9 4-9-4z" />
+      <path d="M3 7v10l9 4 9-4V7" />
+    </>
+  ),
+  Stock: (
+    <>
+      <path d="M4 8l8-4 8 4-8 4-8-4z" />
+      <path d="M4 12l8 4 8-4M4 16l8 4 8-4" />
+    </>
+  ),
+  Orders: (
+    <>
+      <rect x="6" y="3" width="12" height="18" rx="2" />
+      <path d="M9 8h6M9 12h6M9 16h3" />
+    </>
+  ),
   Settings: (
     <>
       <circle cx="12" cy="12" r="3" />
@@ -199,6 +217,7 @@ const pillTone = {
   violet: "bg-brand-violet/10 text-brand-violet",
   grey: "bg-gray-100 text-muted-strong",
   red: "bg-red-50 text-red-600",
+  amber: "bg-amber-50 text-amber-700",
 } as const;
 
 /** Status pill used in dashboard rows. "violet" can show a pulsing dot. */
@@ -243,6 +262,7 @@ export function ChatPhone({
   status = "Online",
   chip = "Today",
   messages,
+  extra,
 }: {
   label: string;
   name: string;
@@ -250,6 +270,7 @@ export function ChatPhone({
   status?: string;
   chip?: string;
   messages: PhoneMessage[];
+  extra?: ReactNode;
 }) {
   return (
     <figure
@@ -289,6 +310,7 @@ export function ChatPhone({
             </div>
           </div>
         ))}
+        {extra}
       </div>
       <div aria-hidden="true" className="border-t border-border bg-white px-3 py-2">
         <div className="rounded-full bg-gray-100 px-3 py-1.5 text-[11px] text-muted">Type a message</div>

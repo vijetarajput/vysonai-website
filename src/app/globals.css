@@ -859,3 +859,76 @@ body {
     animation: none;
   }
 }
+
+/* A number that ticks down (12 → 11) */
+.sb-to {
+  opacity: 0;
+}
+[data-active="true"] .sb-from {
+  animation: sb-hide 0.2s ease-out 0.8s forwards;
+}
+[data-active="true"] .sb-to {
+  animation: sb-show 0.35s ease-out 0.8s forwards;
+}
+@keyframes sb-hide {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes sb-show {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* A question that types itself in the dashboard search bar */
+.sb-type {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+[data-active="true"] .sb-type {
+  animation: sb-type 1.6s steps(36, end) 0.4s forwards;
+}
+@keyframes sb-type {
+  to {
+    max-width: 22rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sb-from,
+  [data-active="true"] .sb-from {
+    opacity: 0;
+    animation: none;
+  }
+  .sb-to,
+  [data-active="true"] .sb-to {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .sb-type,
+  [data-active="true"] .sb-type {
+    max-width: none;
+    animation: none;
+  }
+}
+@media (scripting: none) {
+  .sb-from {
+    opacity: 0;
+  }
+  .sb-to {
+    opacity: 1;
+  }
+  .sb-type {
+    max-width: none;
+  }
+}
