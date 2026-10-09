@@ -38,7 +38,7 @@ const inputBase =
 
 const TITLE = "Book your free business audit";
 const SUBTEXT =
-  "30 minutes. No cost, no commitment. We'll look at how you work today and show you where AI can save time. We usually reply within 1 hour (9 AM – 9 PM IST).";
+  "30 minutes. No cost, no commitment. We'll look at how you work today and show you where AI can save time. We reply within 24 hours.";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
@@ -347,8 +347,7 @@ export default function LeadFlow({ layout, initialInterests, initialMessage, onC
         <CheckIcon size={26} />
       </span>
       <p className="mt-5 text-base leading-relaxed text-muted-strong sm:text-lg">
-        Your free business audit request is in. We&apos;ll get in touch shortly. We usually reply
-        within 1 hour (9 AM – 9 PM IST).
+        Your free business audit request is in. We&apos;ll get in touch within 24 hours.
       </p>
       {siteConfig.showWhatsApp || onClose ? (
         <div className="mt-6 flex flex-col items-center gap-3">
