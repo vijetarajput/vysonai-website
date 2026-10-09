@@ -59,6 +59,12 @@ const icons = {
     <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" />
   ),
   Chats: <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" />,
+  Leads: (
+    <>
+      <circle cx="9" cy="8" r="3.5" />
+      <path d="M3 20a6 6 0 0 1 12 0M16 8v6M13 11h6" />
+    </>
+  ),
   Customers: (
     <>
       <circle cx="9" cy="8" r="3.5" />

@@ -55,6 +55,7 @@ export const offerings: Offering[] = [
     title: "Website Chatbot",
     text: "Chats with visitors on your website and collects their number.",
     icon: "globe",
+    href: "/services/chatbot",
     interest: "Website chatbot",
   },
   {
