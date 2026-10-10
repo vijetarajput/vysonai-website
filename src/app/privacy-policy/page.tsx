@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import Link from "next/link";
 import BrandName from "@/components/BrandName";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { siteConfig } from "@/config/site";
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: { title: "Privacy Policy | VYSON-AI", description, url: "/privacy-policy", type: "website" },
 };
 
-const updated = "8 October 2026";
+const updated = "10 October 2026";
 
 const email = (
   <a href={`mailto:${siteConfig.email}`} className="link-brand">
@@ -23,197 +22,123 @@ const email = (
   </a>
 );
 
-type PolicySection = { id: string; title: string; body: ReactNode };
-
-const sections: PolicySection[] = [
+const sections: { id: string; extraIds?: string[]; title: string; body: ReactNode }[] = [
   {
     id: "who-we-are",
-    title: "Who we are",
+    title: "About us",
     body: (
       <>
-        <p>
-          <BrandName /> is an MSME-registered business (Udyam, Government of India) based
-          in {siteConfig.location}. Registration details are available on request.
-        </p>
-        <p>Contact: {email}</p>
+        <BrandName /> is an MSME-registered business (Udyam, Government of India) based in{" "}
+        {siteConfig.location}. Registration details are available on request, and you can reach us
+        anytime at {email}.
       </>
     ),
   },
   {
     id: "what-we-collect",
     title: "What we collect",
-    body: (
-      <>
-        <p>What you enter in our forms:</p>
-        <ul>
-          <li>your name</li>
-          <li>your WhatsApp number</li>
-          <li>your email address</li>
-          <li>the services you select</li>
-          <li>any message you write</li>
-        </ul>
-        <p>
-          We also record the page you sent the form from. Our website hosting provider records some
-          basic technical information automatically for security, such as your IP address and
-          browser type.
-        </p>
-        <p>We do not collect payment details on this website.</p>
-      </>
-    ),
+    body: "When you fill in a form, we receive the details you share: your name, WhatsApp number, email address, the services you're interested in, and any message you write. We also note which page you contacted us from. Like most websites, our hosting provider automatically records basic technical information, such as your IP address and browser type, to keep the site secure. We never collect payment details on this website.",
   },
   {
     id: "why-we-use-it",
-    title: "Why we use it",
-    body: (
-      <>
-        <p>
-          We use your details only to reply to your enquiry, arrange and hold a call or demo, and
-          send you information you asked for.
-        </p>
-        <p>We do not sell your data or use it for unrelated marketing.</p>
-      </>
-    ),
+    title: "How we use it",
+    body: "We use your details only to reply to your enquiry, arrange your free business audit or demo, and send you information you've asked for. We never sell your data or use it for unrelated marketing.",
   },
   {
     id: "legal-basis",
-    title: "Legal basis and consent",
-    body: (
-      <p>
-        We process your data with your consent (the checkbox on our form) and to respond to your
-        request. This follows India&apos;s Digital Personal Data Protection Act, 2023, and, for
-        visitors in the UK, the UK GDPR.
-      </p>
-    ),
+    title: "Your consent",
+    body: "We use your information with your consent, which you give using the checkbox on our form, and to respond to your request. We follow India's Digital Personal Data Protection Act, 2023, and, for visitors in the UK, the UK GDPR.",
   },
   {
     id: "who-we-share-it-with",
-    title: "Who we share it with",
-    body: (
-      <>
-        <p>
-          Only trusted service providers that help us run this website and reply to you: our website
-          hosting provider, and secure messaging and automation tools that deliver your enquiry to
-          us.
-        </p>
-        <p>
-          They may process data outside your country. We only use providers with appropriate
-          security measures.
-        </p>
-      </>
-    ),
+    title: "Who helps us",
+    body: "We work with a small number of trusted service providers who help us run this website and receive your enquiry, such as our website hosting provider and secure email and messaging tools. Some of them may process data outside your country, and we only choose providers with strong security measures.",
   },
   {
     id: "how-long-we-keep-it",
     title: "How long we keep it",
-    body: (
-      <>
-        <p>
-          We keep enquiry details for up to 12 months after our last contact. Then we delete them.
-        </p>
-        <p>
-          If you become a client, we keep what is needed for our work and our legal obligations.
-        </p>
-      </>
-    ),
+    body: "We keep enquiry details for up to 12 months after our last conversation, and then delete them. If you become a client, we keep only what's needed for our work together and our legal obligations.",
   },
   {
     id: "how-we-protect-it",
-    title: "How we protect it",
-    body: (
-      <p>
-        We use secure (HTTPS) connections, we restrict who can access your details, and we keep
-        secret keys out of the website code.
-      </p>
-    ),
+    title: "How we keep it safe",
+    body: "Your details travel over secure (HTTPS) connections, access is limited to the people who need it, and our private keys are kept securely, never in the website code.",
   },
   {
     id: "your-rights",
-    title: "Your rights",
+    title: "Your choices and rights",
     body: (
       <>
-        <p>
-          You can ask to see, correct or delete your data, or withdraw your consent at any time, by
-          emailing {email}. We reply within 30 days.
-        </p>
-        <p>
-          If you are in the UK, you can also complain to the Information Commissioner&apos;s Office
-          (ICO).
-        </p>
+        You can ask to see, correct or delete your information, or withdraw your consent, at any
+        time by emailing {email}. We&apos;ll respond within 30 days. If you&apos;re in the UK and
+        feel we haven&apos;t handled your concern well, you also have the right to contact the
+        Information Commissioner&apos;s Office (ICO).
       </>
     ),
   },
   {
     id: "cookies",
-    title: "Cookies and local storage",
-    body: (
-      <>
-        <p>We do not use advertising or tracking cookies.</p>
-        <p>
-          We do not store anything in your browser to track you. If we add analytics or any other
-          cookies or local storage in future, we will update this policy.
-        </p>
-      </>
-    ),
+    title: "Cookies",
+    body: "We don't use advertising or tracking cookies, and we don't store anything in your browser to track you. If this ever changes, for example if we add analytics, we'll update this policy first.",
   },
   {
     id: "children",
-    title: "Children",
-    body: <p>Our services are for businesses and are not intended for people under 18.</p>,
-  },
-  {
-    id: "changes",
-    title: "Changes",
-    body: (
-      <p>
-        We may update this policy. The date at the top of this page shows the latest version.
-      </p>
-    ),
-  },
-  {
-    id: "contact",
-    title: "Contact",
-    body: <p>{email}</p>,
+    extraIds: ["changes"],
+    title: "Children and updates",
+    body: "Our services are designed for businesses and adults, and are not intended for anyone under 18. We may update this policy from time to time; the date at the top always shows the latest version.",
   },
 ];
 
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <Breadcrumbs items={[{ label: "Privacy Policy", href: "/privacy-policy" }]} width="narrow" />
+      <Breadcrumbs items={[{ label: "Privacy Policy", href: "/privacy-policy" }]} />
       <section className="bg-white">
-        <div className="site-container section-y">
-          <div className="mx-auto max-w-3xl">
-            <div className="max-w-[720px] text-[17px] leading-[1.75] text-muted-strong">
-              <h1 className="text-charcoal">Privacy Policy</h1>
-              <p className="mt-3 text-sm">Last updated: {updated}</p>
+        <div className="site-container pb-6 pt-2 md:pb-8 md:pt-3">
+          <div className="mx-auto max-w-[1120px]">
+            <header>
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+                <h1 className="text-[28px] font-bold leading-tight tracking-[-0.02em] text-charcoal md:text-[28px]">
+                  Privacy Policy
+                </h1>
+                <p className="text-sm text-muted">Last updated: {updated}</p>
+              </div>
+              <p className="mt-1.5 text-sm leading-snug text-muted-strong">
+                Your privacy matters to us. This policy explains, in simple words, what information
+                we collect when you contact <BrandName />, how we use it, and the choices you always
+                have.
+              </p>
+            </header>
 
-              <nav
-                aria-label="Contents"
-                className="mt-8 rounded-2xl border border-border bg-violet-tint p-5"
-              >
-                <p className="font-heading text-base font-semibold text-charcoal">Contents</p>
-                <ol className="mt-3 grid list-decimal gap-x-8 gap-y-1.5 pl-5 text-[15px] leading-snug marker:text-brand-violet sm:grid-cols-2">
-                  {sections.map((section) => (
-                    <li key={section.id}>
-                      <Link href={`#${section.id}`} className="link-brand">
-                        {section.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
-
+            <div className="mt-3 grid grid-cols-1 items-start gap-[14px] lg:grid-cols-2">
               {sections.map((section, index) => (
-                <section key={section.id} id={section.id} className="mt-10">
-                  <h2 className="text-2xl text-charcoal">
-                    {index + 1}. {section.title}
+                <article
+                  key={section.id}
+                  id={section.id}
+                  className={`rounded-xl border border-brand-violet/10 bg-violet-tint p-4 ${
+                    index === sections.length - 1 ? "lg:col-span-2" : ""
+                  }`}
+                >
+                  {section.extraIds?.map((extraId) => (
+                    <span key={extraId} id={extraId} className="sr-only" />
+                  ))}
+                  <h2 className="flex items-baseline gap-2 text-[15px] font-semibold leading-snug tracking-normal text-charcoal">
+                    <span
+                      aria-hidden="true"
+                      className="shrink-0 font-heading text-[13px] font-semibold text-brand-violet"
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    {section.title}
                   </h2>
-                  <div className="mt-3 space-y-3 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-6 [&_ul]:marker:text-brand-violet">
-                    {section.body}
-                  </div>
-                </section>
+                  <p className="mt-1.5 text-[14px] leading-[1.55] text-charcoal">{section.body}</p>
+                </article>
               ))}
             </div>
+
+            <p id="contact" className="mt-3 text-sm text-muted-strong">
+              Have a question about your privacy? We&apos;re happy to help: {email}
+            </p>
           </div>
         </div>
       </section>
