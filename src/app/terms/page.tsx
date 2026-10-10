@@ -107,13 +107,11 @@ export default function TermsPage() {
               </p>
             </header>
 
-            <div className="mt-3 grid grid-cols-1 items-start gap-[14px] lg:grid-cols-2">
+            <div className="mt-3 columns-1 [column-gap:14px] lg:columns-2">
               {sections.map((section, index) => (
                 <article
                   key={section.title}
-                  className={`rounded-xl border border-brand-violet/10 bg-violet-tint p-4 ${
-                    index === sections.length - 1 ? "lg:col-span-2" : ""
-                  }`}
+                  className="mb-[14px] inline-block w-full break-inside-avoid rounded-xl border border-brand-violet/10 bg-violet-tint p-4"
                 >
                   <h2 className="flex items-baseline gap-2 text-[15px] font-semibold leading-snug tracking-normal text-charcoal">
                     <span
