@@ -169,6 +169,9 @@ export function PersonIcon({ size = 18 }: { size?: number }) {
  * A small card that floats next to the device. It pops in `delay` ms after the slide
  * becomes active (see .vy-pop / .vy-float in globals.css) and then bobs gently.
  * Place it with `className` (absolute position classes).
+ *
+ * Default cards wrap onto a second line instead of clipping. `wide` keeps a single
+ * line for badges that already have room beside the device.
  */
 export function FloatCard({
   delay,
@@ -185,10 +188,13 @@ export function FloatCard({
   children: ReactNode;
 }) {
   return (
-    <div className={`vy-pop absolute z-20 w-max ${className}`} style={cssVars({ "--pd": `${delay}ms` })}>
+    <div
+      className={`vy-pop absolute z-20 ${wide ? "w-max" : "max-w-[min(13.25rem,calc(100%-0.5rem))]"} ${className}`}
+      style={cssVars({ "--pd": `${delay}ms` })}
+    >
       <div
-        className={`vy-float flex items-center gap-2 rounded-2xl border border-border bg-white px-3 py-2 text-[12px] font-semibold leading-snug text-charcoal shadow-[0_14px_34px_-10px_rgb(31_41_55/0.35)] sm:text-[13px] ${
-          wide ? "whitespace-nowrap" : "max-w-[132px] sm:max-w-[176px] lg:max-w-[164px] xl:max-w-[260px]"
+        className={`vy-float rounded-2xl border border-border bg-white px-3 py-2 text-[12px] font-semibold leading-snug text-charcoal shadow-[0_14px_34px_-10px_rgb(31_41_55/0.35)] sm:text-[13px] ${
+          wide ? "flex items-center gap-2 whitespace-nowrap" : "w-full min-w-0"
         }`}
         style={cssVars({ "--fd": `${bob}ms` })}
       >

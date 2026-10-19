@@ -35,7 +35,7 @@ export default function WhatsAppSlide({ active, live }: SlideProps) {
   const { shown, typingIndex } = useChatSequence(active, live, typingMs);
 
   return (
-    <div className="relative mx-auto h-full w-full max-w-[470px]">
+    <div className="relative mx-auto h-full w-full">
       <PhoneShell label="Example WhatsApp conversation from FitZone Gym">
         <div className="flex items-center gap-3 border-b border-border bg-white px-4 pb-3 pt-8">
           <div
@@ -86,10 +86,10 @@ export default function WhatsAppSlide({ active, live }: SlideProps) {
         </div>
       </PhoneShell>
 
-      <FloatCard delay={4300} className="left-0 top-0 sm:left-[calc(100%-127px)] sm:top-24 xl:left-[calc(100%-107px)]">
+      <FloatCard delay={4300} className="left-1 top-2 sm:left-auto sm:right-1 sm:top-24">
         <span aria-hidden="true">🔔</span> 3 members renewed today
       </FloatCard>
-      <FloatCard delay={1400} bob={900} className="bottom-3 left-0 sm:left-auto sm:right-[calc(100%-127px)] sm:bottom-6 xl:right-[calc(100%-107px)]">
+      <FloatCard delay={1400} bob={900} className="bottom-3 left-1 sm:bottom-6">
         <span aria-hidden="true">⚡</span> Replied in 2 seconds
       </FloatCard>
     </div>

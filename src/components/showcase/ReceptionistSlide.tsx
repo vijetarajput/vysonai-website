@@ -33,7 +33,7 @@ export default function ReceptionistSlide({ active, live }: SlideProps) {
   const clock = `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
 
   return (
-    <div className="relative mx-auto h-full w-full max-w-[470px]">
+    <div className="relative mx-auto h-full w-full">
       <PhoneShell label="Example phone call answered by the AI receptionist">
         {/* Call status */}
         <div className="flex items-center justify-between gap-2 border-b border-border px-4 pb-2.5 pt-8">
@@ -99,10 +99,10 @@ export default function ReceptionistSlide({ active, live }: SlideProps) {
         </div>
       </PhoneShell>
 
-      <FloatCard delay={4100} className="left-0 top-0 sm:left-[calc(100%-127px)] sm:top-24 xl:left-[calc(100%-107px)]">
+      <FloatCard delay={4100} className="left-1 top-2 sm:left-auto sm:right-1 sm:top-24">
         <span aria-hidden="true">✅</span> Appointment booked
       </FloatCard>
-      <FloatCard delay={4700} bob={700} className="bottom-3 left-0 sm:left-auto sm:right-[calc(100%-127px)] sm:bottom-6 xl:right-[calc(100%-107px)]">
+      <FloatCard delay={4700} bob={700} className="bottom-3 left-1 sm:bottom-6">
         <span aria-hidden="true">📝</span> Call summary sent to owner
       </FloatCard>
     </div>
